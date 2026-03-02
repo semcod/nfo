@@ -1,6 +1,12 @@
-# nfo | 76f 13132L | python:74/go:1/rust:1
+# nfo | 81f 13285L | python:80/go:1/rust:1
 # Keys: M=modules, D=details, i=imports, c=classes, f=functions, m=methods
-M[76]:
+M[81]:
+  nfo/decorators/__init__.py,32
+  nfo/decorators/_catch.py,145
+  nfo/decorators/_core.py,38
+  nfo/decorators/_decision.py,144
+  nfo/decorators/_extract.py,53
+  nfo/decorators/_log_call.py,160
   demo/app.py,179
   demo/load_generator.py,49
   demo/tests/test_demo.py,7
@@ -31,8 +37,7 @@ M[76]:
   nfo/binary_router.py,50
   nfo/buffered_sink.py,85
   nfo/click.py,189
-  nfo/configure.py,267
-  nfo/decorators.py,508
+  nfo/configure.py,316
   nfo/env.py,172
   nfo/extractors.py,179
   nfo/fastapi_middleware.py,123
@@ -78,9 +83,37 @@ M[76]:
   tests/test_webhook.py,99
   tools/sync_pactown_com_dependency.py,7
 D:
+  nfo/decorators/_catch.py:
+    i: functools,inspect,time,traceback,typing
+    e: catch,catch,catch
+    catch(func:F)->F
+    catch()->Callable[[F], F]
+    catch(func:Optional[F]=None)->Any
+  nfo/decorators/_core.py:
+    i: functools,inspect,random,time,traceback,typing.{Any,Callable,Dict,Optional,Tuple}
+    e: F,set_default_logger
+    _get_default_logger()->Any
+    set_default_logger(logger:Any)->None
+    _arg_types(args:tuple;kwargs:dict)->Tuple[list, dict]
+    _module_of(func:Callable)->str
+    _should_sample(sample_rate:Optional[float])->bool
+  nfo/decorators/_decision.py:
+    i: functools,inspect,time,traceback,_core._get_default_logger,nfo.models.LogEntry,typing.{Any,Callable,Dict,Optional}
+    e: decision_log
+    decision_log(func:Optional[Callable]=None)->Any
+    _build_decision_extra(decision_name:str;result:Any)->Dict[str, Any]
+  nfo/decorators/_extract.py:
+    i: typing.{Any,Dict,Optional}
+    _maybe_extract(args:tuple;kwargs:dict;result:Any;extract_meta_flag:bool;meta_policy:Any)->Optional[Dict[str, Any]]
+  nfo/decorators/_log_call.py:
+    i: functools,inspect,time,traceback,typing
+    e: log_call,log_call,log_call
+    log_call(func:F)->F
+    log_call()->Callable[[F], F]
+    log_call(func:Optional[F]=None)->Any
   demo/app.py:
-    i: os,random,time,nfo,__future__.annotations,fastapi.FastAPI,fastapi.responses.{JSONResponse,PlainTextResponse},nfo.log_call,pathlib.Path
-    e: UserService,compute_fibonacci,process_order,risky_division,slow_operation,health,demo_success,demo_error
+    i: os,random,time,nfo,fastapi.FastAPI,fastapi.responses.{JSONResponse,PlainTextResponse},nfo.{catch,log_call},pathlib.Path
+    e: LOG_DIR,DB_PATH,JSONL_PATH,PROMETHEUS_PORT,WEBHOOK_URL,ENVIRONMENT,VERSION,compute_fibonacci
     UserService: create_user(2),delete_user(1)
     compute_fibonacci(n:int)->int
     process_order(order_id:str;amount:float)->dict
@@ -92,7 +125,7 @@ D:
     demo_slow()
   demo/load_generator.py:
     i: argparse,random,time,urllib.{error,request}
-    e: weighted_choice,main
+    e: ENDPOINTS,weighted_choice,main
     weighted_choice(endpoints)
     main()
   demo/tests/test_demo.py:
@@ -101,7 +134,7 @@ D:
     test_import()
   examples/async-usage/main.py:
     i: asyncio,nfo.{Logger,SQLiteSink,catch,log_call},nfo.decorators.set_default_logger,pathlib.Path
-    e: setup_logger,fetch_data,process_batch,risky_fetch,main
+    e: DB_PATH,setup_logger,fetch_data,process_batch,risky_fetch,main
     setup_logger()->Logger
     fetch_data(url:str)->dict
     process_batch(items:list)->int
@@ -109,7 +142,7 @@ D:
     main()
   examples/auto-log/main.py:
     i: nfo.{auto_log,configure,skip},pathlib.Path
-    e: create_user,delete_user,calculate_total,health_check
+    e: DB_PATH,create_user,delete_user,calculate_total,health_check
     create_user(name:str;email:str)->dict
     delete_user(user_id:int)->bool
     calculate_total(prices:list)->float
@@ -117,7 +150,7 @@ D:
     _internal_helper()
   examples/bash-wrapper/main.py:
     i: os,subprocess,sys,nfo.{CSVSink,Logger,SQLiteSink,log_call},nfo.decorators.set_default_logger,pathlib.Path
-    e: setup_logger,run_bash,main
+    e: DB_PATH,CSV_PATH,setup_logger,run_bash,main
     setup_logger()->Logger
     run_bash(script_path:str)->dict
     main()
@@ -148,25 +181,25 @@ D:
     demo()
   examples/configure/main.py:
     i: nfo.{catch,configure,log_call,logged},pathlib.Path
-    e: PaymentService,process_order,parse_config
+    e: OUT,DB_PATH,CSV_PATH,process_order,parse_config,PaymentService
     PaymentService: charge(1),refund(1)
     process_order(order_id:str;amount:float)->dict
     parse_config(raw:str)->dict
   examples/csv-sink/main.py:
     i: nfo.{CSVSink,Logger,log_call},nfo.decorators.set_default_logger,pathlib.Path
-    e: setup_logger,multiply,process_items
+    e: CSV_PATH,setup_logger,multiply,process_items
     setup_logger()->Logger
     multiply(a:int;b:int)->int
     process_items(items:list)->int
   examples/env-config/main.py:
-    i: os,__future__.annotations,nfo.{catch,configure,log_call,logged},pathlib.Path
-    e: InventoryService,create_order,parse_payload
+    i: os,dotenv.load_dotenv,nfo.{catch,configure,log_call,logged},pathlib.Path
+    e: create_order,parse_payload,InventoryService
     InventoryService: check_stock(1),reserve(2)
     create_order(order_id:str;amount:float)->dict
     parse_payload(raw:str)->dict
   examples/env-tagger/main.py:
     i: nfo,pathlib.Path
-    e: demo_env_tagger,demo_dynamic_router,demo_diff_tracker
+    e: OUT,PROD_DB,CI_CSV,ERRORS_DB,DEV_MD,demo_env_tagger,demo_dynamic_router,demo_diff_tracker
     demo_env_tagger()
     demo_dynamic_router()
     demo_diff_tracker()
@@ -181,25 +214,25 @@ D:
     getEnv(key;fallback string)->string
     main()
   examples/grpc-service/client.py:
-    i: os,sys,time,nfo_pb2,nfo_pb2_grpc,__future__.annotations,pathlib.Path
+    i: os,sys,time,grpc,nfo_pb2,nfo_pb2_grpc,pathlib.Path
     e: run_demo
     run_demo(target:str='localhost:50051')
   examples/grpc-service/nfo_pb2_grpc.py:
-    i: grpc,warnings,nfo_pb2
-    e: NfoLoggerStub,NfoLoggerServicer,NfoLogger,add_NfoLoggerServicer_to_server
+    i: grpc,warnings,nfo_pb2,grpc._utilities.first_version_is_lower
+    e: GRPC_GENERATED_VERSION,GRPC_VERSION,NfoLoggerStub,NfoLoggerServicer,add_NfoLoggerServicer_to_server,NfoLogger
     NfoLoggerStub: __init__(1)  # --- Service ---
     NfoLoggerServicer: LogCall(2),BatchLog(2),StreamLog(2),QueryLogs(2)  # --- Service ---
     NfoLogger: LogCall(8),BatchLog(8),StreamLog(8),QueryLogs(8)  # --- Service ---
     add_NfoLoggerServicer_to_server(servicer;server)
   examples/grpc-service/server.py:
-    i: os,sqlite3,sys,time,nfo_pb2,nfo_pb2_grpc,__future__.annotations,concurrent.futures,nfo.Logger,pathlib.Path
-    e: NfoLoggerServicer,serve
+    i: os,sqlite3,sys,time,grpc,nfo_pb2,nfo_pb2_grpc,concurrent.futures,nfo.Logger,pathlib.Path
+    e: GRPC_PORT,LOG_DIR,DB_PATH,NfoLoggerServicer,serve
     NfoLoggerServicer: LogCall(2),BatchLog(2),StreamLog(2),QueryLogs(2)  # Implementation of NfoLogger gRPC serv...
-    _store_request(req:Any)->Any
+    _store_request(req:Any)->nfo_pb2.LogResponse
     serve(port:int=GRPC_PORT;max_workers:int=10)
   examples/http-service/main.py:
-    i: os,sqlite3,time,__future__.annotations,nfo.{CSVSink,Logger,SQLiteSink},pathlib.Path,typing.{List,Optional}
-    e: LogEntry,LogBatchRequest,log_call,log_batch,get_logs,health
+    i: os,sqlite3,time,dotenv.load_dotenv,nfo.{CSVSink,Logger,SQLiteSink},pathlib.Path,typing.{List,Optional}
+    e: LOG_DIR,DB_PATH,CSV_PATH,JSONL_PATH,NFO_HOST,NFO_PORT,LogEntry,LogBatchRequest
     LogEntry: 
     LogBatchRequest: 
     _store_entry(entry:LogEntry)->dict
@@ -209,13 +242,13 @@ D:
     health()
   examples/markdown-sink/main.py:
     i: nfo.{Logger,MarkdownSink,catch,log_call},nfo.decorators.set_default_logger,pathlib.Path
-    e: setup_logger,compute,dangerous
+    e: MD_PATH,setup_logger,compute,dangerous
     setup_logger()->Logger
     compute(x:float;y:float)->float
     dangerous(data:str)->dict
   examples/multi-sink/main.py:
     i: nfo,nfo.decorators.set_default_logger,pathlib.Path
-    e: setup_logger,fibonacci,batch_process,parse_int
+    e: OUT,DB_PATH,CSV_PATH,MD_PATH,setup_logger,fibonacci,batch_process,parse_int
     setup_logger()->Logger
     fibonacci(n:int)->int
     batch_process(items:list)->dict
@@ -229,14 +262,14 @@ D:
     new(base_url: &str)->Self
   examples/sqlite-sink/main.py:
     i: sqlite3,nfo.{Logger,SQLiteSink,catch,log_call},nfo.decorators.set_default_logger,pathlib.Path
-    e: setup_logger,fetch_user,parse_config
+    e: DB_PATH,setup_logger,fetch_user,parse_config
     setup_logger()->Logger
     fetch_user(user_id:int)->dict
     parse_config(raw:str)->dict
   nfo/__init__.py:
     i: nfo.{configure,logged},nfo.decorators.{catch,decision_log,log_call},nfo.logged.skip,nfo.logger.Logger,nfo.sinks.{CSVSink,MarkdownSink,SQLiteSink}
     e: get_logger,debug,info,warning,error,event
-    get_logger(name:str)->Any
+    get_logger(name:str)->_logging.Logger
     _direct_emit(level:str;message:str)->None
     debug(message:str)->None
     info(message:str)->None
@@ -245,7 +278,7 @@ D:
     event(name:str)->None
     _lazy_click()
   nfo/__main__.py:
-    i: argparse,os,subprocess,sys,time,__future__.annotations,pathlib.Path
+    i: argparse,os,subprocess,sys,time,pathlib.Path,pydantic.BaseModel
     e: cmd_run,cmd_logs,cmd_version,cmd_serve,main
     _setup_logger(sink_specs:list[str];env:Any=None)
     cmd_run(args)
@@ -256,47 +289,40 @@ D:
     _detect_language(cmd:str)->str
     _parse_duration(spec:str)->float
   nfo/auto.py:
-    i: inspect,sys,types,__future__.annotations,nfo.decorators.log_call,nfo.models.DEFAULT_MAX_REPR_LENGTH,typing.{Any,Optional,Sequence,Union}
+    i: inspect,sys,types,nfo.decorators.log_call,nfo.models.DEFAULT_MAX_REPR_LENGTH,typing.{Any,Optional,Sequence,Union}
     e: auto_log,auto_log_by_name
     _should_patch(name:str;obj:Any;module_name:str;include_private:bool=False)->bool
     auto_log()->int
     auto_log_by_name()->int
   nfo/binary_router.py:
-    i: __future__.annotations,nfo.models.LogEntry,nfo.sinks.Sink,typing.Optional
+    i: nfo.models.LogEntry,nfo.sinks.Sink,typing.Optional
     e: BinaryAwareRouter
     BinaryAwareRouter: __init__(4),write(1),_has_large_data(1),close(0)  # Route log entries to different sinks...
   nfo/buffered_sink.py:
-    i: atexit,collections,threading,time,__future__.annotations,nfo.models.LogEntry,nfo.sinks.Sink,typing.Optional
+    i: atexit,collections,threading,time,nfo.models.LogEntry,nfo.sinks.Sink,typing.Optional
     e: AsyncBufferedSink
     AsyncBufferedSink: __init__(4),write(1),flush(0),close(0),pending(0)  # Buffer log entries and write them bat...
   nfo/click.py:
-    i: time,traceback,click,__future__.annotations,nfo.logger.Logger,nfo.models.LogEntry,nfo.terminal.TerminalSink,typing.{Any,Optional}
+    i: time,traceback,click,nfo.logger.Logger,nfo.models.LogEntry,nfo.terminal.TerminalSink,typing.{Any,Optional}
     e: NfoGroup,NfoCommand,nfo_options
     NfoGroup: __init__(0),invoke(1),_resolve_logger(1)  # Click Group that automatically logs e...
     NfoCommand: invoke(1)  # Click Command that logs its own invoc...
     nfo_options(func:Any)->Any
   nfo/configure.py:
-    i: logging,os,sys,__future__.annotations,pathlib.Path,typing.{Any,Dict,List,Optional,Sequence}
+    i: logging,os,nfo.logger.Logger,nfo.sinks.{CSVSink,MarkdownSink},typing.{Any,List,Optional,Sequence,Union}
     e: get_global_meta_policy,get_global_auto_extract_meta,configure
     _StdlibBridge: __init__(1),emit(1)  # Bridge that intercepts stdlib logging...
     get_global_meta_policy()->Optional[Any]
     get_global_auto_extract_meta()->bool
     _parse_sink_spec(spec:str)->Sink
-    configure()->Logger
-  nfo/decorators.py:
-    i: functools,inspect,random,time,traceback,__future__.annotations,typing.{Any,Callable,Dict,Optional}
-    e: set_default_logger,log_call,log_call,log_call,catch,catch,catch,decision_log
-    _get_default_logger()->Any
-    set_default_logger(logger:Any)->None
-    _arg_types(args:tuple;kwargs:dict)->tuple
-    _module_of(func:Callable)->str
-    _should_sample(sample_rate:Optional[float])->bool
-    _maybe_extract(args:tuple;kwargs:dict;result:Any;extract_meta_flag:bool;meta_policy:Any)->Optional[Dict[str,Any]]
-    log_call(func:F)->F
-    log_call()->Callable[Any,F]
+    _read_env_config(env_prefix:str;level:str;environment:Optional[str];llm_model:Optional[str];auto_extract_meta:bool;meta_policy:Optional[Any])->tuple[str, Optional[str], Optional[str], bool, Optional[Any], Optional[str]]
+    _resolve_sinks(sinks:Optional[Sequence[Union[str;Sink]]];env_sinks:Optional[str])->List[Sink]
+    _wrap_sinks_with_llm(sinks:List[Sink];llm_model:Optional[str];detect_injection:bool)->List[Sink]
+    _wrap_sinks_with_env(sinks:List[Sink];environment:Optional[str];version:Optional[str])->List[Sink]
+    _setup_stdlib_bridge(logger:Logger;level:str;resolved_sinks:List[Sink];bridge_stdlib:bool;modules:Optional[Sequence[str]])->None
   nfo/env.py:
-    i: hashlib,os,threading,uuid,__future__.annotations,typing.{Any,Callable,Dict,List,Optional}
-    e: EnvTagger,DynamicRouter,DiffTracker,generate_trace_id
+    i: hashlib,os,threading,uuid,typing
+    e: generate_trace_id,EnvTagger,DynamicRouter,DiffTracker
     EnvTagger: __init__(1),write(1),close(0)  # Sink wrapper that auto-tags every log...
     DynamicRouter: __init__(2),write(1),close(0)  # Routes log entries to different sinks...
     DiffTracker: __init__(1),_make_key(1),write(1),close(0)  # Tracks input/output changes between f...
@@ -305,32 +331,32 @@ D:
     _detect_version()->Optional[str]
     generate_trace_id()->str
   nfo/extractors.py:
-    i: hashlib,math,struct,__future__.annotations,collections.Counter,typing.{Any,Callable,Dict,List,Optional}
-    e: detect_format,extract_image_meta,extract_binary_meta,extract_file_meta,extract_numpy_meta,extract_dataframe_meta,extract_wav_meta,register_extractor
+    i: hashlib,math,struct,collections.Counter,typing
+    e: MAGIC_SIGNATURES,detect_format,extract_image_meta,extract_binary_meta,extract_file_meta,extract_numpy_meta,extract_dataframe_meta,extract_wav_meta
     detect_format(data:bytes)->Optional[str]
-    extract_image_meta(data:bytes)->Dict[str,Any]
-    extract_binary_meta(data:bytes)->Dict[str,Any]
-    extract_file_meta(file_obj:Any)->Dict[str,Any]
-    extract_numpy_meta(arr:Any)->Dict[str,Any]
-    extract_dataframe_meta(df:Any)->Dict[str,Any]
-    extract_wav_meta(data:bytes)->Dict[str,Any]
+    extract_image_meta(data:bytes)->Dict[str, Any]
+    extract_binary_meta(data:bytes)->Dict[str, Any]
+    extract_file_meta(file_obj:Any)->Dict[str, Any]
+    extract_numpy_meta(arr:Any)->Dict[str, Any]
+    extract_dataframe_meta(df:Any)->Dict[str, Any]
+    extract_wav_meta(data:bytes)->Dict[str, Any]
     register_extractor(type_check:Callable[Any;bool];extractor:Callable[Any;Dict[str;Any]])->None
   nfo/fastapi_middleware.py:
-    i: time,logging,__future__.annotations,typing.Sequence
+    i: time,logging,typing.Sequence
     e: FastAPIMiddleware
     FastAPIMiddleware: __init__(4),__call__(3),_emit(7)  # ASGI middleware that emits one nfo Lo...
   nfo/json_sink.py:
-    i: json,os,threading,__future__.annotations,nfo.models.LogEntry,pathlib.Path,typing.{Any,Dict,Optional,TextIO}
+    i: json,os,threading,nfo.models.LogEntry,nfo.sinks.Sink,pathlib.Path,typing.{Any,Dict,Optional,TextIO}
     e: JSONSink
     JSONSink: __init__(1),write(1),close(0)  # Append log entries as JSON Lines (one...
   nfo/llm.py:
-    i: re,threading,__future__.annotations,nfo.models.LogEntry,nfo.sinks.Sink,typing.{Any,Callable,Dict,List,Optional}
-    e: LLMSink,detect_prompt_injection,scan_entry_for_injection
+    i: re,threading,nfo.models.LogEntry,nfo.sinks.Sink,typing.{Any,Callable,Dict,List,Optional}
+    e: _INJECTION_PATTERNS,detect_prompt_injection,scan_entry_for_injection,_DEFAULT_SYSTEM_PROMPT,LLMSink
     LLMSink: __init__(1),_build_user_prompt(1),_analyze(1),_process(1),write(1)  # Sink that sends ERROR-level log entri...
     detect_prompt_injection(text:str)->Optional[str]
     scan_entry_for_injection(entry:LogEntry)->Optional[str]
   nfo/log_flow.py:
-    i: json,datetime,__future__.annotations,collections.defaultdict,pathlib.Path,typing.{Any,Dict,Iterable,List,Mapping}
+    i: json,datetime,collections.defaultdict,pathlib.Path,typing
     e: LogFlowParser,build_log_flow_graph,compress_logs_for_llm
     LogFlowParser: __init__(0),normalize_entry(1),parse_jsonl(1),from_jsonl(1),parse_logs(1)  # Parse logs, group by trace_id, and bu...
     _safe_float(value:Any)->float
@@ -338,65 +364,65 @@ D:
     build_log_flow_graph(entries_or_grouped:Union[Iterable[Union[LogEntry;Mapping[str;Any]]];Mapping[str;Sequence[Union[LogEntry;Mapping[str;Any]]]]])->FlowGraph
     compress_logs_for_llm(entries_or_graph:Union[FlowGraph;Iterable[Union[LogEntry;Mapping[str;Any]]];Mapping[str;Sequence[Union[LogEntry;Mapping[str;Any]]]]])->str
   nfo/logged.py:
-    i: functools,__future__.annotations,nfo.decorators.log_call,nfo.models.DEFAULT_MAX_REPR_LENGTH,typing.{Any,Callable,Optional,TypeVar,overload}
-    e: skip,logged,logged,logged
+    i: functools,nfo.decorators.log_call,nfo.models.DEFAULT_MAX_REPR_LENGTH,typing.{Any,Callable,Optional,TypeVar,overload}
+    e: C,skip,logged,logged,logged
     _should_wrap(name:str;attr:Any)->bool
     skip(func:Callable)->Callable
     logged(cls:C)->C
-    logged()->Callable[Any,C]
+    logged()->Callable[[C], C]
     logged(cls:Optional[C]=None)->Any
   nfo/logger.py:
-    i: logging,sys,__future__.annotations,nfo.models.LogEntry,nfo.redact.{redact_kwargs,redact_string},nfo.sinks.Sink,typing.{List,Optional}
+    i: logging,sys,nfo.models.LogEntry,nfo.redact.{redact_kwargs,redact_string},nfo.sinks.Sink,typing.{List,Optional}
     e: Logger
     Logger: __init__(4),add_sink(1),remove_sink(1),emit(1),_format_stdlib(1)  # Central logger instance.
   nfo/meta.py:
-    i: dataclasses,sys,__future__.annotations,typing.{Any,Optional}
+    i: dataclasses,sys,typing.{Any,Optional}
     e: ThresholdPolicy,sizeof
     ThresholdPolicy: should_extract_meta(1),should_extract_return_meta(1)  # Policy deciding when to log full data...
     sizeof(obj:Any)->int
   nfo/meta_decorators.py:
-    i: functools,inspect,time,traceback,__future__.annotations,typing.{Any,Callable,Dict,Optional,TypeVar}
-    e: meta_log
+    i: functools,inspect,time,traceback,nfo.decorators._should_sample,typing.{Any,Callable,Dict,Optional,TypeVar}
+    e: F,DEFAULT_POLICY,meta_log
     _extract_args_meta(args:tuple;param_names:list;policy:ThresholdPolicy;extract_fields:Optional[Dict[str;Callable]]=None)->list
     _extract_kwargs_meta(kwargs:dict;policy:ThresholdPolicy;extract_fields:Optional[Dict[str;Callable]]=None)->dict
     _extract_return_meta(value:Any;policy:ThresholdPolicy)->Any
     _emit(entry:LogEntry;logger:Any)->None
     meta_log(func:Optional[Callable]=None)->Any
   nfo/models.py:
-    i: datetime,__future__.annotations,dataclasses.{dataclass,field},datetime.timezone,typing.{Any,Dict,List,Optional,Tuple}
-    e: LogEntry,safe_repr
+    i: datetime,dataclasses.{dataclass,field},datetime.timezone,typing.{Any,Dict,List,Optional,Tuple}
+    e: DEFAULT_MAX_REPR_LENGTH,safe_repr,LogEntry
     LogEntry: now(0),args_repr(0),kwargs_repr(0),return_value_repr(0),as_dict(0)  # A single log entry produced by a deco...
     _truncate_text(text:str;max_length:Optional[int])->str
     safe_repr(value:Any;max_length:Optional[int]=DEFAULT_MAX_REPR_LENGTH)->str
   nfo/pipeline_sink.py:
-    i: io,sys,threading,time,__future__.annotations,typing.{Any,Callable,Dict,List,Optional}
-    e: PipelineSink
+    i: io,sys,threading,time,typing
+    e: _GREEN,_RED,_YELLOW,_CYAN,_DIM,_BOLD,_RESET,_OK
     PipelineSink: __init__(6),tick_count(0),pending_runs(0),session_cost(0),write(1)  # Sink that groups log entries by ``pip...
   nfo/prometheus.py:
-    i: threading,__future__.annotations,nfo.models.LogEntry,nfo.sinks.Sink,typing.Optional
+    i: threading,nfo.models.LogEntry,nfo.sinks.Sink,prometheus_client,typing.Optional
     e: PrometheusSink
     PrometheusSink: __init__(1),_start_server(1),write(1),close(0),get_metrics(0)  # Sink that exports nfo log entries as...
   nfo/redact.py:
-    i: re,__future__.annotations,typing
-    e: is_sensitive_key,redact_value,redact_kwargs,redact_args,redact_string
+    i: re,typing
+    e: _SENSITIVE_PATTERNS,_SENSITIVE_RE,REDACTED,is_sensitive_key,redact_value,redact_kwargs,redact_args,redact_string
     is_sensitive_key(key:str)->bool
     redact_value(value:str;visible_chars:int=0)->str
-    redact_kwargs(kwargs:Dict[str;Any])->Dict[str,Any]
-    redact_args(args:Tuple[Any;Ellipsis];param_names:Optional[Tuple[str;Ellipsis]]=None)->Tuple[Any,Ellipsis]
+    redact_kwargs(kwargs:Dict[str;Any])->Dict[str, Any]
+    redact_args(args:Tuple[Any;Ellipsis];param_names:Optional[Tuple[str;Ellipsis]]=None)->Tuple[Any, ...]
     redact_string(text:str)->str
   nfo/ring_buffer_sink.py:
-    i: collections,threading,__future__.annotations,nfo.models.LogEntry,nfo.sinks.Sink,typing.{Optional,Sequence}
+    i: collections,threading,nfo.models.LogEntry,nfo.sinks.Sink,typing.{Optional,Sequence}
     e: RingBufferSink
     RingBufferSink: __init__(4),write(1),close(0),buffered(0),flush_count(0)  # In-memory ring buffer that flushes co...
   nfo/sinks.py:
-    i: csv,io,os,sqlite3,threading,__future__.annotations,abc.{ABC,abstractmethod},pathlib.Path,typing.Any
-    e: Sink,SQLiteSink,CSVSink,MarkdownSink
+    i: csv,io,os,sqlite3,threading,abc.{ABC,abstractmethod},pathlib.Path,typing.{Any,Dict}
+    e: _COLUMNS,Sink,SQLiteSink,CSVSink,MarkdownSink
     Sink: write(1),close(0)  # Base class for all sinks.
     SQLiteSink: __init__(2),_get_conn(0),_ensure_table(0),write(1),close(0)  # Persist log entries to a SQLite datab...
     CSVSink: __init__(1),_write_header_if_needed(0),write(1),close(0)  # Append log entries to a CSV file.
     MarkdownSink: __init__(1),_write_header_if_needed(0),write(1),close(0)  # Append log entries to a Markdown file...
   nfo/terminal.py:
-    i: sys,threading,__future__.annotations,nfo.models.LogEntry,nfo.sinks.Sink,typing.{Optional,TextIO}
+    i: sys,threading,nfo.models.LogEntry,nfo.sinks.Sink,typing.{Optional,TextIO}
     e: TerminalSink
     TerminalSink: __init__(7),format(0),write(1),_write_ascii(1),_write_color(1)  # Sink that displays log entries in the...
   nfo/tests/test_nfo.py:
@@ -404,16 +430,16 @@ D:
     test_placeholder()
     test_import()
   nfo/webhook.py:
-    i: json,threading,__future__.annotations,typing.{Any,Dict,List,Optional,Sequence},urllib.{error,request}
+    i: json,threading,nfo.models.LogEntry,typing.{Any,Dict,List,Optional,Sequence},urllib.{error,request}
     e: WebhookSink
     WebhookSink: __init__(2),_build_payload(1),_send(1),write(1),close(0)  # Sink that POSTs log entries to an HTT...
   tests/conftest.py:
-    i: asyncio,inspect,pytest,__future__.annotations
+    i: asyncio,inspect,pytest
     e: pytest_configure,pytest_pyfunc_call
     pytest_configure(config:Any)->None
-    pytest_pyfunc_call(pyfuncitem:Any)->Any
+    pytest_pyfunc_call(pyfuncitem:Any)->bool | None
   tests/docker/test_docs.py:
-    i: subprocess,sys,tempfile,time,__future__.annotations,pathlib.Path
+    i: subprocess,sys,tempfile,time,pathlib.Path
     e: run_command,test_nfo_version,test_nfo_run_bash,test_nfo_run_python,test_nfo_logs,test_basic_usage,test_sqlite_sink,test_csv_sink
     run_command(cmd:list[str];cwd:Any=None;timeout:int=30)->dict
     test_nfo_version()->dict
@@ -429,7 +455,7 @@ D:
     MemorySink: __init__(0),write(1),close(0)
     TestAutoLog: test_patches_public_functions(0),test_skips_private_functions(0),test_include_private(0),test_catch_exceptions_mode(0),test_does_not_double_wrap(0)
     TestAutoLogByName: test_patches_by_module_name(0),test_skips_missing_modules(0),test_multiple_modules_by_name(0)
-    _make_module(name:str='test_mod')->Any
+    _make_module(name:str='test_mod')->types.ModuleType
   tests/test_binary_router.py:
     i: pytest,nfo.binary_router.BinaryAwareRouter,nfo.models.LogEntry,nfo.sinks.Sink
     e: MemorySink,TestBinaryAwareRouter
@@ -467,7 +493,7 @@ D:
     _make_logger()
   tests/test_decorators.py:
     i: pytest,nfo.{Logger,catch,log_call},nfo.decorators.set_default_logger,nfo.models.LogEntry,nfo.sinks.Sink
-    e: MemorySink,TestLogCall,TestCatch,TestAsyncLogCall,TestAsyncCatch,TestSampling,logger
+    e: MemorySink,logger,TestLogCall,TestCatch,TestAsyncLogCall,TestAsyncCatch,TestSampling
     MemorySink: __init__(0),write(1),close(0)  # In-memory sink that collects entries...
     TestLogCall: test_logs_args_and_return(1),test_logs_kwargs(1),test_logs_exception(1),test_custom_level(1),test_arg_types(1)
     TestCatch: test_suppresses_exception(1),test_returns_default(1),test_success_path(1),test_max_repr_length_truncates_error_args(1)
@@ -496,7 +522,7 @@ D:
     _make_wav(channels:int=2;sample_rate:int=44100;bits:int=16;data_size:int=88200)->bytes
   tests/test_json_sink.py:
     i: json,os,tempfile,pytest,nfo.json_sink.JSONSink,nfo.models.LogEntry
-    e: TestJSONSink,tmp_jsonl
+    e: tmp_jsonl,TestJSONSink
     TestJSONSink: test_write_creates_file(1),test_write_valid_json_lines(1),test_includes_all_fields(1),test_includes_extra_fields(1),test_pretty_mode(1)
     tmp_jsonl(tmp_path)
     _make_entry()
@@ -508,7 +534,7 @@ D:
     TestLLMSink: test_delegates_to_sink(0),test_injection_detection_on_write(0),test_analyze_levels_filter(0),test_build_user_prompt(0),test_close_delegates(0)
     _make_entry()->LogEntry
   tests/test_log_flow.py:
-    i: json,__future__.annotations,nfo.log_flow.LogFlowParser
+    i: json,nfo.log_flow.LogFlowParser
     e: test_parse_jsonl_supports_full_and_compact_entries,test_group_by_trace_id_uses_fallback_bucket,test_build_flow_graph_creates_edges_and_error_counts,test_compress_for_llm_includes_summary_graph_and_timeline
     test_parse_jsonl_supports_full_and_compact_entries(tmp_path)
     test_group_by_trace_id_uses_fallback_bucket()
@@ -521,7 +547,7 @@ D:
     TestSizeof: test_bytes(0),test_bytearray(0),test_memoryview(0),test_int(0),test_fallback_negative(0)
   tests/test_meta_decorators.py:
     i: pytest,nfo.Logger,nfo.decorators.set_default_logger,nfo.meta.ThresholdPolicy,nfo.meta_decorators.meta_log,nfo.models.LogEntry,nfo.sinks.Sink
-    e: MemorySink,TestMetaLogSync,TestMetaLogAsync,TestMetaLogReturnMeta,logger
+    e: MemorySink,logger,TestMetaLogSync,TestMetaLogAsync,TestMetaLogReturnMeta
     MemorySink: __init__(0),write(1),close(0)
     TestMetaLogSync: test_small_args_logged_as_repr(1),test_large_bytes_extracted_as_metadata(1),test_return_value_not_stored_raw(1),test_exception_logged_with_meta(1),test_custom_level(1)
     TestMetaLogAsync: test_async_basic(1),test_async_exception(1),test_async_large_bytes(1),test_async_preserves_coroutine(1)

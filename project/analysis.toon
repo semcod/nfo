@@ -1,33 +1,35 @@
-# code2llm | 30f 5864L | py:30 | 2026-03-02
-# CC̄=4.4 | critical:25/277 | dups:0 | cycles:0
+# code2llm | 35f 6012L | py:35 | 2026-03-02
+# CC̄=4.3 | critical:25/282 | dups:0 | cycles:0
 
-HEALTH[9]:
+HEALTH[8]:
   🟡 CC    extract_meta CC=17 (limit:15)
   🟡 CC    cmd_run CC=20 (limit:15)
   🟡 CC    cmd_logs CC=16 (limit:15)
   🟡 CC    normalize_entry CC=23 (limit:15)
   🟡 CC    build_flow_graph CC=15 (limit:15)
   🟡 CC    compress_for_llm CC=16 (limit:15)
-  🟡 CC    _maybe_extract CC=15 (limit:15)
   🟡 CC    _write_toon CC=24 (limit:15)
-  🟡 CC    configure CC=36 (limit:15)
+  🟡 CC    _maybe_extract CC=15 (limit:15)
 
 REFACTOR[1]:
-  1. split 9 high-CC methods  (CC>15)
+  1. split 8 high-CC methods  (CC>15)
 
 COUPLING:
-          demo     nfo
-  demo      ──       2
-   nfo      ←2      ──
+                  nfo.decorators             nfo            demo
+  nfo.decorators              ──              17              ←2  hub
+             nfo               7              ──                  hub
+            demo               2                              ──
   CYCLES: none
+  HUB: nfo/ (fan-in=17)
+  HUB: nfo.decorators/ (fan-in=9)
+  SMELL: nfo.decorators/ fan-out=17 → split needed
 
 LAYERS:
-  nfo/                            CC̄=4.6    ←in:2  →out:0
-  │ !! decorators                 589L  0C   10m  CC=15     ←17
+  nfo/                            CC̄=4.5    ←in:17  →out:7
   │ !! log_flow                   479L  1C   17m  CC=23     ←0
   │ !! __main__                   460L  0C    9m  CC=20     ←0
   │ !  pipeline_sink              441L  1C   16m  CC=13     ←0
-  │ !! configure                  328L  1C    6m  CC=36     ←3
+  │ !  configure                  395L  1C   11m  CC=13     ←3
   │ !! terminal                   266L  1C    8m  CC=24     ←0
   │ !! extractors                 243L  0C   10m  CC=17     ←1
   │ meta_decorators            243L  0C    5m  CC=7      ←0
@@ -37,10 +39,13 @@ LAYERS:
   │ sinks                      197L  4C   15m  CC=7      ←0
   │ !  auto                       195L  0C    3m  CC=12     ←0
   │ __init__                   179L  0C    9m  CC=4      ←0
+  │ _log_call                  179L  0C    1m  CC=2      ←8
+  │ _decision                  164L  0C    2m  CC=6      ←0
+  │ _catch                     162L  0C    1m  CC=2      ←7
   │ fastapi_middleware         151L  1C    3m  CC=7      ←1
   │ !  webhook                    135L  1C    5m  CC=12     ←0
   │ prometheus                 135L  1C    5m  CC=7      ←0
-  │ !  models                     123L  1C    8m  CC=11     ←7
+  │ !  models                     123L  1C    8m  CC=11     ←9
   │ logger                     106L  1C    7m  CC=6      ←0
   │ buffered_sink              105L  1C    6m  CC=5      ←0
   │ redact                     101L  0C    5m  CC=5      ←1
@@ -48,7 +53,10 @@ LAYERS:
   │ ring_buffer_sink            85L  1C    3m  CC=6      ←0
   │ json_sink                   71L  1C    3m  CC=7      ←0
   │ meta                        63L  1C    3m  CC=9      ←2
+  │ _core                       62L  0C    5m  CC=4      ←13
   │ binary_router               61L  1C    4m  CC=7      ←0
+  │ !! _extract                    60L  0C    1m  CC=15     ←2
+  │ __init__                    43L  0C    0m  CC=0.0    ←0
   │ setup                       37L  0C    0m  CC=0.0    ←0
   │
   demo/                           CC̄=2.2    ←in:0  →out:2
@@ -61,8 +69,7 @@ LAYERS:
 
 DUPLICATES[0]: none
 
-FUNCTIONS (CC≥10, 25 of 205):
-   36.0  configure                                  45n   3exit  loops+cond+ret  !! split
+FUNCTIONS (CC≥10, 25 of 210):
    24.0  TerminalSink._write_toon                   22n   1exit  loops+cond  !! split
    23.0  LogFlowParser.normalize_entry               9n   2exit  cond+ret  !! split
    20.0  cmd_run                                     4n   1exit  cond  !! split
@@ -71,38 +78,39 @@ FUNCTIONS (CC≥10, 25 of 205):
    16.0  LogFlowParser.compress_for_llm             19n   2exit  loops+cond+ret  !! split
    15.0  LogFlowParser.build_flow_graph             16n   2exit  loops+cond+ret  !! split
    15.0  _maybe_extract                             20n   3exit  loops+cond+ret  !! split
-   13.0  PipelineSink._render_step                  15n   2exit  cond+ret
    13.0  TerminalSink._write_color                  17n   1exit  loops+cond
+   13.0  PipelineSink._render_step                  15n   2exit  cond+ret
    13.0  _StdlibBridge.emit                          5n   1exit  loops+cond
    12.0  WebhookSink._build_payload                 22n   5exit  cond+ret
    12.0  _should_patch                              27n  10exit  cond+ret
-   12.0  PipelineSink._render_footer                14n   2exit  loops+cond+ret
    12.0  TerminalSink._write_markdown               14n   1exit  cond
+   12.0  PipelineSink._render_footer                14n   2exit  loops+cond+ret
    11.0  scan_entry_for_injection                   15n   3exit  loops+cond+ret
    11.0  _detect_language                           30n  11exit  cond+ret
    11.0  PipelineSink._render_sub_lines             13n   2exit  cond+ret
    11.0  NfoGroup.invoke                             2n   1exit  
    11.0  NfoCommand.invoke                           6n   1exit  cond
    11.0  LogEntry.as_compact                        23n   2exit  cond+ret
+   11.0  _setup_stdlib_bridge                       16n   2exit  loops+cond+ret
    10.0  extract_image_meta                         12n   2exit  loops+cond+ret
    10.0  PipelineSink._render_data_flow             13n   3exit  loops+cond+ret
    10.0  _parse_sink_spec                           18n   5exit  cond+ret
 
   summary:
-    critical(≥10): 25 | high(5-10): 41 | medium(2-5): 73 | low(<2): 66
-    12% CC≥10  32% CC≥5
+    critical(≥10): 25 | high(5-10): 45 | medium(2-5): 74 | low(<2): 66
+    12% CC≥10  33% CC≥5
 
 HOTSPOTS:
   #1  _run_inline_server                   fan=32   "calls 32 functions"
-  #2  configure                            fan=26   "calls 26 functions"
-  #3  LogFlowParser.build_flow_graph       fan=23   "LogFlowParser method, fan-out=23"
-  #4  meta_log                             fan=22   "calls 22 functions"
+  #2  LogFlowParser.build_flow_graph       fan=23   "LogFlowParser method, fan-out=23"
+  #3  meta_log                             fan=22   "calls 22 functions"
+  #4  NfoCommand.invoke                    fan=18   "NfoCommand method, fan-out=18"
   #5  log_call                             fan=18   "calls 18 functions"
   #6  catch                                fan=18   "calls 18 functions"
-  #7  NfoCommand.invoke                    fan=18   "NfoCommand method, fan-out=18"
-  #8  decision_log                         fan=17   "calls 17 functions"
-  #9  cmd_run                              fan=16   "calls 16 functions"
-  #10 cmd_logs                             fan=16   "calls 16 functions"
+  #7  decision_log                         fan=17   "calls 17 functions"
+  #8  cmd_run                              fan=16   "calls 16 functions"
+  #9  cmd_logs                             fan=16   "calls 16 functions"
+  #10 main                                 fan=15   "calls 15 functions"
 
 CLASSES:
   PipelineSink                   ████████████████████████  16m  CC̄=5.8   max=13  
@@ -132,15 +140,6 @@ CLASSES:
   NfoCommand                     █                          1m  CC̄=11.0  max=11  
 
 D:
-  nfo/configure.py:
-    e: _StdlibBridge,get_global_meta_policy,get_global_auto_extract_meta,_parse_sink_spec,configure
-    _StdlibBridge  # Bridge that intercepts stdlib logging records and forwards t...
-      __init__(1)  CC=1.0
-        → __init__(1)  CC=1.0
-    get_global_meta_policy()
-    get_global_auto_extract_meta()
-    _parse_sink_spec(spec)
-    configure()
   nfo/terminal.py:
     e: TerminalSink
     TerminalSink  # Sink that displays log entries in the terminal with configur...
@@ -176,26 +175,27 @@ D:
     register_extractor(type_check,extractor)
     unregister_all_extractors()
     extract_meta(value)
-  nfo/decorators.py:
-    e: _get_default_logger,set_default_logger,_arg_types,_module_of,_should_sample,_maybe_extract,log_call,log_call,log_call,catch,catch,catch,decision_log,_build_decision_extra
-    _get_default_logger()
-    set_default_logger(logger)
-    _arg_types(args,kwargs)
-    _module_of(func)
-    _should_sample(sample_rate)
+  nfo/decorators/_extract.py:
+    e: _maybe_extract
     _maybe_extract(args,kwargs,result,extract_meta_flag,meta_policy)
-    log_call(func)
-    log_call(func)
-    log_call(func)
-    catch(func)
-    catch(func)
-    catch(func)
-    decision_log(func)
-    _build_decision_extra(decision_name,result)
   nfo/pipeline_sink.py:
     e: PipelineSink
     PipelineSink  # Sink that groups log entries by ``pipeline_run_id`` and rend...
       __init__(6)  CC=2.0
+  nfo/configure.py:
+    e: _StdlibBridge,get_global_meta_policy,get_global_auto_extract_meta,_parse_sink_spec,_read_env_config,_resolve_sinks,_wrap_sinks_with_llm,_wrap_sinks_with_env,_setup_stdlib_bridge,configure
+    _StdlibBridge  # Bridge that intercepts stdlib logging records and forwards t...
+      __init__(1)  CC=1.0
+        → __init__(1)  CC=1.0
+    get_global_meta_policy()
+    get_global_auto_extract_meta()
+    _parse_sink_spec(spec)
+    _read_env_config(env_prefix,level,environment,llm_model,auto_extract_meta,meta_policy)
+    _resolve_sinks(sinks,env_sinks)
+    _wrap_sinks_with_llm(sinks,llm_model,detect_injection)
+    _wrap_sinks_with_env(sinks,environment,version)
+    _setup_stdlib_bridge(logger,level,resolved_sinks,bridge_stdlib,modules)
+    configure()
   nfo/webhook.py:
     e: WebhookSink
     WebhookSink  # Sink that POSTs log entries to an HTTP webhook endpoint.
@@ -317,6 +317,10 @@ Me...
     demo_batch()
     metrics()
     browse_logs(level,limit)
+  nfo/decorators/_decision.py:
+    e: decision_log,_build_decision_extra
+    decision_log(func)
+    _build_decision_extra(decision_name,result)
   examples/http-service/main.py:
     e: LogEntry,LogBatchRequest,_store_entry,log_call,log_batch,get_logs,health
     LogEntry
@@ -368,6 +372,13 @@ Collects :class:`LogEntry` objects...
     event(name)
     _lazy_click()
     __getattr__(name)
+  nfo/decorators/_core.py:
+    e: _get_default_logger,set_default_logger,_arg_types,_module_of,_should_sample
+    _get_default_logger()
+    set_default_logger(logger)
+    _arg_types(args,kwargs)
+    _module_of(func)
+    _should_sample(sample_rate)
   examples/click-integration/demo_formats.py:
     e: make_entry,demo
     make_entry(function_name,args,kwargs,return_value,duration_ms,exception,exception_type)
@@ -383,6 +394,16 @@ Collects :class:`LogEntry` objects...
     fibonacci(n)
     batch_process(items)
     parse_int(value)
+  nfo/decorators/_log_call.py:
+    e: log_call,log_call,log_call
+    log_call(func)
+    log_call(func)
+    log_call(func)
+  nfo/decorators/_catch.py:
+    e: catch,catch,catch
+    catch(func)
+    catch(func)
+    catch(func)
   examples/auto-log/main.py:
     e: create_user,delete_user,calculate_total,health_check,_internal_helper
     create_user(name,email)
@@ -400,12 +421,6 @@ Collects :class:`LogEntry` objects...
     demo_env_tagger()
     demo_dynamic_router()
     demo_diff_tracker()
-  examples/env-config/main.py:
-    e: InventoryService,create_order,parse_payload
-    InventoryService
-      check_stock(1)  CC=1.0
-    create_order(order_id,amount)
-    parse_payload(raw)
   examples/click-integration/demo_basic.py:
     e: cli,greet,process,deploy,fail
     cli()
@@ -413,6 +428,12 @@ Collects :class:`LogEntry` objects...
     process(count)
     deploy(path,force)
     fail()
+  examples/env-config/main.py:
+    e: InventoryService,create_order,parse_payload
+    InventoryService
+      check_stock(1)  CC=1.0
+    create_order(order_id,amount)
+    parse_payload(raw)
   examples/async-usage/main.py:
     e: setup_logger,fetch_data,process_batch,risky_fetch,main
     setup_logger()
@@ -463,4 +484,5 @@ Collects :class:`LogEntry` objects...
     migrate(db_path)
   tools/sync_pactown_com_dependency.py:
   nfo/setup.py:
+  nfo/decorators/__init__.py:
   examples/grpc-service/nfo_pb2.py:

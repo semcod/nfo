@@ -1,3 +1,33 @@
+## [0.2.18] - 2026-03-02
+
+### Summary
+
+refactor(build): code analysis engine
+
+### Docs
+
+- docs: update README
+- docs: update context.md
+
+### Ci
+
+- config: update ci.yml
+
+### Other
+
+- update nfo/configure.py
+- update nfo/decorators.py
+- update nfo/decorators/__init__.py
+- update nfo/decorators/_catch.py
+- update nfo/decorators/_core.py
+- update nfo/decorators/_decision.py
+- update nfo/decorators/_extract.py
+- update nfo/decorators/_log_call.py
+- update nfo/log_flow.py
+- update project/analysis.toon
+- ... and 3 more
+
+
 ## [0.2.16] - 2026-02-18
 
 ### Summary

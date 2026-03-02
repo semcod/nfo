@@ -4,9 +4,9 @@
 
 - **Project**: /home/tom/github/wronai/nfo
 - **Analysis Mode**: static
-- **Total Functions**: 277
+- **Total Functions**: 282
 - **Total Classes**: 33
-- **Modules**: 49
+- **Modules**: 54
 - **Entry Points**: 209
 
 ## Architecture by Module
@@ -26,10 +26,6 @@
 - **Classes**: 4
 - **File**: `sinks.py`
 
-### nfo.decorators
-- **Functions**: 14
-- **File**: `decorators.py`
-
 ### nfo.env
 - **Functions**: 14
 - **Classes**: 3
@@ -39,6 +35,11 @@
 - **Functions**: 13
 - **Classes**: 1
 - **File**: `app.py`
+
+### nfo.configure
+- **Functions**: 11
+- **Classes**: 1
+- **File**: `configure.py`
 
 ### nfo.extractors
 - **Functions**: 10
@@ -87,11 +88,6 @@
 - **Classes**: 1
 - **File**: `server.py`
 
-### nfo.configure
-- **Functions**: 6
-- **Classes**: 1
-- **File**: `configure.py`
-
 ### nfo.webhook
 - **Functions**: 5
 - **Classes**: 1
@@ -105,6 +101,10 @@
 - **Functions**: 5
 - **Classes**: 1
 - **File**: `prometheus.py`
+
+### nfo.logged
+- **Functions**: 5
+- **File**: `logged.py`
 
 ## Key Entry Points
 
@@ -122,12 +122,12 @@ Unlike ``@log_call``, this decorator:
 > Compress graph data into an LLM-friendly textual summary.
 - **Calls**: graph.get, list, list, list, lines.extend, lines.extend, None.join, isinstance
 
-### nfo.decorators.decision_log
+### nfo.decorators._decision.decision_log
 > Decorator that logs decision outcomes with structured reasons.
 
 The decorated function **must** return a dict (or object with ``decision``
 and ``reaso
-- **Calls**: inspect.iscoroutinefunction, functools.wraps, decorator, functools.wraps, time.perf_counter, time.perf_counter, nfo.decorators._get_default_logger, fn
+- **Calls**: inspect.iscoroutinefunction, functools.wraps, decorator, functools.wraps, time.perf_counter, time.perf_counter, nfo.decorators._core._get_default_logger, fn
 
 ### nfo.log_flow.LogFlowParser.normalize_entry
 > Normalize supported log entry formats into a single event schema.
@@ -136,14 +136,6 @@ and ``reaso
 ### examples.grpc-service.client.run_demo
 > Run all four gRPC RPCs against nfo server.
 - **Calls**: print, print, grpc.insecure_channel, nfo_pb2_grpc.NfoLoggerStub, print, stub.LogCall, print, print
-
-### nfo.configure.configure
-> Configure nfo logging for the entire project.
-
-Args:
-    name: Logger name (used for stdlib logger).
-    level: Minimum log level (DEBUG, INFO, WARNIN
-- **Calls**: os.environ.get, os.environ.get, os.environ.get, os.environ.get, None.lower, os.environ.get, Logger, nfo.decorators.set_default_logger
 
 ### examples.grpc-service.server.NfoLoggerServicer.QueryLogs
 > Query stored logs from SQLite.
@@ -168,7 +160,7 @@ Args:
 
 ### examples.env-tagger.main.demo_env_tagger
 > EnvTagger wraps a sink to auto-tag every log entry.
-- **Calls**: print, EnvTagger, Logger, nfo.decorators.set_default_logger, demo.app.UserService.create_user, logger.close, sqlite3.connect, None.fetchone
+- **Calls**: print, EnvTagger, Logger, nfo.decorators._core.set_default_logger, demo.app.UserService.create_user, logger.close, sqlite3.connect, None.fetchone
 
 ### nfo.click.NfoGroup.invoke
 - **Calls**: self._resolve_logger, time.perf_counter, None.invoke, LogEntry, logger.emit, LogEntry, logger.emit, super
@@ -197,7 +189,7 @@ Example:
 
 ### examples.env-tagger.main.demo_dynamic_router
 > DynamicRouter sends logs to different sinks based on rules.
-- **Calls**: print, DynamicRouter, Logger, nfo.decorators.set_default_logger, nfo.decorators.catch, examples.click-integration.demo_basic.process, risky, logger.close
+- **Calls**: print, DynamicRouter, Logger, nfo.decorators._core.set_default_logger, nfo.decorators._catch.catch, examples.click-integration.demo_basic.process, risky, logger.close
 
 ### examples.bash-wrapper.main.main
 - **Calls**: examples.bash-wrapper.main.setup_logger, examples.bash-wrapper.main.run_bash, print, logger.close, sys.exit, len, print, print
@@ -221,13 +213,13 @@ Example:
 > ANSI colored format — replaces typical CLI logs.
 - **Calls**: self.LEVEL_COLORS.get, self._stream.write, parts.append, parts.append, parts.append, entry.timestamp.strftime, entry.args_repr, parts.append
 
-### nfo.pipeline_sink.PipelineSink._render_data_flow
-> Render a data flow summary showing sizes at key steps.
-- **Calls**: self._visible_len, ex.get, ex.get, ex.get, ex.get, ex.get, self._c, parts.append
-
 ### nfo.terminal.TerminalSink._write_table
 > Tabular format via rich.table (fallback to ascii).
 - **Calls**: Table, table.add_column, table.add_column, table.add_column, table.add_column, entry.timestamp.strftime, None.get, table.add_row
+
+### nfo.pipeline_sink.PipelineSink._render_data_flow
+> Render a data flow summary showing sizes at key steps.
+- **Calls**: self._visible_len, ex.get, ex.get, ex.get, ex.get, ex.get, self._c, parts.append
 
 ### examples.http-service.main.get_logs
 > Query stored logs from SQLite.
@@ -235,6 +227,10 @@ Example:
 
 ### examples.click-integration.demo_formats.demo
 - **Calls**: examples.click-integration.demo_formats.make_entry, examples.click-integration.demo_formats.make_entry, print, print, print, TerminalSink, TerminalSink, print
+
+### examples.env-tagger.main.demo_diff_tracker
+> DiffTracker detects when function output changes.
+- **Calls**: print, DiffTracker, Logger, nfo.decorators._core.set_default_logger, examples.markdown-sink.main.compute, examples.markdown-sink.main.compute, logger.close, print
 
 ## Process Flows
 
@@ -252,7 +248,7 @@ compress_for_llm [nfo.log_flow.LogFlowParser]
 
 ### Flow 3: decision_log
 ```
-decision_log [nfo.decorators]
+decision_log [nfo.decorators._decision]
 ```
 
 ### Flow 4: normalize_entry
@@ -265,29 +261,29 @@ normalize_entry [nfo.log_flow.LogFlowParser]
 run_demo [examples.grpc-service.client]
 ```
 
-### Flow 6: configure
-```
-configure [nfo.configure]
-```
-
-### Flow 7: QueryLogs
+### Flow 6: QueryLogs
 ```
 QueryLogs [examples.grpc-service.server.NfoLoggerServicer]
 ```
 
-### Flow 8: build_flow_graph
+### Flow 7: build_flow_graph
 ```
 build_flow_graph [nfo.log_flow.LogFlowParser]
 ```
 
-### Flow 9: main
+### Flow 8: main
 ```
 main [nfo.__main__]
 ```
 
-### Flow 10: invoke
+### Flow 9: invoke
 ```
 invoke [nfo.click.NfoCommand]
+```
+
+### Flow 10: _render_block
+```
+_render_block [nfo.pipeline_sink.PipelineSink]
 ```
 
 ## Key Classes
@@ -478,7 +474,7 @@ Args:
 
 ### demo.app.process_order
 > Simulate order processing.
-- **Output to**: nfo.decorators.log_call, time.sleep, random.uniform
+- **Output to**: nfo.decorators._log_call.log_call, time.sleep, random.uniform
 
 ### nfo.pipeline_sink.PipelineSink._format_metric
 > Format a single metric for display.
@@ -486,33 +482,33 @@ Args:
 
 ### examples.sqlite-sink.main.parse_config
 > Parse config string. Returns empty dict on failure.
-- **Output to**: nfo.decorators.catch, json.loads
+- **Output to**: nfo.decorators._catch.catch, json.loads
 
 ### examples.configure.main.process_order
 
 ### examples.configure.main.parse_config
-- **Output to**: nfo.decorators.catch, json.loads
+- **Output to**: nfo.decorators._catch.catch, json.loads
 
 ### examples.csv-sink.main.process_items
 > Process items and return count.
-- **Output to**: nfo.decorators.log_call, len
+- **Output to**: nfo.decorators._log_call.log_call, len
 
 ### examples.multi-sink.main.batch_process
-- **Output to**: nfo.decorators.log_call, len
+- **Output to**: nfo.decorators._log_call.log_call, len
 
 ### examples.multi-sink.main.parse_int
-- **Output to**: nfo.decorators.catch, int
-
-### examples.env-config.main.parse_payload
-- **Output to**: nfo.decorators.catch, json.loads
+- **Output to**: nfo.decorators._catch.catch, int
 
 ### examples.click-integration.demo_basic.process
 > Run a processing loop.
 - **Output to**: cli.command, click.option, range, click.echo, click.echo
 
+### examples.env-config.main.parse_payload
+- **Output to**: nfo.decorators._catch.catch, json.loads
+
 ### examples.async-usage.main.process_batch
 > Process items concurrently.
-- **Output to**: nfo.decorators.log_call, len, asyncio.sleep, len
+- **Output to**: nfo.decorators._log_call.log_call, len, asyncio.sleep, len
 
 ### nfo.configure._parse_sink_spec
 > Parse a sink specification string like 'sqlite:logs.db' or 'csv:logs.csv'.
@@ -526,13 +522,12 @@ Args:
 Functions exposed as public API (no underscore prefix):
 
 - `nfo.meta_decorators.meta_log` - 67 calls
-- `nfo.decorators.log_call` - 54 calls
-- `nfo.decorators.catch` - 54 calls
+- `nfo.decorators._log_call.log_call` - 54 calls
+- `nfo.decorators._catch.catch` - 54 calls
 - `nfo.log_flow.LogFlowParser.compress_for_llm` - 49 calls
-- `nfo.decorators.decision_log` - 46 calls
+- `nfo.decorators._decision.decision_log` - 46 calls
 - `nfo.log_flow.LogFlowParser.normalize_entry` - 39 calls
 - `examples.grpc-service.client.run_demo` - 38 calls
-- `nfo.configure.configure` - 36 calls
 - `nfo.__main__.cmd_run` - 32 calls
 - `examples.grpc-service.server.NfoLoggerServicer.QueryLogs` - 32 calls
 - `nfo.log_flow.LogFlowParser.build_flow_graph` - 31 calls
@@ -565,6 +560,7 @@ Functions exposed as public API (no underscore prefix):
 - `nfo.extractors.extract_numpy_meta` - 9 calls
 - `nfo.log_flow.LogFlowParser.parse_jsonl` - 9 calls
 - `nfo.prometheus.PrometheusSink.write` - 9 calls
+- `nfo.log_flow.LogFlowParser.group_by_trace_id` - 8 calls
 
 ## System Interactions
 
@@ -590,8 +586,6 @@ graph TD
     run_demo --> print
     run_demo --> insecure_channel
     run_demo --> NfoLoggerStub
-    configure --> get
-    configure --> lower
     QueryLogs --> connect
     QueryLogs --> append
     QueryLogs --> fetchall
@@ -602,6 +596,8 @@ graph TD
     build_flow_graph --> values
     build_flow_graph --> sort
     main --> ArgumentParser
+    main --> add_subparsers
+    main --> add_parser
 ```
 
 ## Reverse Engineering Guidelines

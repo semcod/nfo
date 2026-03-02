@@ -44,6 +44,36 @@ def _timestamp_sort_key(timestamp: str) -> float:
         return 0.0
 
 
+def _first_present(raw: Mapping[str, Any], *keys: str) -> Any:
+    """Return first non-None value from raw for given keys."""
+    for key in keys:
+        value = raw.get(key)
+        if value is not None:
+            return value
+    return None
+
+
+def _extract_trace_id(
+    raw: Mapping[str, Any],
+    extra: Mapping[str, Any],
+    missing_trace_id: str,
+) -> str:
+    """Extract trace_id from multiple possible locations."""
+    trace_id = (
+        raw.get("trace_id")
+        or raw.get("tid")
+        or extra.get("trace_id")
+        or extra.get("tid")
+        or missing_trace_id
+    )
+    return str(trace_id).strip() or missing_trace_id
+
+
+def _extract_field(raw: Mapping[str, Any], primary: str, fallback: str) -> str:
+    """Extract string field with fallback key."""
+    return str(raw.get(primary) or raw.get(fallback) or "")
+
+
 class LogFlowParser:
     """Parse logs, group by trace_id, and build compressed flow graphs."""
 
@@ -52,6 +82,7 @@ class LogFlowParser:
 
     def normalize_entry(self, entry: Union[LogEntry, Mapping[str, Any]]) -> NormalizedEvent:
         """Normalize supported log entry formats into a single event schema."""
+        # Extract raw data based on input type
         if isinstance(entry, LogEntry):
             raw = entry.as_dict()
             if entry.extra:
@@ -61,27 +92,21 @@ class LogFlowParser:
         else:
             raise TypeError(f"Unsupported entry type: {type(entry).__name__}")
 
+        # Normalize extra field
         extra_raw = raw.get("extra", {})
         extra = dict(extra_raw) if isinstance(extra_raw, Mapping) else {}
 
-        function_name = str(raw.get("function_name") or raw.get("fn") or "?")
-        module = str(raw.get("module") or raw.get("mod") or "")
-        timestamp = str(raw.get("timestamp") or raw.get("ts") or "")
-        level = str(raw.get("level") or raw.get("lvl") or "INFO").upper()
+        # Extract fields with fallbacks
+        function_name = str(_first_present(raw, "function_name", "fn") or "?")
+        module = str(_first_present(raw, "module", "mod") or "")
+        timestamp = str(_first_present(raw, "timestamp", "ts") or "")
+        level = str(_first_present(raw, "level", "lvl") or "INFO").upper()
+        trace_id = _extract_trace_id(raw, extra, self.missing_trace_id)
+        exception = str(_first_present(raw, "exception", "err") or "")
+        exception_type = str(_first_present(raw, "exception_type", "et") or "")
 
-        trace_id = (
-            raw.get("trace_id")
-            or raw.get("tid")
-            or extra.get("trace_id")
-            or extra.get("tid")
-            or self.missing_trace_id
-        )
-        trace_id = str(trace_id).strip() or self.missing_trace_id
-
-        exception = str(raw.get("exception") or raw.get("err") or "")
-        exception_type = str(raw.get("exception_type") or raw.get("et") or "")
-
-        duration_ms = _safe_float(raw.get("duration_ms", raw.get("ms", 0.0)))
+        # Build computed fields
+        duration_ms = _safe_float(_first_present(raw, "duration_ms", "ms") or 0.0)
         node = f"{module}.{function_name}" if module else function_name
 
         return {
