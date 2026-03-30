@@ -197,6 +197,43 @@ def unregister_all_extractors() -> None:
 # ---------------------------------------------------------------------------
 
 
+def _try_custom_extractors(value: Any) -> Optional[Dict[str, Any]]:
+    """Try custom extractors first."""
+    for check_fn, extractor_fn in _EXTRACTORS.items():
+        try:
+            if check_fn(value):
+                return extractor_fn(value)
+        except Exception:
+            continue
+    return None
+
+
+def _extract_bytes_meta(value: Union[bytes, bytearray]) -> Optional[Dict[str, Any]]:
+    """Extract metadata from bytes/bytearray."""
+    bdata = bytes(value)
+    fmt = detect_format(bdata)
+    if fmt in ("PNG", "JPEG", "GIF87", "GIF89", "BMP"):
+        return extract_image_meta(bdata)
+    if fmt == "RIFF/WAV/AVI" and len(bdata) >= 12 and bdata[8:12] == b"WAVE":
+        return extract_wav_meta(bdata)
+    return extract_binary_meta(bdata)
+
+
+def _is_file_like(value: Any) -> bool:
+    """Check if value is file-like."""
+    return hasattr(value, "read") and hasattr(value, "tell")
+
+
+def _is_numpy_array(value: Any) -> bool:
+    """Check if value is numpy ndarray (duck-typed)."""
+    return hasattr(value, "dtype") and hasattr(value, "shape")
+
+
+def _is_pandas_dataframe(value: Any) -> bool:
+    """Check if value is pandas DataFrame (duck-typed)."""
+    return hasattr(value, "dtypes") and hasattr(value, "columns")
+
+
 def extract_meta(value: Any) -> Optional[Dict[str, Any]]:
     """Auto-detect value type and extract metadata.
 
@@ -204,37 +241,28 @@ def extract_meta(value: Any) -> Optional[Dict[str, Any]]:
     Returns ``None`` if no extractor matches.
     """
     # Custom extractors take priority
-    for check_fn, extractor_fn in _EXTRACTORS.items():
-        try:
-            if check_fn(value):
-                return extractor_fn(value)
-        except Exception:
-            continue
+    custom_result = _try_custom_extractors(value)
+    if custom_result is not None:
+        return custom_result
 
     # Built-in: bytes / bytearray
     if isinstance(value, (bytes, bytearray)):
-        bdata = bytes(value)
-        fmt = detect_format(bdata)
-        if fmt in ("PNG", "JPEG", "GIF87", "GIF89", "BMP"):
-            return extract_image_meta(bdata)
-        if fmt == "RIFF/WAV/AVI" and len(bdata) >= 12 and bdata[8:12] == b"WAVE":
-            return extract_wav_meta(bdata)
-        return extract_binary_meta(bdata)
+        return _extract_bytes_meta(value)
 
     # memoryview
     if isinstance(value, memoryview):
         return extract_binary_meta(bytes(value))
 
     # file-like
-    if hasattr(value, "read") and hasattr(value, "tell"):
+    if _is_file_like(value):
         return extract_file_meta(value)
 
     # numpy (duck-typed)
-    if hasattr(value, "dtype") and hasattr(value, "shape"):
+    if _is_numpy_array(value):
         return extract_numpy_meta(value)
 
     # pandas (duck-typed)
-    if hasattr(value, "dtypes") and hasattr(value, "columns"):
+    if _is_pandas_dataframe(value):
         try:
             return extract_dataframe_meta(value)
         except Exception:

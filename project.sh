@@ -21,4 +21,4 @@ redup scan . --format toon --output ./project
 #vallm batch ./src --recursive --semantic --model qwen2.5-coder:7b
 #vallm batch --parallel .
 vallm batch . --recursive --format toon --output ./project
-prefact -a
+#prefact -a

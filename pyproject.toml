@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "nfo"
-version = "0.2.19"
+version = "0.2.20"
 description = "Automatic function logging system with decorators, supporting multiple output sinks (SQLite, CSV, Markdown, Prometheus) and LLM-powered analysis for DevOps observability."
 readme = "README.md"
 license = "Apache-2.0"

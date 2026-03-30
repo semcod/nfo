@@ -49,6 +49,117 @@ def _setup_logger(sink_specs: list[str], env: str | None = None):
     return logger
 
 
+def _build_log_entry(
+    cmd: list[str],
+    result: subprocess.CompletedProcess | None,
+    start_time: float,
+    env_name: str,
+    stdout: str,
+    stderr: str,
+    exception: str | None = None,
+    exception_type: str | None = None,
+) -> Any:
+    """Build a LogEntry from command execution results."""
+    from nfo.models import LogEntry
+
+    duration_ms = (time.time() - start_time) * 1000
+    success = result.returncode == 0 if result else False
+
+    return LogEntry(
+        timestamp=LogEntry.now(),
+        level="INFO" if success else "ERROR",
+        function_name=cmd[0],
+        module="cli",
+        args=tuple(cmd[1:]),
+        kwargs={"language": _detect_language(cmd[0]), "env": env_name},
+        arg_types=[type(a).__name__ for a in cmd[1:]],
+        kwarg_types={"language": "str", "env": "str"},
+        return_value=stdout[:2000] if stdout else None,
+        return_type="str" if stdout else None,
+        exception=exception or (stderr[:2000] if not success and stderr else None),
+        exception_type=exception_type or ("ProcessError" if not success else None),
+        duration_ms=duration_ms,
+        environment=env_name,
+        extra={
+            "returncode": result.returncode if result else -1,
+            "cmd": " ".join(cmd),
+        },
+    )
+
+
+def _emit_command_result(
+    logger: Any,
+    cmd: list[str],
+    result: subprocess.CompletedProcess,
+    start_time: float,
+    env_name: str,
+    passthrough: bool,
+) -> None:
+    """Emit log entry for command result and print output."""
+    from nfo.models import LogEntry
+
+    stdout = result.stdout if not passthrough else ""
+    stderr = result.stderr if not passthrough else ""
+    duration_ms = (time.time() - start_time) * 1000
+
+    entry = LogEntry(
+        timestamp=LogEntry.now(),
+        level="INFO" if result.returncode == 0 else "ERROR",
+        function_name=cmd[0],
+        module="cli",
+        args=tuple(cmd[1:]),
+        kwargs={"language": _detect_language(cmd[0]), "env": env_name},
+        arg_types=[type(a).__name__ for a in cmd[1:]],
+        kwarg_types={"language": "str", "env": "str"},
+        return_value=stdout[:2000] if stdout else None,
+        return_type="str" if stdout else None,
+        exception=stderr[:2000] if result.returncode != 0 and stderr else None,
+        exception_type="ProcessError" if result.returncode != 0 else None,
+        duration_ms=duration_ms,
+        environment=env_name,
+        extra={
+            "returncode": result.returncode,
+            "cmd": " ".join(cmd),
+        },
+    )
+    logger.emit(entry)
+
+    if not passthrough:
+        if stdout:
+            print(stdout, end="")
+        if stderr:
+            print(stderr, end="", file=sys.stderr)
+
+
+def _emit_command_not_found(
+    logger: Any,
+    cmd: list[str],
+    start_time: float,
+    env_name: str,
+) -> None:
+    """Emit log entry for command not found error."""
+    from nfo.models import LogEntry
+
+    duration_ms = (time.time() - start_time) * 1000
+    entry = LogEntry(
+        timestamp=LogEntry.now(),
+        level="ERROR",
+        function_name=cmd[0],
+        module="cli",
+        args=tuple(cmd[1:]),
+        kwargs={"language": _detect_language(cmd[0]), "env": env_name},
+        arg_types=[type(a).__name__ for a in cmd[1:]],
+        kwarg_types={"language": "str", "env": "str"},
+        exception=f"Command not found: {cmd[0]}",
+        exception_type="FileNotFoundError",
+        duration_ms=duration_ms,
+        environment=env_name,
+    )
+    logger.emit(entry)
+    logger.close()
+    print(f"nfo: command not found: {cmd[0]}", file=sys.stderr)
+
+
 def cmd_run(args):
     """Run a command and log it through nfo."""
     from nfo.models import LogEntry
@@ -72,76 +183,17 @@ def cmd_run(args):
             text=True,
             env=os.environ,
         )
-        duration_ms = (time.time() - start) * 1000
-
-        stdout = result.stdout if not args.passthrough else ""
-        stderr = result.stderr if not args.passthrough else ""
-
-        entry = LogEntry(
-            timestamp=LogEntry.now(),
-            level="INFO" if result.returncode == 0 else "ERROR",
-            function_name=cmd[0],
-            module="cli",
-            args=tuple(cmd[1:]),
-            kwargs={"language": _detect_language(cmd[0]), "env": env_name},
-            arg_types=[type(a).__name__ for a in cmd[1:]],
-            kwarg_types={"language": "str", "env": "str"},
-            return_value=stdout[:2000] if stdout else None,
-            return_type="str" if stdout else None,
-            exception=stderr[:2000] if result.returncode != 0 and stderr else None,
-            exception_type="ProcessError" if result.returncode != 0 else None,
-            duration_ms=duration_ms,
-            environment=env_name,
-            extra={
-                "returncode": result.returncode,
-                "cmd": " ".join(cmd),
-            },
-        )
-        logger.emit(entry)
-
-        if not args.passthrough:
-            if stdout:
-                print(stdout, end="")
-            if stderr:
-                print(stderr, end="", file=sys.stderr)
-
+        _emit_command_result(logger, cmd, result, start, env_name, args.passthrough)
         logger.close()
         sys.exit(result.returncode)
 
     except FileNotFoundError:
-        duration_ms = (time.time() - start) * 1000
-        entry = LogEntry(
-            timestamp=LogEntry.now(),
-            level="ERROR",
-            function_name=cmd[0],
-            module="cli",
-            args=tuple(cmd[1:]),
-            kwargs={"language": _detect_language(cmd[0]), "env": env_name},
-            arg_types=[type(a).__name__ for a in cmd[1:]],
-            kwarg_types={"language": "str", "env": "str"},
-            exception=f"Command not found: {cmd[0]}",
-            exception_type="FileNotFoundError",
-            duration_ms=duration_ms,
-            environment=env_name,
-        )
-        logger.emit(entry)
-        logger.close()
-        print(f"nfo: command not found: {cmd[0]}", file=sys.stderr)
+        _emit_command_not_found(logger, cmd, start, env_name)
         sys.exit(127)
 
 
-def cmd_logs(args):
-    """Query nfo logs from SQLite database."""
-    import sqlite3
-
-    db_path = args.db or os.environ.get("NFO_DB", "nfo_logs.db")
-    if not Path(db_path).exists():
-        print(f"Database not found: {db_path}", file=sys.stderr)
-        sys.exit(1)
-
-    conn = sqlite3.connect(db_path)
-    conn.row_factory = sqlite3.Row
-
+def _build_logs_query(args) -> tuple[str, list]:
+    """Build SQL query and params for log filtering."""
     query = "SELECT * FROM logs WHERE 1=1"
     params: list = []
 
@@ -168,6 +220,50 @@ def cmd_logs(args):
     query += " ORDER BY timestamp DESC"
     query += f" LIMIT {args.limit}"
 
+    return query, params
+
+
+def _format_log_row(row: sqlite3.Row) -> str:
+    """Format a single log row for display."""
+    d = dict(row)
+    ts = d.get("timestamp", "")[:19]
+    level = d.get("level", "?")
+    func = d.get("function_name", "?")
+    dur = d.get("duration_ms")
+    dur_str = f"{dur:.0f}ms" if dur else "—"
+    exc = d.get("exception", "")
+    env = d.get("environment", "")
+
+    # Color: red for ERROR, green for INFO
+    if level == "ERROR":
+        prefix = "\033[31m"
+        suffix = "\033[0m"
+    else:
+        prefix = "\033[32m" if sys.stdout.isatty() else ""
+        suffix = "\033[0m" if sys.stdout.isatty() else ""
+
+    line = f"{prefix}{ts} | {level:5s} | {func} | {dur_str}"
+    if env:
+        line += f" | env={env}"
+    if exc:
+        line += f" | {exc[:60]}"
+    line += suffix
+    return line
+
+
+def cmd_logs(args):
+    """Query nfo logs from SQLite database."""
+    import sqlite3
+
+    db_path = args.db or os.environ.get("NFO_DB", "nfo_logs.db")
+    if not Path(db_path).exists():
+        print(f"Database not found: {db_path}", file=sys.stderr)
+        sys.exit(1)
+
+    conn = sqlite3.connect(db_path)
+    conn.row_factory = sqlite3.Row
+
+    query, params = _build_logs_query(args)
     rows = conn.execute(query, params).fetchall()
     conn.close()
 
@@ -176,30 +272,7 @@ def cmd_logs(args):
         return
 
     for row in rows:
-        d = dict(row)
-        ts = d.get("timestamp", "")[:19]
-        level = d.get("level", "?")
-        func = d.get("function_name", "?")
-        dur = d.get("duration_ms")
-        dur_str = f"{dur:.0f}ms" if dur else "—"
-        exc = d.get("exception", "")
-        env = d.get("environment", "")
-
-        # Color: red for ERROR, green for INFO
-        if level == "ERROR":
-            prefix = "\033[31m"
-            suffix = "\033[0m"
-        else:
-            prefix = "\033[32m" if sys.stdout.isatty() else ""
-            suffix = "\033[0m" if sys.stdout.isatty() else ""
-
-        line = f"{prefix}{ts} | {level:5s} | {func} | {dur_str}"
-        if env:
-            line += f" | env={env}"
-        if exc:
-            line += f" | {exc[:60]}"
-        line += suffix
-        print(line)
+        print(_format_log_row(row))
 
     print(f"\n({len(rows)} entries from {db_path})")
 

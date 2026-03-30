@@ -161,6 +161,57 @@ class TerminalSink(Sink):
         except ImportError:
             self._stream.write(text)
 
+    def _format_args_str(self, entry: LogEntry) -> str:
+        """Format function arguments for toon output."""
+        args_parts = []
+        if entry.args and self._show_args:
+            for a in entry.args:
+                args_parts.append(repr(a)[:30])
+        if entry.kwargs and self._show_args:
+            for k, v in entry.kwargs.items():
+                args_parts.append(f"{k}={repr(v)[:20]}")
+        return ",".join(args_parts) if args_parts else ""
+
+    def _format_result(self, entry: LogEntry) -> str:
+        """Format function result for toon output."""
+        if entry.exception:
+            return f"!{entry.exception_type}"
+        if self._show_return and entry.return_value is not None:
+            return f"->{repr(entry.return_value)[:40]}"
+        return ""
+
+    def _format_meta_str(self, entry: LogEntry) -> str:
+        """Format binary metadata for toon output."""
+        if not (entry.extra.get("meta_log") and entry.extra.get("args_meta")):
+            return ""
+
+        meta_parts = []
+        for m in entry.extra["args_meta"]:
+            if isinstance(m, dict):
+                for _k, v in m.items():
+                    if isinstance(v, dict):
+                        fmt = v.get("format", "")
+                        size = v.get("size_bytes", 0)
+                        w = v.get("width", "")
+                        h = v.get("height", "")
+                        dims = f",{w}x{h}" if w and h else ""
+                        sz = (
+                            f"{size / 1048576:.1f}MB"
+                            if size > 1048576
+                            else f"{size / 1024:.0f}KB"
+                        )
+                        meta_parts.append(f"{fmt}{dims},{sz}")
+        if meta_parts:
+            return f" meta:{{{';'.join(meta_parts)}}}"
+        return ""
+
+    def _format_duration(self, entry: LogEntry) -> str:
+        """Format duration string for toon output."""
+        if not self._show_duration or entry.duration_ms is None:
+            return ""
+        ms = entry.duration_ms
+        return f" [{ms / 1000:.1f}s]" if ms > 1000 else f" [{ms:.1f}ms]"
+
     def _write_toon(self, entry: LogEntry) -> None:
         """Compact TOON format — minimal, machine+human readable.
 
@@ -171,49 +222,10 @@ class TerminalSink(Sink):
         ts = entry.timestamp.strftime("%H:%M:%S")
         func = entry.function_name
 
-        args_parts = []
-        if entry.args and self._show_args:
-            for a in entry.args:
-                args_parts.append(repr(a)[:30])
-        if entry.kwargs and self._show_args:
-            for k, v in entry.kwargs.items():
-                args_parts.append(f"{k}={repr(v)[:20]}")
-
-        args_str = ",".join(args_parts) if args_parts else ""
-
-        if entry.exception:
-            result = f"!{entry.exception_type}"
-        elif self._show_return and entry.return_value is not None:
-            result = f"->{repr(entry.return_value)[:40]}"
-        else:
-            result = ""
-
-        # Binary metadata
-        meta_str = ""
-        if entry.extra.get("meta_log") and entry.extra.get("args_meta"):
-            meta_parts = []
-            for m in entry.extra["args_meta"]:
-                if isinstance(m, dict):
-                    for _k, v in m.items():
-                        if isinstance(v, dict):
-                            fmt = v.get("format", "")
-                            size = v.get("size_bytes", 0)
-                            w = v.get("width", "")
-                            h = v.get("height", "")
-                            dims = f",{w}x{h}" if w and h else ""
-                            sz = (
-                                f"{size / 1048576:.1f}MB"
-                                if size > 1048576
-                                else f"{size / 1024:.0f}KB"
-                            )
-                            meta_parts.append(f"{fmt}{dims},{sz}")
-            if meta_parts:
-                meta_str = f" meta:{{{';'.join(meta_parts)}}}"
-
-        dur = ""
-        if self._show_duration and entry.duration_ms is not None:
-            ms = entry.duration_ms
-            dur = f" [{ms / 1000:.1f}s]" if ms > 1000 else f" [{ms:.1f}ms]"
+        args_str = self._format_args_str(entry)
+        result = self._format_result(entry)
+        meta_str = self._format_meta_str(entry)
+        dur = self._format_duration(entry)
 
         line = f"{ts} {entry.level:5} {func}({args_str}){result}{meta_str}{dur}"
         self._stream.write(line + "\n")
