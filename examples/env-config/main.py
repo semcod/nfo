@@ -26,6 +26,11 @@ from __future__ import annotations
 import os
 from pathlib import Path
 
+# Constants
+DEFAULT_STOCK_COUNT = 42
+ORDER_AMOUNT = 99.99
+CSV_PREVIEW_LENGTH = 500
+
 # ---------------------------------------------------------------------------
 # 1. Load .env file (before importing/configuring nfo)
 # ---------------------------------------------------------------------------
@@ -106,7 +111,7 @@ def parse_payload(raw: str) -> dict:
 @logged
 class InventoryService:
     def check_stock(self, item_id: str) -> int:
-        return 42
+        return DEFAULT_STOCK_COUNT
 
     def reserve(self, item_id: str, qty: int) -> bool:
         if qty > 100:
@@ -117,7 +122,7 @@ class InventoryService:
 if __name__ == "__main__":
     print("=== .env-configured nfo in action ===\n")
 
-    create_order("ORD-001", 99.99)
+    create_order("ORD-001", ORDER_AMOUNT)
     print("create_order -> logged")
 
     parse_payload('{"key": "value"}')
@@ -155,6 +160,6 @@ if __name__ == "__main__":
             csv_path = spec.split(":", 1)[1]
             if Path(csv_path).exists():
                 print(f"\n--- CSV: {csv_path} ---")
-                print(Path(csv_path).read_text()[:500])
+                print(Path(csv_path).read_text()[:CSV_PREVIEW_LENGTH])
 
     print("\nDone. All settings loaded from .env — zero hardcoded config in code.")

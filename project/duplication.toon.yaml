@@ -1,24 +1,24 @@
-# redup/duplication | 4 groups | 47f 7405L | 2026-03-30
+# redup/duplication | 4 groups | 50f 8533L | 2026-04-02
 
 SUMMARY:
-  files_scanned: 47
-  total_lines:   7405
+  files_scanned: 50
+  total_lines:   8533
   dup_groups:    4
   dup_fragments: 12
   saved_lines:   45
-  scan_ms:       6265
+  scan_ms:       8485
 
 DUPLICATES[4] (ranked by impact):
   [ef750ce1ef92eafb]   STRU  close  L=5 N=5 saved=20 sim=1.00
-      nfo/webhook.py:0-4  (close)
       nfo/llm.py:0-4  (close)
       nfo/prometheus.py:0-4  (close)
       nfo/json_sink.py:0-4  (close)
+      nfo/webhook.py:0-4  (close)
       nfo/terminal.py:0-4  (close)
   [01a8471ea4a5d0e8]   STRU  pending  L=6 N=3 saved=12 sim=1.00
       nfo/buffered_sink.py:0-5  (pending)
-      nfo/pipeline_sink.py:0-5  (pending_runs)
       nfo/ring_buffer_sink.py:0-5  (buffered)
+      nfo/pipeline_sink.py:0-5  (pending_runs)
   [836f41c14ff819b3]   STRU  setup_logger  L=8 N=2 saved=8 sim=1.00
       examples/markdown-sink/main.py:0-7  (setup_logger)
       examples/csv-sink/main.py:0-7  (setup_logger)

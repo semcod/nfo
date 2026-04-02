@@ -20,6 +20,8 @@ Endpoints:
 
 from __future__ import annotations
 
+from typing import Dict, Any
+
 import os
 import random
 import time
@@ -90,9 +92,14 @@ nfo.configure(
     force=True,
 )
 
-# ---------------------------------------------------------------------------
-# Decorated functions (business logic)
-# ---------------------------------------------------------------------------
+DEFAULT_FIB_N_SMALL = 10
+DEFAULT_FIB_N_LARGE = 20
+BATCH_COUNT_FIB = 20
+BATCH_COUNT_ORDERS = 5
+BATCH_COUNT_DIVISIONS = 5
+BATCH_COUNT_USERS = 3
+MAX_LOGS_LIMIT = 50
+DEFAULT_PORT = 8000
 
 
 @log_call
@@ -148,16 +155,16 @@ app = FastAPI(title="nfo DevOps Demo", version=nfo.__version__)
 
 
 @app.get("/")
-def health():
+def health() -> Dict[str, Any]:
     return {"status": "ok", "version": nfo.__version__, "environment": ENVIRONMENT}
 
 
 @app.get("/demo/success")
-def demo_success():
+def demo_success() -> Dict[str, Any]:
     """Run several successful decorated function calls."""
     results = {
-        "fibonacci_10": compute_fibonacci(10),
-        "fibonacci_20": compute_fibonacci(20),
+        "fibonacci_small": compute_fibonacci(DEFAULT_FIB_N_SMALL),
+        "fibonacci_large": compute_fibonacci(DEFAULT_FIB_N_LARGE),
         "order": process_order("ORD-001", 99.99),
         "division": risky_division(100, 7),
         "user": user_service.create_user("Alice", "alice@example.com"),
@@ -166,7 +173,7 @@ def demo_success():
 
 
 @app.get("/demo/error")
-def demo_error():
+def demo_error() -> Dict[str, Any]:
     """Trigger error-level log entries."""
     results = {
         "division_by_zero": risky_division(1, 0),  # caught, returns None
@@ -180,7 +187,7 @@ def demo_error():
 
 
 @app.get("/demo/slow")
-def demo_slow():
+def demo_slow() -> Dict[str, Any]:
     """Trigger a slow operation to demonstrate duration histograms."""
     duration = random.uniform(0.1, 0.5)
     result = slow_operation(duration)
@@ -188,25 +195,25 @@ def demo_slow():
 
 
 @app.get("/demo/batch")
-def demo_batch():
+def demo_batch() -> Dict[str, Any]:
     """Run a batch of mixed calls (success + errors) for load simulation."""
     count = {"success": 0, "error": 0}
-    for i in range(20):
+    for i in range(BATCH_COUNT_FIB):
         compute_fibonacci(random.randint(5, 30))
         count["success"] += 1
 
-    for i in range(5):
+    for i in range(BATCH_COUNT_ORDERS):
         process_order(f"ORD-{i:03d}", random.uniform(10, 500))
         count["success"] += 1
 
-    for i in range(5):
+    for i in range(BATCH_COUNT_DIVISIONS):
         result = risky_division(random.uniform(1, 100), random.choice([0, 1, 2, 3]))
         if result is None:
             count["error"] += 1
         else:
             count["success"] += 1
 
-    for i in range(3):
+    for i in range(BATCH_COUNT_USERS):
         user_service.create_user(f"User-{i}", f"user{i}@test.com")
         count["success"] += 1
 
@@ -223,7 +230,7 @@ def metrics():
 
 
 @app.get("/logs")
-def browse_logs(level: str = "", limit: int = 50):
+def browse_logs(level: str = "", limit: int = MAX_LOGS_LIMIT) -> JSONResponse:
     """Browse latest logs from SQLite."""
     import sqlite3
 
@@ -247,4 +254,4 @@ def browse_logs(level: str = "", limit: int = 50):
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=DEFAULT_PORT)

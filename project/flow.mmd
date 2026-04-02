@@ -12,21 +12,21 @@ flowchart TD
 
     subgraph Core
         demo__load_generator__main["main"]
+        demo__app__process_order["process_order"]
+        demo__app__UserService__create_user["create_user"]
+        demo__app__UserService__delete_user["delete_user"]
+        demo__app__health["health"]
+        demo__app__demo_success["demo_success"]
+        demo__app__demo_error["demo_error"]
+        demo__app__demo_slow["demo_slow"]
+        demo__app__demo_batch["demo_batch"]
+        demo__app__metrics["metrics"]
+        demo__app__browse_logs["browse_logs"]
         nfo__llm__LLMSink___build_user_prompt["_build_user_prompt"]
         nfo__llm__LLMSink___analyze["_analyze"]
         nfo__llm__LLMSink___process["_process"]
         nfo__llm__LLMSink__write["write"]
-        nfo__llm__LLMSink__close["close"]
-        nfo__extractors__register_extractor["register_extractor"]
-        nfo__extractors__unregister_all_extractors["unregister_all_extractors"]
-        nfo__extractors__extract_meta{{extract_meta CC=17}}
-        nfo__webhook__WebhookSink___build_payload["_build_payload"]
-        nfo__webhook__WebhookSink___send["_send"]
-        nfo__webhook__WebhookSink__write["write"]
-        nfo__webhook__WebhookSink__close["close"]
-        nfo__buffered_sink__AsyncBufferedSink__write["write"]
-        nfo__buffered_sink__AsyncBufferedSink__flush["flush"]
-        ...["+117 more"]
+        ...["+166 more"]
     end
 
-    class demo__load_generator__main,nfo__llm__LLMSink___build_user_prompt,nfo__llm__LLMSink___analyze,nfo__llm__LLMSink___process,nfo__llm__LLMSink__write,nfo__llm__LLMSink__close,nfo__extractors__register_extractor,nfo__extractors__unregister_all_extractors,nfo__webhook__WebhookSink___build_payload,nfo__webhook__WebhookSink___send entry
+    class demo__load_generator__main,demo__app__UserService__create_user,demo__app__UserService__delete_user,demo__app__health,demo__app__demo_success,demo__app__demo_error,demo__app__demo_slow,demo__app__demo_batch,demo__app__metrics,demo__app__browse_logs entry

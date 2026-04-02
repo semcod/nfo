@@ -9,8 +9,8 @@ Usage:
 import argparse
 import random
 import time
-import urllib.request
-import urllib.error
+from typing import Any
+from urllib import request, error
 
 
 ENDPOINTS = [
@@ -21,7 +21,7 @@ ENDPOINTS = [
 ]
 
 
-def weighted_choice(endpoints):
+def weighted_choice(endpoints: list[tuple[str, int]]) -> str:
     total = sum(w for _, w in endpoints)
     r = random.uniform(0, total)
     cumulative = 0
@@ -32,7 +32,7 @@ def weighted_choice(endpoints):
     return endpoints[0][0]
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(description="nfo demo load generator")
     parser.add_argument("--url", default="http://localhost:8000", help="Base URL")
     parser.add_argument("--interval", type=float, default=1.0, help="Seconds between requests")
@@ -45,10 +45,10 @@ def main():
         path = weighted_choice(ENDPOINTS)
         url = f"{args.url}{path}"
         try:
-            req = urllib.request.urlopen(url, timeout=10)
+            req = request.urlopen(url, timeout=10)
             status = req.getcode()
             print(f"  [{i+1}] {path} → {status}")
-        except urllib.error.URLError as e:
+        except error.URLError as e:
             print(f"  [{i+1}] {path} → ERROR: {e}")
 
         i += 1

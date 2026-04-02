@@ -1,0 +1,3378 @@
+[
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 14,
+      "row": 38
+    },
+    "filename": "/home/tom/github/semcod/nfo/demo/app.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from nfo import (\n    log_call,\n    catch,\n    logged,\n    Logger,\n    SQLiteSink,\n    JSONSink,\n    EnvTagger,\n)",
+          "end_location": {
+            "column": 2,
+            "row": 43
+          },
+          "location": {
+            "column": 1,
+            "row": 34
+          }
+        }
+      ],
+      "message": "Remove unused import: `nfo.configure`"
+    },
+    "location": {
+      "column": 5,
+      "row": 38
+    },
+    "message": "`nfo.configure` imported but unused",
+    "noqa_row": 38,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 23,
+      "row": 12
+    },
+    "filename": "/home/tom/github/semcod/nfo/demo/load_generator.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 13
+          },
+          "location": {
+            "column": 1,
+            "row": 12
+          }
+        }
+      ],
+      "message": "Remove unused import: `typing.Any`"
+    },
+    "location": {
+      "column": 20,
+      "row": 12
+    },
+    "message": "`typing.Any` imported but unused",
+    "noqa_row": 12,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F541",
+    "end_location": {
+      "column": 45,
+      "row": 92
+    },
+    "filename": "/home/tom/github/semcod/nfo/examples/auto-log/main.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "\"_internal_helper (not logged)\\n\"",
+          "end_location": {
+            "column": 45,
+            "row": 92
+          },
+          "location": {
+            "column": 11,
+            "row": 92
+          }
+        }
+      ],
+      "message": "Remove extraneous `f` prefix"
+    },
+    "location": {
+      "column": 11,
+      "row": 92
+    },
+    "message": "f-string without any placeholders",
+    "noqa_row": 92,
+    "url": "https://docs.astral.sh/ruff/rules/f-string-missing-placeholders"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 23,
+      "row": 22
+    },
+    "filename": "/home/tom/github/semcod/nfo/examples/click-integration/demo_basic.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 23
+          },
+          "location": {
+            "column": 1,
+            "row": 22
+          }
+        }
+      ],
+      "message": "Remove unused import: `typing.Any`"
+    },
+    "location": {
+      "column": 20,
+      "row": 22
+    },
+    "message": "`typing.Any` imported but unused",
+    "noqa_row": 22,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F841",
+    "end_location": {
+      "column": 13,
+      "row": 58
+    },
+    "filename": "/home/tom/github/semcod/nfo/examples/click-integration/demo_formats.py",
+    "fix": {
+      "applicability": "unsafe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 16,
+            "row": 58
+          },
+          "location": {
+            "column": 9,
+            "row": 58
+          }
+        }
+      ],
+      "message": "Remove assignment to unused variable `sink`"
+    },
+    "location": {
+      "column": 9,
+      "row": 58
+    },
+    "message": "Local variable `sink` is assigned to but never used",
+    "noqa_row": 58,
+    "url": "https://docs.astral.sh/ruff/rules/unused-variable"
+  },
+  {
+    "cell": null,
+    "code": "F541",
+    "end_location": {
+      "column": 35,
+      "row": 92
+    },
+    "filename": "/home/tom/github/semcod/nfo/examples/configure/main.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "\"\\n--- CSV content ---\"",
+          "end_location": {
+            "column": 35,
+            "row": 92
+          },
+          "location": {
+            "column": 11,
+            "row": 92
+          }
+        }
+      ],
+      "message": "Remove extraneous `f` prefix"
+    },
+    "location": {
+      "column": 11,
+      "row": 92
+    },
+    "message": "f-string without any placeholders",
+    "noqa_row": 92,
+    "url": "https://docs.astral.sh/ruff/rules/f-string-missing-placeholders"
+  },
+  {
+    "cell": null,
+    "code": "F541",
+    "end_location": {
+      "column": 65,
+      "row": 54
+    },
+    "filename": "/home/tom/github/semcod/nfo/examples/env-config/main.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "\"No .env found, loading .env.example for demo...\"",
+          "end_location": {
+            "column": 65,
+            "row": 54
+          },
+          "location": {
+            "column": 15,
+            "row": 54
+          }
+        }
+      ],
+      "message": "Remove extraneous `f` prefix"
+    },
+    "location": {
+      "column": 15,
+      "row": 54
+    },
+    "message": "f-string without any placeholders",
+    "noqa_row": 54,
+    "url": "https://docs.astral.sh/ruff/rules/f-string-missing-placeholders"
+  },
+  {
+    "cell": null,
+    "code": "E402",
+    "end_location": {
+      "column": 51,
+      "row": 82
+    },
+    "filename": "/home/tom/github/semcod/nfo/examples/env-config/main.py",
+    "fix": null,
+    "location": {
+      "column": 1,
+      "row": 82
+    },
+    "message": "Module level import not at top of file",
+    "noqa_row": 82,
+    "url": "https://docs.astral.sh/ruff/rules/module-import-not-at-top-of-file"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 12,
+      "row": 26
+    },
+    "filename": "/home/tom/github/semcod/nfo/examples/grpc-service/client.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 27
+          },
+          "location": {
+            "column": 1,
+            "row": 26
+          }
+        }
+      ],
+      "message": "Remove unused import: `time`"
+    },
+    "location": {
+      "column": 8,
+      "row": 26
+    },
+    "message": "`time` imported but unused",
+    "noqa_row": 26,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F541",
+    "end_location": {
+      "column": 42,
+      "row": 47
+    },
+    "filename": "/home/tom/github/semcod/nfo/examples/grpc-service/client.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "\"=== nfo gRPC Client Demo ===\"",
+          "end_location": {
+            "column": 42,
+            "row": 47
+          },
+          "location": {
+            "column": 11,
+            "row": 47
+          }
+        }
+      ],
+      "message": "Remove extraneous `f` prefix"
+    },
+    "location": {
+      "column": 11,
+      "row": 47
+    },
+    "message": "f-string without any placeholders",
+    "noqa_row": 47,
+    "url": "https://docs.astral.sh/ruff/rules/f-string-missing-placeholders"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 16,
+      "row": 4
+    },
+    "filename": "/home/tom/github/semcod/nfo/examples/grpc-service/nfo_pb2_grpc.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 5
+          },
+          "location": {
+            "column": 1,
+            "row": 4
+          }
+        }
+      ],
+      "message": "Remove unused import: `warnings`"
+    },
+    "location": {
+      "column": 8,
+      "row": 4
+    },
+    "message": "`warnings` imported but unused",
+    "noqa_row": 4,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 12,
+      "row": 28
+    },
+    "filename": "/home/tom/github/semcod/nfo/examples/grpc-service/server.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 29
+          },
+          "location": {
+            "column": 1,
+            "row": 28
+          }
+        }
+      ],
+      "message": "Remove unused import: `time`"
+    },
+    "location": {
+      "column": 8,
+      "row": 28
+    },
+    "message": "`time` imported but unused",
+    "noqa_row": 28,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 44,
+      "row": 46
+    },
+    "filename": "/home/tom/github/semcod/nfo/examples/grpc-service/server.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from nfo import Logger, SQLiteSink",
+          "end_location": {
+            "column": 44,
+            "row": 46
+          },
+          "location": {
+            "column": 1,
+            "row": 46
+          }
+        }
+      ],
+      "message": "Remove unused import: `nfo.CSVSink`"
+    },
+    "location": {
+      "column": 37,
+      "row": 46
+    },
+    "message": "`nfo.CSVSink` imported but unused",
+    "noqa_row": 46,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F541",
+    "end_location": {
+      "column": 38,
+      "row": 215
+    },
+    "filename": "/home/tom/github/semcod/nfo/examples/grpc-service/server.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "\"nfo gRPC Logging Service\"",
+          "end_location": {
+            "column": 38,
+            "row": 215
+          },
+          "location": {
+            "column": 11,
+            "row": 215
+          }
+        }
+      ],
+      "message": "Remove extraneous `f` prefix"
+    },
+    "location": {
+      "column": 11,
+      "row": 215
+    },
+    "message": "f-string without any placeholders",
+    "noqa_row": 215,
+    "url": "https://docs.astral.sh/ruff/rules/f-string-missing-placeholders"
+  },
+  {
+    "cell": null,
+    "code": "F541",
+    "end_location": {
+      "column": 61,
+      "row": 218
+    },
+    "filename": "/home/tom/github/semcod/nfo/examples/grpc-service/server.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "\"  RPCs: LogCall, BatchLog, StreamLog, QueryLogs\"",
+          "end_location": {
+            "column": 61,
+            "row": 218
+          },
+          "location": {
+            "column": 11,
+            "row": 218
+          }
+        }
+      ],
+      "message": "Remove extraneous `f` prefix"
+    },
+    "location": {
+      "column": 11,
+      "row": 218
+    },
+    "message": "f-string without any placeholders",
+    "noqa_row": 218,
+    "url": "https://docs.astral.sh/ruff/rules/f-string-missing-placeholders"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 12,
+      "row": 28
+    },
+    "filename": "/home/tom/github/semcod/nfo/examples/http-service/main.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 29
+          },
+          "location": {
+            "column": 1,
+            "row": 28
+          }
+        }
+      ],
+      "message": "Remove unused import: `time`"
+    },
+    "location": {
+      "column": 8,
+      "row": 28
+    },
+    "message": "`time` imported but unused",
+    "noqa_row": 28,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 47,
+      "row": 51
+    },
+    "filename": "/home/tom/github/semcod/nfo/examples/http-service/main.py",
+    "fix": null,
+    "location": {
+      "column": 35,
+      "row": 51
+    },
+    "message": "`fastapi.responses.JSONResponse` imported but unused; consider using `importlib.util.find_spec` to test for availability",
+    "noqa_row": 51,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F541",
+    "end_location": {
+      "column": 45,
+      "row": 202
+    },
+    "filename": "/home/tom/github/semcod/nfo/examples/http-service/main.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "\"nfo Centralized Logging Service\"",
+          "end_location": {
+            "column": 45,
+            "row": 202
+          },
+          "location": {
+            "column": 11,
+            "row": 202
+          }
+        }
+      ],
+      "message": "Remove extraneous `f` prefix"
+    },
+    "location": {
+      "column": 11,
+      "row": 202
+    },
+    "message": "f-string without any placeholders",
+    "noqa_row": 202,
+    "url": "https://docs.astral.sh/ruff/rules/f-string-missing-placeholders"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 48,
+      "row": 34
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/__main__.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from nfo import Logger, SQLiteSink",
+          "end_location": {
+            "column": 72,
+            "row": 34
+          },
+          "location": {
+            "column": 5,
+            "row": 34
+          }
+        }
+      ],
+      "message": "Remove unused import"
+    },
+    "location": {
+      "column": 41,
+      "row": 34
+    },
+    "message": "`nfo.CSVSink` imported but unused",
+    "noqa_row": 34,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 62,
+      "row": 34
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/__main__.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from nfo import Logger, SQLiteSink",
+          "end_location": {
+            "column": 72,
+            "row": 34
+          },
+          "location": {
+            "column": 5,
+            "row": 34
+          }
+        }
+      ],
+      "message": "Remove unused import"
+    },
+    "location": {
+      "column": 50,
+      "row": 34
+    },
+    "message": "`nfo.MarkdownSink` imported but unused",
+    "noqa_row": 34,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 72,
+      "row": 34
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/__main__.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from nfo import Logger, SQLiteSink",
+          "end_location": {
+            "column": 72,
+            "row": 34
+          },
+          "location": {
+            "column": 5,
+            "row": 34
+          }
+        }
+      ],
+      "message": "Remove unused import"
+    },
+    "location": {
+      "column": 64,
+      "row": 34
+    },
+    "message": "`nfo.JSONSink` imported but unused",
+    "noqa_row": 34,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F821",
+    "end_location": {
+      "column": 9,
+      "row": 61
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/__main__.py",
+    "fix": null,
+    "location": {
+      "column": 6,
+      "row": 61
+    },
+    "message": "Undefined name `Any`",
+    "noqa_row": 61,
+    "url": "https://docs.astral.sh/ruff/rules/undefined-name"
+  },
+  {
+    "cell": null,
+    "code": "F821",
+    "end_location": {
+      "column": 16,
+      "row": 91
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/__main__.py",
+    "fix": null,
+    "location": {
+      "column": 13,
+      "row": 91
+    },
+    "message": "Undefined name `Any`",
+    "noqa_row": 91,
+    "url": "https://docs.astral.sh/ruff/rules/undefined-name"
+  },
+  {
+    "cell": null,
+    "code": "F821",
+    "end_location": {
+      "column": 16,
+      "row": 135
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/__main__.py",
+    "fix": null,
+    "location": {
+      "column": 13,
+      "row": 135
+    },
+    "message": "Undefined name `Any`",
+    "noqa_row": 135,
+    "url": "https://docs.astral.sh/ruff/rules/undefined-name"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 36,
+      "row": 165
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/__main__.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 166
+          },
+          "location": {
+            "column": 1,
+            "row": 165
+          }
+        }
+      ],
+      "message": "Remove unused import: `nfo.models.LogEntry`"
+    },
+    "location": {
+      "column": 28,
+      "row": 165
+    },
+    "message": "`nfo.models.LogEntry` imported but unused",
+    "noqa_row": 165,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F821",
+    "end_location": {
+      "column": 33,
+      "row": 226
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/__main__.py",
+    "fix": null,
+    "location": {
+      "column": 26,
+      "row": 226
+    },
+    "message": "Undefined name `sqlite3`",
+    "noqa_row": 226,
+    "url": "https://docs.astral.sh/ruff/rules/undefined-name"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 23,
+      "row": 289
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/__main__.py",
+    "fix": null,
+    "location": {
+      "column": 16,
+      "row": 289
+    },
+    "message": "`uvicorn` imported but unused; consider using `importlib.util.find_spec` to test for availability",
+    "noqa_row": 289,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 36,
+      "row": 301
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/__main__.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 302
+          },
+          "location": {
+            "column": 1,
+            "row": 301
+          }
+        }
+      ],
+      "message": "Remove unused import: `nfo.models.LogEntry`"
+    },
+    "location": {
+      "column": 28,
+      "row": 301
+    },
+    "message": "`nfo.models.LogEntry` imported but unused",
+    "noqa_row": 301,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F541",
+    "end_location": {
+      "column": 51,
+      "row": 306
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/__main__.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "\"  POST /log        — log single entry\"",
+          "end_location": {
+            "column": 51,
+            "row": 306
+          },
+          "location": {
+            "column": 11,
+            "row": 306
+          }
+        }
+      ],
+      "message": "Remove extraneous `f` prefix"
+    },
+    "location": {
+      "column": 11,
+      "row": 306
+    },
+    "message": "f-string without any placeholders",
+    "noqa_row": 306,
+    "url": "https://docs.astral.sh/ruff/rules/f-string-missing-placeholders"
+  },
+  {
+    "cell": null,
+    "code": "F541",
+    "end_location": {
+      "column": 55,
+      "row": 307
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/__main__.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "\"  POST /log/batch  — log multiple entries\"",
+          "end_location": {
+            "column": 55,
+            "row": 307
+          },
+          "location": {
+            "column": 11,
+            "row": 307
+          }
+        }
+      ],
+      "message": "Remove extraneous `f` prefix"
+    },
+    "location": {
+      "column": 11,
+      "row": 307
+    },
+    "message": "f-string without any placeholders",
+    "noqa_row": 307,
+    "url": "https://docs.astral.sh/ruff/rules/f-string-missing-placeholders"
+  },
+  {
+    "cell": null,
+    "code": "F541",
+    "end_location": {
+      "column": 45,
+      "row": 308
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/__main__.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "\"  GET  /logs       — query logs\"",
+          "end_location": {
+            "column": 45,
+            "row": 308
+          },
+          "location": {
+            "column": 11,
+            "row": 308
+          }
+        }
+      ],
+      "message": "Remove extraneous `f` prefix"
+    },
+    "location": {
+      "column": 11,
+      "row": 308
+    },
+    "message": "f-string without any placeholders",
+    "noqa_row": 308,
+    "url": "https://docs.astral.sh/ruff/rules/f-string-missing-placeholders"
+  },
+  {
+    "cell": null,
+    "code": "F541",
+    "end_location": {
+      "column": 47,
+      "row": 309
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/__main__.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "\"  GET  /health     — health check\"",
+          "end_location": {
+            "column": 47,
+            "row": 309
+          },
+          "location": {
+            "column": 11,
+            "row": 309
+          }
+        }
+      ],
+      "message": "Remove extraneous `f` prefix"
+    },
+    "location": {
+      "column": 11,
+      "row": 309
+    },
+    "message": "f-string without any placeholders",
+    "noqa_row": 309,
+    "url": "https://docs.astral.sh/ruff/rules/f-string-missing-placeholders"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 48,
+      "row": 342
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/__main__.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from nfo import Logger, SQLiteSink",
+          "end_location": {
+            "column": 58,
+            "row": 342
+          },
+          "location": {
+            "column": 5,
+            "row": 342
+          }
+        }
+      ],
+      "message": "Remove unused import"
+    },
+    "location": {
+      "column": 41,
+      "row": 342
+    },
+    "message": "`nfo.CSVSink` imported but unused",
+    "noqa_row": 342,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 58,
+      "row": 342
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/__main__.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from nfo import Logger, SQLiteSink",
+          "end_location": {
+            "column": 58,
+            "row": 342
+          },
+          "location": {
+            "column": 5,
+            "row": 342
+          }
+        }
+      ],
+      "message": "Remove unused import"
+    },
+    "location": {
+      "column": 50,
+      "row": 342
+    },
+    "message": "`nfo.JSONSink` imported but unused",
+    "noqa_row": 342,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "E722",
+    "end_location": {
+      "column": 15,
+      "row": 231
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/analytics.py",
+    "fix": null,
+    "location": {
+      "column": 9,
+      "row": 231
+    },
+    "message": "Do not use bare `except`",
+    "noqa_row": 231,
+    "url": "https://docs.astral.sh/ruff/rules/bare-except"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 43,
+      "row": 27
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/auto.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from typing import Any, Optional",
+          "end_location": {
+            "column": 50,
+            "row": 27
+          },
+          "location": {
+            "column": 1,
+            "row": 27
+          }
+        }
+      ],
+      "message": "Remove unused import"
+    },
+    "location": {
+      "column": 35,
+      "row": 27
+    },
+    "message": "`typing.Sequence` imported but unused",
+    "noqa_row": 27,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 50,
+      "row": 27
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/auto.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from typing import Any, Optional",
+          "end_location": {
+            "column": 50,
+            "row": 27
+          },
+          "location": {
+            "column": 1,
+            "row": 27
+          }
+        }
+      ],
+      "message": "Remove unused import"
+    },
+    "location": {
+      "column": 45,
+      "row": 27
+    },
+    "message": "`typing.Union` imported but unused",
+    "noqa_row": 27,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 12,
+      "row": 13
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/buffered_sink.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 14
+          },
+          "location": {
+            "column": 1,
+            "row": 13
+          }
+        }
+      ],
+      "message": "Remove unused import: `time`"
+    },
+    "location": {
+      "column": 8,
+      "row": 13
+    },
+    "message": "`time` imported but unused",
+    "noqa_row": 13,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 28,
+      "row": 14
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/buffered_sink.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 15
+          },
+          "location": {
+            "column": 1,
+            "row": 14
+          }
+        }
+      ],
+      "message": "Remove unused import: `typing.Optional`"
+    },
+    "location": {
+      "column": 20,
+      "row": 14
+    },
+    "message": "`typing.Optional` imported but unused",
+    "noqa_row": 14,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 17,
+      "row": 26
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/context.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 27
+          },
+          "location": {
+            "column": 1,
+            "row": 26
+          }
+        }
+      ],
+      "message": "Remove unused import: `threading`"
+    },
+    "location": {
+      "column": 8,
+      "row": 26
+    },
+    "message": "`threading` imported but unused",
+    "noqa_row": 26,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 30,
+      "row": 32
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/context.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 33
+          },
+          "location": {
+            "column": 1,
+            "row": 32
+          }
+        }
+      ],
+      "message": "Remove unused import: `nfo.logger.Logger`"
+    },
+    "location": {
+      "column": 24,
+      "row": 32
+    },
+    "message": "`nfo.logger.Logger` imported but unused",
+    "noqa_row": 32,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 66,
+      "row": 33
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/context.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from nfo.decorators import get_default_logger",
+          "end_location": {
+            "column": 66,
+            "row": 33
+          },
+          "location": {
+            "column": 1,
+            "row": 33
+          }
+        }
+      ],
+      "message": "Remove unused import: `nfo.decorators.set_default_logger`"
+    },
+    "location": {
+      "column": 48,
+      "row": 33
+    },
+    "message": "`nfo.decorators.set_default_logger` imported but unused",
+    "noqa_row": 33,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F841",
+    "end_location": {
+      "column": 20,
+      "row": 174
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/context.py",
+    "fix": {
+      "applicability": "unsafe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 23,
+            "row": 174
+          },
+          "location": {
+            "column": 5,
+            "row": 174
+          }
+        }
+      ],
+      "message": "Remove assignment to unused variable `original_logger`"
+    },
+    "location": {
+      "column": 5,
+      "row": 174
+    },
+    "message": "Local variable `original_logger` is assigned to but never used",
+    "noqa_row": 174,
+    "url": "https://docs.astral.sh/ruff/rules/unused-variable"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 6,
+      "row": 15
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/decorators/__init__.py",
+    "fix": null,
+    "location": {
+      "column": 5,
+      "row": 15
+    },
+    "message": "`._core.F` imported but unused; consider removing, adding to `__all__`, or using a redundant alias",
+    "noqa_row": 15,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 52,
+      "row": 9
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/decorators/_catch.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from typing import Any, Callable, Optional, overload",
+          "end_location": {
+            "column": 69,
+            "row": 9
+          },
+          "location": {
+            "column": 1,
+            "row": 9
+          }
+        }
+      ],
+      "message": "Remove unused import"
+    },
+    "location": {
+      "column": 45,
+      "row": 9
+    },
+    "message": "`typing.TypeVar` imported but unused",
+    "noqa_row": 9,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 59,
+      "row": 9
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/decorators/_catch.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from typing import Any, Callable, Optional, overload",
+          "end_location": {
+            "column": 69,
+            "row": 9
+          },
+          "location": {
+            "column": 1,
+            "row": 9
+          }
+        }
+      ],
+      "message": "Remove unused import"
+    },
+    "location": {
+      "column": 54,
+      "row": 9
+    },
+    "message": "`typing.Union` imported but unused",
+    "noqa_row": 9,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 17,
+      "row": 5
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/decorators/_core.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 6
+          },
+          "location": {
+            "column": 1,
+            "row": 5
+          }
+        }
+      ],
+      "message": "Remove unused import: `functools`"
+    },
+    "location": {
+      "column": 8,
+      "row": 5
+    },
+    "message": "`functools` imported but unused",
+    "noqa_row": 5,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 15,
+      "row": 6
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/decorators/_core.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 7
+          },
+          "location": {
+            "column": 1,
+            "row": 6
+          }
+        }
+      ],
+      "message": "Remove unused import: `inspect`"
+    },
+    "location": {
+      "column": 8,
+      "row": 6
+    },
+    "message": "`inspect` imported but unused",
+    "noqa_row": 6,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 12,
+      "row": 8
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/decorators/_core.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 9
+          },
+          "location": {
+            "column": 1,
+            "row": 8
+          }
+        }
+      ],
+      "message": "Remove unused import: `time`"
+    },
+    "location": {
+      "column": 8,
+      "row": 8
+    },
+    "message": "`time` imported but unused",
+    "noqa_row": 8,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 27,
+      "row": 9
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/decorators/_core.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 10
+          },
+          "location": {
+            "column": 1,
+            "row": 9
+          }
+        }
+      ],
+      "message": "Remove unused import: `traceback`"
+    },
+    "location": {
+      "column": 21,
+      "row": 9
+    },
+    "message": "`traceback` imported but unused",
+    "noqa_row": 9,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 39,
+      "row": 10
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/decorators/_core.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from typing import Any, Callable, Optional, Tuple, TypeVar",
+          "end_location": {
+            "column": 65,
+            "row": 10
+          },
+          "location": {
+            "column": 1,
+            "row": 10
+          }
+        }
+      ],
+      "message": "Remove unused import: `typing.Dict`"
+    },
+    "location": {
+      "column": 35,
+      "row": 10
+    },
+    "message": "`typing.Dict` imported but unused",
+    "noqa_row": 10,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 47,
+      "row": 12
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/decorators/_core.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 13
+          },
+          "location": {
+            "column": 1,
+            "row": 12
+          }
+        }
+      ],
+      "message": "Remove unused import"
+    },
+    "location": {
+      "column": 24,
+      "row": 12
+    },
+    "message": "`nfo.models.DEFAULT_MAX_REPR_LENGTH` imported but unused",
+    "noqa_row": 12,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 57,
+      "row": 12
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/decorators/_core.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 13
+          },
+          "location": {
+            "column": 1,
+            "row": 12
+          }
+        }
+      ],
+      "message": "Remove unused import"
+    },
+    "location": {
+      "column": 49,
+      "row": 12
+    },
+    "message": "`nfo.models.LogEntry` imported but unused",
+    "noqa_row": 12,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 52,
+      "row": 9
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/decorators/_log_call.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from typing import Any, Callable, Optional, overload",
+          "end_location": {
+            "column": 69,
+            "row": 9
+          },
+          "location": {
+            "column": 1,
+            "row": 9
+          }
+        }
+      ],
+      "message": "Remove unused import"
+    },
+    "location": {
+      "column": 45,
+      "row": 9
+    },
+    "message": "`typing.TypeVar` imported but unused",
+    "noqa_row": 9,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 59,
+      "row": 9
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/decorators/_log_call.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from typing import Any, Callable, Optional, overload",
+          "end_location": {
+            "column": 69,
+            "row": 9
+          },
+          "location": {
+            "column": 1,
+            "row": 9
+          }
+        }
+      ],
+      "message": "Remove unused import"
+    },
+    "location": {
+      "column": 54,
+      "row": 9
+    },
+    "message": "`typing.Union` imported but unused",
+    "noqa_row": 9,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 23,
+      "row": 16
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/env.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from typing import Callable, Dict, Optional, Sequence",
+          "end_location": {
+            "column": 65,
+            "row": 16
+          },
+          "location": {
+            "column": 1,
+            "row": 16
+          }
+        }
+      ],
+      "message": "Remove unused import"
+    },
+    "location": {
+      "column": 20,
+      "row": 16
+    },
+    "message": "`typing.Any` imported but unused",
+    "noqa_row": 16,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 45,
+      "row": 16
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/env.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from typing import Callable, Dict, Optional, Sequence",
+          "end_location": {
+            "column": 65,
+            "row": 16
+          },
+          "location": {
+            "column": 1,
+            "row": 16
+          }
+        }
+      ],
+      "message": "Remove unused import"
+    },
+    "location": {
+      "column": 41,
+      "row": 16
+    },
+    "message": "`typing.List` imported but unused",
+    "noqa_row": 16,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F821",
+    "end_location": {
+      "column": 37,
+      "row": 211
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/extractors.py",
+    "fix": null,
+    "location": {
+      "column": 32,
+      "row": 211
+    },
+    "message": "Undefined name `Union`",
+    "noqa_row": 211,
+    "url": "https://docs.astral.sh/ruff/rules/undefined-name"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 10,
+      "row": 13
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/json_sink.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 14
+          },
+          "location": {
+            "column": 1,
+            "row": 13
+          }
+        }
+      ],
+      "message": "Remove unused import: `os`"
+    },
+    "location": {
+      "column": 8,
+      "row": 13
+    },
+    "message": "`os` imported but unused",
+    "noqa_row": 13,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 23,
+      "row": 16
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/json_sink.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from typing import Optional",
+          "end_location": {
+            "column": 47,
+            "row": 16
+          },
+          "location": {
+            "column": 1,
+            "row": 16
+          }
+        }
+      ],
+      "message": "Remove unused import"
+    },
+    "location": {
+      "column": 20,
+      "row": 16
+    },
+    "message": "`typing.Any` imported but unused",
+    "noqa_row": 16,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 29,
+      "row": 16
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/json_sink.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from typing import Optional",
+          "end_location": {
+            "column": 47,
+            "row": 16
+          },
+          "location": {
+            "column": 1,
+            "row": 16
+          }
+        }
+      ],
+      "message": "Remove unused import"
+    },
+    "location": {
+      "column": 25,
+      "row": 16
+    },
+    "message": "`typing.Dict` imported but unused",
+    "noqa_row": 16,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 47,
+      "row": 16
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/json_sink.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from typing import Optional",
+          "end_location": {
+            "column": 47,
+            "row": 16
+          },
+          "location": {
+            "column": 1,
+            "row": 16
+          }
+        }
+      ],
+      "message": "Remove unused import"
+    },
+    "location": {
+      "column": 41,
+      "row": 16
+    },
+    "message": "`typing.TextIO` imported but unused",
+    "noqa_row": 16,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 23,
+      "row": 16
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/llm.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from typing import Callable, List, Optional",
+          "end_location": {
+            "column": 55,
+            "row": 16
+          },
+          "location": {
+            "column": 1,
+            "row": 16
+          }
+        }
+      ],
+      "message": "Remove unused import"
+    },
+    "location": {
+      "column": 20,
+      "row": 16
+    },
+    "message": "`typing.Any` imported but unused",
+    "noqa_row": 16,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 39,
+      "row": 16
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/llm.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from typing import Callable, List, Optional",
+          "end_location": {
+            "column": 55,
+            "row": 16
+          },
+          "location": {
+            "column": 1,
+            "row": 16
+          }
+        }
+      ],
+      "message": "Remove unused import"
+    },
+    "location": {
+      "column": 35,
+      "row": 16
+    },
+    "message": "`typing.Dict` imported but unused",
+    "noqa_row": 16,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "E741",
+    "end_location": {
+      "column": 47,
+      "row": 122
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/llm.py",
+    "fix": null,
+    "location": {
+      "column": 46,
+      "row": 122
+    },
+    "message": "Ambiguous variable name: `l`",
+    "noqa_row": 122,
+    "url": "https://docs.astral.sh/ruff/rules/ambiguous-variable-name"
+  },
+  {
+    "cell": null,
+    "code": "F541",
+    "end_location": {
+      "column": 57,
+      "row": 139
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/llm.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "\"Traceback (last 10 lines):\\n\"",
+          "end_location": {
+            "column": 57,
+            "row": 139
+          },
+          "location": {
+            "column": 26,
+            "row": 139
+          }
+        }
+      ],
+      "message": "Remove extraneous `f` prefix"
+    },
+    "location": {
+      "column": 26,
+      "row": 139
+    },
+    "message": "f-string without any placeholders",
+    "noqa_row": 139,
+    "url": "https://docs.astral.sh/ruff/rules/f-string-missing-placeholders"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 17,
+      "row": 25
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/logged.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 26
+          },
+          "location": {
+            "column": 1,
+            "row": 25
+          }
+        }
+      ],
+      "message": "Remove unused import: `functools`"
+    },
+    "location": {
+      "column": 8,
+      "row": 25
+    },
+    "message": "`functools` imported but unused",
+    "noqa_row": 25,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 52,
+      "row": 10
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/logger.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from nfo.redact import redact_kwargs",
+          "end_location": {
+            "column": 52,
+            "row": 10
+          },
+          "location": {
+            "column": 1,
+            "row": 10
+          }
+        }
+      ],
+      "message": "Remove unused import: `nfo.redact.redact_string`"
+    },
+    "location": {
+      "column": 39,
+      "row": 10
+    },
+    "message": "`nfo.redact.redact_string` imported but unused",
+    "noqa_row": 10,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 33,
+      "row": 7
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/meta.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from typing import Any",
+          "end_location": {
+            "column": 33,
+            "row": 7
+          },
+          "location": {
+            "column": 1,
+            "row": 7
+          }
+        }
+      ],
+      "message": "Remove unused import: `typing.Optional`"
+    },
+    "location": {
+      "column": 25,
+      "row": 7
+    },
+    "message": "`typing.Optional` imported but unused",
+    "noqa_row": 7,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 33,
+      "row": 29
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/pipeline_sink.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from typing import Any, Dict, List, Optional, TextIO",
+          "end_location": {
+            "column": 63,
+            "row": 29
+          },
+          "location": {
+            "column": 1,
+            "row": 29
+          }
+        }
+      ],
+      "message": "Remove unused import: `typing.Callable`"
+    },
+    "location": {
+      "column": 25,
+      "row": 29
+    },
+    "message": "`typing.Callable` imported but unused",
+    "noqa_row": 29,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 55,
+      "row": 6
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/redact.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from typing import Any, Dict, FrozenSet, Optional, Tuple",
+          "end_location": {
+            "column": 62,
+            "row": 6
+          },
+          "location": {
+            "column": 1,
+            "row": 6
+          }
+        }
+      ],
+      "message": "Remove unused import: `typing.Set`"
+    },
+    "location": {
+      "column": 52,
+      "row": 6
+    },
+    "message": "`typing.Set` imported but unused",
+    "noqa_row": 6,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 10,
+      "row": 6
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/sinks.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 7
+          },
+          "location": {
+            "column": 1,
+            "row": 6
+          }
+        }
+      ],
+      "message": "Remove unused import: `io`"
+    },
+    "location": {
+      "column": 8,
+      "row": 6
+    },
+    "message": "`io` imported but unused",
+    "noqa_row": 6,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 23,
+      "row": 12
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/sinks.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from typing import Optional",
+          "end_location": {
+            "column": 39,
+            "row": 12
+          },
+          "location": {
+            "column": 1,
+            "row": 12
+          }
+        }
+      ],
+      "message": "Remove unused import"
+    },
+    "location": {
+      "column": 20,
+      "row": 12
+    },
+    "message": "`typing.Any` imported but unused",
+    "noqa_row": 12,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 29,
+      "row": 12
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/sinks.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from typing import Optional",
+          "end_location": {
+            "column": 39,
+            "row": 12
+          },
+          "location": {
+            "column": 1,
+            "row": 12
+          }
+        }
+      ],
+      "message": "Remove unused import"
+    },
+    "location": {
+      "column": 25,
+      "row": 12
+    },
+    "message": "`typing.Dict` imported but unused",
+    "noqa_row": 12,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 35,
+      "row": 14
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/webhook.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from typing import Any, Dict, Optional, Sequence",
+          "end_location": {
+            "column": 55,
+            "row": 14
+          },
+          "location": {
+            "column": 1,
+            "row": 14
+          }
+        }
+      ],
+      "message": "Remove unused import: `typing.List`"
+    },
+    "location": {
+      "column": 31,
+      "row": 14
+    },
+    "message": "`typing.List` imported but unused",
+    "noqa_row": 14,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "E741",
+    "end_location": {
+      "column": 42,
+      "row": 48
+    },
+    "filename": "/home/tom/github/semcod/nfo/nfo/webhook.py",
+    "fix": null,
+    "location": {
+      "column": 41,
+      "row": 48
+    },
+    "message": "Ambiguous variable name: `l`",
+    "noqa_row": 48,
+    "url": "https://docs.astral.sh/ruff/rules/ambiguous-variable-name"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 14,
+      "row": 4
+    },
+    "filename": "/home/tom/github/semcod/nfo/tests/test_auto.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 5
+          },
+          "location": {
+            "column": 1,
+            "row": 4
+          }
+        }
+      ],
+      "message": "Remove unused import: `pytest`"
+    },
+    "location": {
+      "column": 8,
+      "row": 4
+    },
+    "message": "`pytest` imported but unused",
+    "noqa_row": 4,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 45,
+      "row": 6
+    },
+    "filename": "/home/tom/github/semcod/nfo/tests/test_auto.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from nfo.auto import auto_log",
+          "end_location": {
+            "column": 45,
+            "row": 6
+          },
+          "location": {
+            "column": 1,
+            "row": 6
+          }
+        }
+      ],
+      "message": "Remove unused import: `nfo.auto._should_patch`"
+    },
+    "location": {
+      "column": 32,
+      "row": 6
+    },
+    "message": "`nfo.auto._should_patch` imported but unused",
+    "noqa_row": 6,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 14,
+      "row": 3
+    },
+    "filename": "/home/tom/github/semcod/nfo/tests/test_binary_router.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 4
+          },
+          "location": {
+            "column": 1,
+            "row": 3
+          }
+        }
+      ],
+      "message": "Remove unused import: `pytest`"
+    },
+    "location": {
+      "column": 8,
+      "row": 3
+    },
+    "message": "`pytest` imported but unused",
+    "noqa_row": 3,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 14,
+      "row": 6
+    },
+    "filename": "/home/tom/github/semcod/nfo/tests/test_buffered_sink.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 7
+          },
+          "location": {
+            "column": 1,
+            "row": 6
+          }
+        }
+      ],
+      "message": "Remove unused import: `pytest`"
+    },
+    "location": {
+      "column": 8,
+      "row": 6
+    },
+    "message": "`pytest` imported but unused",
+    "noqa_row": 6,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 10,
+      "row": 3
+    },
+    "filename": "/home/tom/github/semcod/nfo/tests/test_click_integration.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 4
+          },
+          "location": {
+            "column": 1,
+            "row": 3
+          }
+        }
+      ],
+      "message": "Remove unused import: `io`"
+    },
+    "location": {
+      "column": 8,
+      "row": 3
+    },
+    "message": "`io` imported but unused",
+    "noqa_row": 3,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "E402",
+    "end_location": {
+      "column": 38,
+      "row": 11
+    },
+    "filename": "/home/tom/github/semcod/nfo/tests/test_click_integration.py",
+    "fix": null,
+    "location": {
+      "column": 1,
+      "row": 11
+    },
+    "message": "Module level import not at top of file",
+    "noqa_row": 11,
+    "url": "https://docs.astral.sh/ruff/rules/module-import-not-at-top-of-file"
+  },
+  {
+    "cell": null,
+    "code": "E402",
+    "end_location": {
+      "column": 30,
+      "row": 12
+    },
+    "filename": "/home/tom/github/semcod/nfo/tests/test_click_integration.py",
+    "fix": null,
+    "location": {
+      "column": 1,
+      "row": 12
+    },
+    "message": "Module level import not at top of file",
+    "noqa_row": 12,
+    "url": "https://docs.astral.sh/ruff/rules/module-import-not-at-top-of-file"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 10,
+      "row": 3
+    },
+    "filename": "/home/tom/github/semcod/nfo/tests/test_configure.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 4
+          },
+          "location": {
+            "column": 1,
+            "row": 3
+          }
+        }
+      ],
+      "message": "Remove unused import: `os`"
+    },
+    "location": {
+      "column": 8,
+      "row": 3
+    },
+    "message": "`os` imported but unused",
+    "noqa_row": 3,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 17,
+      "row": 9
+    },
+    "filename": "/home/tom/github/semcod/nfo/tests/test_configure.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 10
+          },
+          "location": {
+            "column": 1,
+            "row": 9
+          }
+        }
+      ],
+      "message": "Remove unused import: `importlib`"
+    },
+    "location": {
+      "column": 8,
+      "row": 9
+    },
+    "message": "`importlib` imported but unused",
+    "noqa_row": 9,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 14,
+      "row": 3
+    },
+    "filename": "/home/tom/github/semcod/nfo/tests/test_env.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 4
+          },
+          "location": {
+            "column": 1,
+            "row": 3
+          }
+        }
+      ],
+      "message": "Remove unused import: `pytest`"
+    },
+    "location": {
+      "column": 8,
+      "row": 3
+    },
+    "message": "`pytest` imported but unused",
+    "noqa_row": 3,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 24,
+      "row": 9
+    },
+    "filename": "/home/tom/github/semcod/nfo/tests/test_env.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from nfo.env import (\n    EnvTagger,\n    DynamicRouter,\n    DiffTracker,\n    generate_trace_id,\n)",
+          "end_location": {
+            "column": 2,
+            "row": 11
+          },
+          "location": {
+            "column": 1,
+            "row": 5
+          }
+        }
+      ],
+      "message": "Remove unused import: `nfo.env._detect_environment`"
+    },
+    "location": {
+      "column": 5,
+      "row": 9
+    },
+    "message": "`nfo.env._detect_environment` imported but unused",
+    "noqa_row": 9,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 15,
+      "row": 3
+    },
+    "filename": "/home/tom/github/semcod/nfo/tests/test_extractors.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 4
+          },
+          "location": {
+            "column": 1,
+            "row": 3
+          }
+        }
+      ],
+      "message": "Remove unused import: `hashlib`"
+    },
+    "location": {
+      "column": 8,
+      "row": 3
+    },
+    "message": "`hashlib` imported but unused",
+    "noqa_row": 3,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 14,
+      "row": 7
+    },
+    "filename": "/home/tom/github/semcod/nfo/tests/test_extractors.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 8
+          },
+          "location": {
+            "column": 1,
+            "row": 7
+          }
+        }
+      ],
+      "message": "Remove unused import: `pytest`"
+    },
+    "location": {
+      "column": 8,
+      "row": 7
+    },
+    "message": "`pytest` imported but unused",
+    "noqa_row": 7,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 21,
+      "row": 10
+    },
+    "filename": "/home/tom/github/semcod/nfo/tests/test_extractors.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from nfo.extractors import (\n    detect_format,\n    extract_binary_meta,\n    extract_file_meta,\n    extract_image_meta,\n    extract_meta,\n    extract_numpy_meta,\n    extract_wav_meta,\n    register_extractor,\n    unregister_all_extractors,\n)",
+          "end_location": {
+            "column": 2,
+            "row": 20
+          },
+          "location": {
+            "column": 1,
+            "row": 9
+          }
+        }
+      ],
+      "message": "Remove unused import: `nfo.extractors.MAGIC_SIGNATURES`"
+    },
+    "location": {
+      "column": 5,
+      "row": 10
+    },
+    "message": "`nfo.extractors.MAGIC_SIGNATURES` imported but unused",
+    "noqa_row": 10,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 16,
+      "row": 5
+    },
+    "filename": "/home/tom/github/semcod/nfo/tests/test_json_sink.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 6
+          },
+          "location": {
+            "column": 1,
+            "row": 5
+          }
+        }
+      ],
+      "message": "Remove unused import: `tempfile`"
+    },
+    "location": {
+      "column": 8,
+      "row": 5
+    },
+    "message": "`tempfile` imported but unused",
+    "noqa_row": 5,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 14,
+      "row": 3
+    },
+    "filename": "/home/tom/github/semcod/nfo/tests/test_llm.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 4
+          },
+          "location": {
+            "column": 1,
+            "row": 3
+          }
+        }
+      ],
+      "message": "Remove unused import: `pytest`"
+    },
+    "location": {
+      "column": 8,
+      "row": 3
+    },
+    "message": "`pytest` imported but unused",
+    "noqa_row": 3,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 27,
+      "row": 9
+    },
+    "filename": "/home/tom/github/semcod/nfo/tests/test_llm.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from nfo.llm import (\n    LLMSink,\n    detect_prompt_injection,\n    scan_entry_for_injection,\n)",
+          "end_location": {
+            "column": 2,
+            "row": 10
+          },
+          "location": {
+            "column": 1,
+            "row": 5
+          }
+        }
+      ],
+      "message": "Remove unused import: `nfo.llm._DEFAULT_SYSTEM_PROMPT`"
+    },
+    "location": {
+      "column": 5,
+      "row": 9
+    },
+    "message": "`nfo.llm._DEFAULT_SYSTEM_PROMPT` imported but unused",
+    "noqa_row": 9,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 14,
+      "row": 6
+    },
+    "filename": "/home/tom/github/semcod/nfo/tests/test_meta.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 7
+          },
+          "location": {
+            "column": 1,
+            "row": 6
+          }
+        }
+      ],
+      "message": "Remove unused import: `pytest`"
+    },
+    "location": {
+      "column": 8,
+      "row": 6
+    },
+    "message": "`pytest` imported but unused",
+    "noqa_row": 6,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 12,
+      "row": 4
+    },
+    "filename": "/home/tom/github/semcod/nfo/tests/test_pipeline_sink.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 5
+          },
+          "location": {
+            "column": 1,
+            "row": 4
+          }
+        }
+      ],
+      "message": "Remove unused import: `time`"
+    },
+    "location": {
+      "column": 8,
+      "row": 4
+    },
+    "message": "`time` imported but unused",
+    "noqa_row": 4,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "E402",
+    "end_location": {
+      "column": 42,
+      "row": 10
+    },
+    "filename": "/home/tom/github/semcod/nfo/tests/test_prometheus.py",
+    "fix": null,
+    "location": {
+      "column": 1,
+      "row": 10
+    },
+    "message": "Module level import not at top of file",
+    "noqa_row": 10,
+    "url": "https://docs.astral.sh/ruff/rules/module-import-not-at-top-of-file"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 14,
+      "row": 3
+    },
+    "filename": "/home/tom/github/semcod/nfo/tests/test_ring_buffer_sink.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 4
+          },
+          "location": {
+            "column": 1,
+            "row": 3
+          }
+        }
+      ],
+      "message": "Remove unused import: `pytest`"
+    },
+    "location": {
+      "column": 8,
+      "row": 3
+    },
+    "message": "`pytest` imported but unused",
+    "noqa_row": 3,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 10,
+      "row": 4
+    },
+    "filename": "/home/tom/github/semcod/nfo/tests/test_sinks.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 5
+          },
+          "location": {
+            "column": 1,
+            "row": 4
+          }
+        }
+      ],
+      "message": "Remove unused import: `os`"
+    },
+    "location": {
+      "column": 8,
+      "row": 4
+    },
+    "message": "`os` imported but unused",
+    "noqa_row": 4,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 16,
+      "row": 6
+    },
+    "filename": "/home/tom/github/semcod/nfo/tests/test_sinks.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 7
+          },
+          "location": {
+            "column": 1,
+            "row": 6
+          }
+        }
+      ],
+      "message": "Remove unused import: `tempfile`"
+    },
+    "location": {
+      "column": 8,
+      "row": 6
+    },
+    "message": "`tempfile` imported but unused",
+    "noqa_row": 6,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 14,
+      "row": 8
+    },
+    "filename": "/home/tom/github/semcod/nfo/tests/test_sinks.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 9
+          },
+          "location": {
+            "column": 1,
+            "row": 8
+          }
+        }
+      ],
+      "message": "Remove unused import: `pytest`"
+    },
+    "location": {
+      "column": 8,
+      "row": 8
+    },
+    "message": "`pytest` imported but unused",
+    "noqa_row": 8,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "E741",
+    "end_location": {
+      "column": 35,
+      "row": 92
+    },
+    "filename": "/home/tom/github/semcod/nfo/tests/test_sinks.py",
+    "fix": null,
+    "location": {
+      "column": 34,
+      "row": 92
+    },
+    "message": "Ambiguous variable name: `l`",
+    "noqa_row": 92,
+    "url": "https://docs.astral.sh/ruff/rules/ambiguous-variable-name"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 14,
+      "row": 6
+    },
+    "filename": "/home/tom/github/semcod/nfo/tests/test_terminal.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 7
+          },
+          "location": {
+            "column": 1,
+            "row": 6
+          }
+        }
+      ],
+      "message": "Remove unused import: `pytest`"
+    },
+    "location": {
+      "column": 8,
+      "row": 6
+    },
+    "message": "`pytest` imported but unused",
+    "noqa_row": 6,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 12,
+      "row": 3
+    },
+    "filename": "/home/tom/github/semcod/nfo/tests/test_webhook.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 4
+          },
+          "location": {
+            "column": 1,
+            "row": 3
+          }
+        }
+      ],
+      "message": "Remove unused import: `json`"
+    },
+    "location": {
+      "column": 8,
+      "row": 3
+    },
+    "message": "`json` imported but unused",
+    "noqa_row": 3,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 17,
+      "row": 4
+    },
+    "filename": "/home/tom/github/semcod/nfo/tests/test_webhook.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 5
+          },
+          "location": {
+            "column": 1,
+            "row": 4
+          }
+        }
+      ],
+      "message": "Remove unused import: `threading`"
+    },
+    "location": {
+      "column": 8,
+      "row": 4
+    },
+    "message": "`threading` imported but unused",
+    "noqa_row": 4,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 35,
+      "row": 5
+    },
+    "filename": "/home/tom/github/semcod/nfo/tests/test_webhook.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 6
+          },
+          "location": {
+            "column": 1,
+            "row": 5
+          }
+        }
+      ],
+      "message": "Remove unused import"
+    },
+    "location": {
+      "column": 25,
+      "row": 5
+    },
+    "message": "`http.server.HTTPServer` imported but unused",
+    "noqa_row": 5,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 59,
+      "row": 5
+    },
+    "filename": "/home/tom/github/semcod/nfo/tests/test_webhook.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 6
+          },
+          "location": {
+            "column": 1,
+            "row": 5
+          }
+        }
+      ],
+      "message": "Remove unused import"
+    },
+    "location": {
+      "column": 37,
+      "row": 5
+    },
+    "message": "`http.server.BaseHTTPRequestHandler` imported but unused",
+    "noqa_row": 5,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 43,
+      "row": 6
+    },
+    "filename": "/home/tom/github/semcod/nfo/tests/test_webhook.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "from unittest.mock import patch",
+          "end_location": {
+            "column": 43,
+            "row": 6
+          },
+          "location": {
+            "column": 1,
+            "row": 6
+          }
+        }
+      ],
+      "message": "Remove unused import: `unittest.mock.MagicMock`"
+    },
+    "location": {
+      "column": 34,
+      "row": 6
+    },
+    "message": "`unittest.mock.MagicMock` imported but unused",
+    "noqa_row": 6,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "F401",
+    "end_location": {
+      "column": 14,
+      "row": 8
+    },
+    "filename": "/home/tom/github/semcod/nfo/tests/test_webhook.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 9
+          },
+          "location": {
+            "column": 1,
+            "row": 8
+          }
+        }
+      ],
+      "message": "Remove unused import: `pytest`"
+    },
+    "location": {
+      "column": 8,
+      "row": 8
+    },
+    "message": "`pytest` imported but unused",
+    "noqa_row": 8,
+    "url": "https://docs.astral.sh/ruff/rules/unused-import"
+  },
+  {
+    "cell": null,
+    "code": "E702",
+    "end_location": {
+      "column": 25,
+      "row": 43
+    },
+    "filename": "/home/tom/github/semcod/nfo/tests/test_webhook.py",
+    "fix": null,
+    "location": {
+      "column": 24,
+      "row": 43
+    },
+    "message": "Multiple statements on one line (semicolon)",
+    "noqa_row": 43,
+    "url": "https://docs.astral.sh/ruff/rules/multiple-statements-on-one-line-semicolon"
+  },
+  {
+    "cell": null,
+    "code": "E702",
+    "end_location": {
+      "column": 25,
+      "row": 51
+    },
+    "filename": "/home/tom/github/semcod/nfo/tests/test_webhook.py",
+    "fix": null,
+    "location": {
+      "column": 24,
+      "row": 51
+    },
+    "message": "Multiple statements on one line (semicolon)",
+    "noqa_row": 51,
+    "url": "https://docs.astral.sh/ruff/rules/multiple-statements-on-one-line-semicolon"
+  },
+  {
+    "cell": null,
+    "code": "E702",
+    "end_location": {
+      "column": 25,
+      "row": 114
+    },
+    "filename": "/home/tom/github/semcod/nfo/tests/test_webhook.py",
+    "fix": null,
+    "location": {
+      "column": 24,
+      "row": 114
+    },
+    "message": "Multiple statements on one line (semicolon)",
+    "noqa_row": 114,
+    "url": "https://docs.astral.sh/ruff/rules/multiple-statements-on-one-line-semicolon"
+  },
+  {
+    "cell": null,
+    "code": "E702",
+    "end_location": {
+      "column": 21,
+      "row": 121
+    },
+    "filename": "/home/tom/github/semcod/nfo/tests/test_webhook.py",
+    "fix": null,
+    "location": {
+      "column": 20,
+      "row": 121
+    },
+    "message": "Multiple statements on one line (semicolon)",
+    "noqa_row": 121,
+    "url": "https://docs.astral.sh/ruff/rules/multiple-statements-on-one-line-semicolon"
+  }
+]

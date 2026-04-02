@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Basic nfo usage — automatic function logging with decorators."""
 
-from nfo import log_call, catch, Logger
+from nfo import log_call, catch
 
 # --- Simple usage with default logger (prints to stderr) ---
 

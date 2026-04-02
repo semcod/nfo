@@ -8,6 +8,8 @@ from nfo.decorators import set_default_logger
 
 CSV_PATH = Path(__file__).parent / "demo_logs.csv"
 
+MULTIPLIER_SECOND = 14
+
 
 def setup_logger() -> Logger:
     sink = CSVSink(file_path=CSV_PATH)
@@ -31,7 +33,7 @@ if __name__ == "__main__":
     logger = setup_logger()
 
     multiply(6, 7)
-    multiply(3, 14)
+    multiply(3, MULTIPLIER_SECOND)
     process_items(["apple", "banana", "cherry"])
 
     logger.close()

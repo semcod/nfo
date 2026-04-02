@@ -15,6 +15,13 @@ from nfo import configure, auto_log, skip
 
 DB_PATH = Path(__file__).parent / "auto_log_demo.db"
 
+# Constants
+USER_ID_ALICE = 1001
+PRICE_BOOK = 9.99
+PRICE_COURSE = 19.99
+PRICE_SNACK = 4.99
+USER_ID_TEST = 42
+
 # ---------------------------------------------------------------------------
 # Configure nfo with SQLite sink
 # ---------------------------------------------------------------------------
@@ -28,7 +35,7 @@ configure(sinks=[f"sqlite:{DB_PATH}"], name="auto-log-demo", force=True)
 
 def create_user(name: str, email: str) -> dict:
     """Create a new user."""
-    return {"name": name, "email": email, "id": 1001}
+    return {"name": name, "email": email, "id": USER_ID_ALICE}
 
 
 def delete_user(user_id: int) -> bool:
@@ -70,10 +77,10 @@ if __name__ == "__main__":
     user = create_user("Alice", "alice@example.com")
     print(f"create_user -> {user}")
 
-    total = calculate_total([9.99, 19.99, 4.99])
+    total = calculate_total([PRICE_BOOK, PRICE_COURSE, PRICE_SNACK])
     print(f"calculate_total -> {total}")
 
-    ok = delete_user(42)
+    ok = delete_user(USER_ID_TEST)
     print(f"delete_user -> {ok}")
 
     # This is NOT logged (has @skip)

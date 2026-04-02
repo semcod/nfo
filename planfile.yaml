@@ -1850,3 +1850,16 @@ sprints:
     model_hints:
       planning: balanced
       implementation: balanced
+  - id: ticket-a30e6e5f
+    name: Fix duplicate-imports issues
+    description: Resolve 4 duplicate-imports issues in nfo/decorators/_extract.py
+    task_type: prefactor
+    priority: medium
+    estimate: 2d
+    files:
+    - nfo/decorators/_extract.py
+    rule_id: duplicate-imports
+    count: 4
+    model_hints:
+      planning: balanced
+      implementation: balanced

@@ -1,47 +1,24 @@
-# code2llm/evolution | 213 func | 32f | 2026-03-30
+# code2llm/evolution | 286 func | 35f | 2026-04-02
 
-NEXT[8] (ranked by impact):
-  [1] !! SPLIT           nfo/log_flow.py
-      WHY: 504L, 1 classes, max CC=16
-      EFFORT: ~4h  IMPACT: 8064
+NEXT[2] (ranked by impact):
+  [1] !! SPLIT           nfo/__main__.py
+      WHY: 533L, 0 classes, max CC=13
+      EFFORT: ~4h  IMPACT: 6929
 
-  [2] !  SPLIT-FUNC      LogFlowParser.build_flow_graph  CC=15  fan=23
-      WHY: CC=15 exceeds 15
-      EFFORT: ~1h  IMPACT: 345
-
-  [3] !  SPLIT-FUNC      cmd_run  CC=20  fan=16
-      WHY: CC=20 exceeds 15
-      EFFORT: ~1h  IMPACT: 320
-
-  [4] !  SPLIT-FUNC      TerminalSink._write_toon  CC=24  fan=11
-      WHY: CC=24 exceeds 15
-      EFFORT: ~1h  IMPACT: 264
-
-  [5] !  SPLIT-FUNC      cmd_logs  CC=16  fan=16
-      WHY: CC=16 exceeds 15
-      EFFORT: ~1h  IMPACT: 256
-
-  [6] !  SPLIT-FUNC      extract_meta  CC=17  fan=14
-      WHY: CC=17 exceeds 15
-      EFFORT: ~1h  IMPACT: 238
-
-  [7] !  SPLIT-FUNC      LogFlowParser.compress_for_llm  CC=16  fan=13
-      WHY: CC=16 exceeds 15
-      EFFORT: ~1h  IMPACT: 208
-
-  [8] !  SPLIT-FUNC      _maybe_extract  CC=15  fan=11
-      WHY: CC=15 exceeds 15
-      EFFORT: ~1h  IMPACT: 165
+  [2] !! SPLIT           nfo/log_flow.py
+      WHY: 579L, 1 classes, max CC=8
+      EFFORT: ~4h  IMPACT: 4632
 
 
-RISKS[1]:
-  ⚠ Splitting nfo/log_flow.py may break 20 import paths
+RISKS[2]:
+  ⚠ Splitting nfo/log_flow.py may break 33 import paths
+  ⚠ Splitting nfo/__main__.py may break 14 import paths
 
 METRICS-TARGET:
-  CC̄:          4.3 → ≤3.0
-  max-CC:      24 → ≤12
-  god-modules: 1 → 0
-  high-CC(≥15): 7 → ≤3
+  CC̄:          3.7 → ≤2.6
+  max-CC:      13 → ≤6
+  god-modules: 2 → 0
+  high-CC(≥15): 0 → ≤0
   hub-types:   0 → ≤0
 
 PATTERNS (language parser shared logic):
@@ -69,4 +46,4 @@ PATTERNS (language parser shared logic):
     - Standardized FunctionInfo/ClassInfo models
 
 HISTORY:
-  (first run — no previous data)
+  prev CC̄=3.9 → now CC̄=3.7

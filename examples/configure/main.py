@@ -19,6 +19,11 @@ OUT = Path(__file__).parent
 DB_PATH = OUT / "configure_demo.db"
 CSV_PATH = OUT / "configure_demo.csv"
 
+# Constants
+ORDER_AMOUNT = 99.99
+CHARGE_AMOUNT = 50.0
+CSV_PREVIEW_LENGTH = 500
+
 # ---------------------------------------------------------------------------
 # One-liner setup — replaces manual Logger + Sink + set_default_logger
 # ---------------------------------------------------------------------------
@@ -59,7 +64,7 @@ class PaymentService:
 if __name__ == "__main__":
     print("=== configure() one-liner setup ===\n")
 
-    process_order("ORD-001", 99.99)
+    process_order("ORD-001", ORDER_AMOUNT)
     print("process_order -> logged")
 
     parse_config('{"debug": true}')
@@ -69,7 +74,7 @@ if __name__ == "__main__":
     print("parse_config (error) -> logged, returned None\n")
 
     svc = PaymentService()
-    svc.charge(50.0)
+    svc.charge(CHARGE_AMOUNT)
     svc.refund("TX-123")
     print("PaymentService methods -> logged\n")
 
@@ -85,7 +90,7 @@ if __name__ == "__main__":
     conn.close()
 
     print(f"\n--- CSV content ---")
-    print(CSV_PATH.read_text()[:500])
+    print(CSV_PATH.read_text()[:CSV_PREVIEW_LENGTH])
 
     # Cleanup
     DB_PATH.unlink(missing_ok=True)

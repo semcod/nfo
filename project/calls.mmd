@@ -1,14 +1,13 @@
 flowchart LR
     subgraph demo__app
-        demo__app__demo_success["demo_success"]
-        demo__app__compute_fibonacci["compute_fibonacci"]
-        demo__app__risky_division["risky_division"]
         demo__app__process_order["process_order"]
-        demo__app__demo_slow["demo_slow"]
-        demo__app__UserService__create_user["create_user"]
+        demo__app__compute_fibonacci["compute_fibonacci"]
+        demo__app__demo_success["demo_success"]
+        demo__app__risky_division["risky_division"]
         demo__app__demo_error["demo_error"]
-        demo__app__slow_operation["slow_operation"]
         demo__app__demo_batch["demo_batch"]
+        demo__app__demo_slow["demo_slow"]
+        demo__app__slow_operation["slow_operation"]
     end
     subgraph demo__load_generator
         demo__load_generator__weighted_choice["weighted_choice"]
@@ -16,9 +15,12 @@ flowchart LR
     end
     subgraph examples__async_usage
         examples__async_usage__main__setup_logger["setup_logger"]
-        examples__async_usage__main__risky_fetch["risky_fetch"]
         examples__async_usage__main__main["main"]
+        examples__async_usage__main__risky_fetch["risky_fetch"]
         examples__async_usage__main__process_batch["process_batch"]
+    end
+    subgraph examples__auto_log
+        examples__auto_log__main__create_user["create_user"]
     end
     subgraph examples__bash_wrapper
         examples__bash_wrapper__main__run_bash["run_bash"]
@@ -29,130 +31,163 @@ flowchart LR
         examples__basic_usage__main__greet["greet"]
     end
     subgraph examples__click_integration
-        examples__click_integration__demo_basic__process["process"]
         examples__click_integration__demo_formats__make_entry["make_entry"]
         examples__click_integration__demo_configure__deploy["deploy"]
         examples__click_integration__demo_configure__migrate["migrate"]
+        examples__click_integration__demo_basic__process["process"]
         examples__click_integration__demo_formats__demo["demo"]
     end
     subgraph examples__configure
         examples__configure__main__parse_config["parse_config"]
     end
     subgraph examples__csv_sink
-        examples__csv_sink__main__process_items["process_items"]
         examples__csv_sink__main__setup_logger["setup_logger"]
+        examples__csv_sink__main__process_items["process_items"]
     end
     subgraph examples__env_config
         examples__env_config__main__parse_payload["parse_payload"]
     end
     subgraph examples__env_tagger
-        examples__env_tagger__main__demo_dynamic_router["demo_dynamic_router"]
         examples__env_tagger__main__demo_env_tagger["demo_env_tagger"]
+        examples__env_tagger__main__demo_dynamic_router["demo_dynamic_router"]
         examples__env_tagger__main__demo_diff_tracker["demo_diff_tracker"]
     end
     subgraph examples__go_client
-        examples__go_client__main__Log["Log"]
-        examples__go_client__main__main["main"]
-        examples__go_client__main__LogCall["LogCall"]
         examples__go_client__main__getEnv["getEnv"]
+        examples__go_client__main__main["main"]
         examples__go_client__main__NewNfoClient["NewNfoClient"]
+        examples__go_client__main__LogCall["LogCall"]
+        examples__go_client__main__Log["Log"]
     end
     subgraph examples__grpc_service
-        examples__grpc_service__server___store_request["_store_request"]
-        examples__grpc_service__nfo_pb2_grpc__add_NfoLoggerServicer_to_server["add_NfoLoggerServicer_to_serve"]
         examples__grpc_service__server__NfoLoggerServicer__StreamLog["StreamLog"]
-        examples__grpc_service__server__serve["serve"]
-        examples__grpc_service__server__NfoLoggerServicer__LogCall["LogCall"]
+        examples__grpc_service__server___store_request["_store_request"]
         examples__grpc_service__server__NfoLoggerServicer__BatchLog["BatchLog"]
+        examples__grpc_service__server__NfoLoggerServicer__LogCall["LogCall"]
+        examples__grpc_service__nfo_pb2_grpc__add_NfoLoggerServicer_to_server["add_NfoLoggerServicer_to_serve"]
+        examples__grpc_service__server__serve["serve"]
     end
     subgraph examples__http_service
-        examples__http_service__main___store_entry["_store_entry"]
-        examples__http_service__main__log_call["log_call"]
         examples__http_service__main__log_batch["log_batch"]
+        examples__http_service__main__log_call["log_call"]
+        examples__http_service__main___store_entry["_store_entry"]
     end
     subgraph examples__markdown_sink
         examples__markdown_sink__main__compute["compute"]
         examples__markdown_sink__main__setup_logger["setup_logger"]
     end
     subgraph examples__multi_sink
-        examples__multi_sink__main__parse_int["parse_int"]
-        examples__multi_sink__main__batch_process["batch_process"]
         examples__multi_sink__main__setup_logger["setup_logger"]
+        examples__multi_sink__main__batch_process["batch_process"]
+        examples__multi_sink__main__parse_int["parse_int"]
     end
     subgraph examples__sqlite_sink
-        examples__sqlite_sink__main__setup_logger["setup_logger"]
         examples__sqlite_sink__main__parse_config["parse_config"]
+        examples__sqlite_sink__main__setup_logger["setup_logger"]
     end
     subgraph nfo
-        nfo__debug["debug"]
-        nfo__info["info"]
-        nfo__warning["warning"]
         nfo__event["event"]
+        nfo__warning["warning"]
         nfo___direct_emit["_direct_emit"]
         nfo__error["error"]
+        nfo__debug["debug"]
+        nfo__info["info"]
     end
     subgraph nfo____main__
         nfo____main____cmd_run["cmd_run"]
-        nfo____main____cmd_serve["cmd_serve"]
-        nfo____main_____setup_logger["_setup_logger"]
         nfo____main_____run_inline_server["_run_inline_server"]
+        nfo____main_____detect_language["_detect_language"]
+        nfo____main____cmd_serve["cmd_serve"]
+        nfo____main_____parse_duration["_parse_duration"]
+        nfo____main_____emit_command_result["_emit_command_result"]
+        nfo____main_____emit_command_not_found["_emit_command_not_found"]
+        nfo____main____cmd_logs["cmd_logs"]
+        nfo____main_____build_log_entry["_build_log_entry"]
+        nfo____main_____build_logs_query["_build_logs_query"]
+        nfo____main_____setup_logger["_setup_logger"]
     end
     subgraph nfo__auto
-        nfo__auto__auto_log_by_name["auto_log_by_name"]
         nfo__auto__auto_log["auto_log"]
+        nfo__auto__auto_log_by_name["auto_log_by_name"]
     end
     subgraph nfo__click
         nfo__click__NfoGroup__invoke["invoke"]
         nfo__click__NfoGroup___resolve_logger["_resolve_logger"]
     end
     subgraph nfo__configure
+        nfo__configure___wrap_sinks_with_env["_wrap_sinks_with_env"]
+        nfo__configure___resolve_sinks["_resolve_sinks"]
+        nfo__configure___read_env_config["_read_env_config"]
         nfo__configure__get_global_meta_policy["get_global_meta_policy"]
+        nfo__configure__get_config["get_config"]
         nfo__configure___setup_stdlib_bridge["_setup_stdlib_bridge"]
         nfo__configure__get_global_auto_extract_meta["get_global_auto_extract_meta"]
         nfo__configure__configure["configure"]
-        nfo__configure___parse_sink_spec["_parse_sink_spec"]
         nfo__configure___wrap_sinks_with_llm["_wrap_sinks_with_llm"]
-        nfo__configure___wrap_sinks_with_env["_wrap_sinks_with_env"]
+        nfo__configure___parse_sink_spec["_parse_sink_spec"]
         nfo__configure___StdlibBridge__emit["emit"]
-        nfo__configure___resolve_sinks["_resolve_sinks"]
-        nfo__configure___read_env_config["_read_env_config"]
+    end
+    subgraph nfo__context
+        nfo__context__temp_config["temp_config"]
+        nfo__context__temp_sink["temp_sink"]
+        nfo__context__log_context["log_context"]
+        nfo__context__with_context["with_context"]
+        nfo__context__span["span"]
     end
     subgraph nfo__decorators
-        nfo__decorators___decision___build_decision_extra["_build_decision_extra"]
-        nfo__decorators___core__set_default_logger["set_default_logger"]
+        nfo__decorators___extract___extract_kwargs_meta["_extract_kwargs_meta"]
+        nfo__decorators___decision__decision_log["decision_log"]
+        nfo__decorators___extract___maybe_extract["_maybe_extract"]
+        nfo__decorators___catch__catch["catch"]
+        nfo__decorators___extract___should_extract["_should_extract"]
         nfo__decorators___core___arg_types["_arg_types"]
         nfo__decorators___core___get_default_logger["_get_default_logger"]
-        nfo__decorators___catch__catch["catch"]
-        nfo__decorators___extract___maybe_extract["_maybe_extract"]
-        nfo__decorators___decision__decision_log["decision_log"]
+        nfo__decorators___extract___extract_return_meta["_extract_return_meta"]
+        nfo__decorators___extract___extract_args_meta["_extract_args_meta"]
+        nfo__decorators___core__set_default_logger["set_default_logger"]
+        nfo__decorators___extract___get_effective_policy["_get_effective_policy"]
         nfo__decorators___log_call__log_call["log_call"]
+        nfo__decorators___decision___build_decision_extra["_build_decision_extra"]
     end
     subgraph nfo__env
-        nfo__env__generate_trace_id["generate_trace_id"]
         nfo__env___detect_environment["_detect_environment"]
         nfo__env___detect_trace_id["_detect_trace_id"]
-        nfo__env__EnvTagger____init__["__init__"]
         nfo__env___detect_version["_detect_version"]
+        nfo__env__DynamicRouter__close["close"]
+        nfo__env__EnvTagger____init__["__init__"]
+        nfo__env__generate_trace_id["generate_trace_id"]
     end
     subgraph nfo__extractors
-        nfo__extractors__extract_file_meta["extract_file_meta"]
         nfo__extractors__extract_image_meta["extract_image_meta"]
-        nfo__extractors__extract_meta["extract_meta"]
+        nfo__extractors___is_pandas_dataframe["_is_pandas_dataframe"]
+        nfo__extractors___is_file_like["_is_file_like"]
         nfo__extractors__extract_binary_meta["extract_binary_meta"]
+        nfo__extractors__extract_meta["extract_meta"]
+        nfo__extractors___try_custom_extractors["_try_custom_extractors"]
+        nfo__extractors__extract_wav_meta["extract_wav_meta"]
         nfo__extractors__detect_format["detect_format"]
+        nfo__extractors__extract_numpy_meta["extract_numpy_meta"]
+        nfo__extractors__extract_file_meta["extract_file_meta"]
+        nfo__extractors___extract_bytes_meta["_extract_bytes_meta"]
+        nfo__extractors___is_numpy_array["_is_numpy_array"]
     end
     subgraph nfo__fastapi_middleware
+        nfo__fastapi_middleware__FastAPIMiddleware____init__["__init__"]
         nfo__fastapi_middleware__FastAPIMiddleware___emit["_emit"]
     end
     subgraph nfo__llm
-        nfo__llm__detect_prompt_injection["detect_prompt_injection"]
         nfo__llm__LLMSink___process["_process"]
         nfo__llm__scan_entry_for_injection["scan_entry_for_injection"]
+        nfo__llm__detect_prompt_injection["detect_prompt_injection"]
     end
     subgraph nfo__log_flow
-        nfo__log_flow__LogFlowParser__normalize_entry["normalize_entry"]
-        nfo__log_flow___extract_trace_id["_extract_trace_id"]
         nfo__log_flow___safe_float["_safe_float"]
+        nfo__log_flow___first_present["_first_present"]
+        nfo__log_flow__LogFlowParser___build_computed_fields["_build_computed_fields"]
+        nfo__log_flow__LogFlowParser___extract_event_fields["_extract_event_fields"]
+        nfo__log_flow___extract_trace_id["_extract_trace_id"]
+        nfo__log_flow__LogFlowParser___process_trace_events["_process_trace_events"]
+        nfo__log_flow___timestamp_sort_key["_timestamp_sort_key"]
     end
     subgraph nfo__logged
         nfo__logged___should_wrap["_should_wrap"]
@@ -165,103 +200,44 @@ flowchart LR
         nfo__meta__sizeof["sizeof"]
     end
     subgraph nfo__meta_decorators
-        nfo__meta_decorators___extract_args_meta["_extract_args_meta"]
-        nfo__meta_decorators___extract_kwargs_meta["_extract_kwargs_meta"]
         nfo__meta_decorators___emit["_emit"]
         nfo__meta_decorators___extract_return_meta["_extract_return_meta"]
+        nfo__meta_decorators___extract_args_meta["_extract_args_meta"]
+        nfo__meta_decorators___extract_kwargs_meta["_extract_kwargs_meta"]
+    end
+    subgraph nfo__metrics
+        nfo__metrics__Gauge__set["set"]
     end
     subgraph nfo__models
         nfo__models__LogEntry__kwargs_repr["kwargs_repr"]
-        nfo__models__LogEntry__args_repr["args_repr"]
-        nfo__models___truncate_text["_truncate_text"]
         nfo__models__safe_repr["safe_repr"]
-        nfo__models__LogEntry__as_dict["as_dict"]
-        nfo__models__LogEntry__return_value_repr["return_value_repr"]
+        nfo__models__LogEntry__args_repr["args_repr"]
         nfo__models__LogEntry__now["now"]
+        nfo__models__LogEntry__return_value_repr["return_value_repr"]
+        nfo__models__LogEntry__as_dict["as_dict"]
+        nfo__models___truncate_text["_truncate_text"]
     end
     subgraph nfo__redact
-        nfo__redact__redact_value["redact_value"]
         nfo__redact__is_sensitive_key["is_sensitive_key"]
         nfo__redact__redact_args["redact_args"]
+        nfo__redact__redact_value["redact_value"]
         nfo__redact__redact_kwargs["redact_kwargs"]
     end
+    subgraph nfo__webhook
+        nfo__webhook__WebhookSink____init__["__init__"]
+    end
     demo__load_generator__main --> demo__load_generator__weighted_choice
-    nfo__llm__scan_entry_for_injection --> nfo__llm__detect_prompt_injection
-    nfo__llm__LLMSink___process --> nfo__llm__scan_entry_for_injection
-    nfo__extractors__extract_image_meta --> nfo__extractors__detect_format
-    nfo__extractors__extract_binary_meta --> nfo__extractors__detect_format
-    nfo__extractors__extract_meta --> nfo__extractors__detect_format
-    nfo__extractors__extract_meta --> nfo__extractors__extract_binary_meta
-    nfo__extractors__extract_meta --> nfo__extractors__extract_file_meta
-    nfo__redact__redact_kwargs --> nfo__redact__is_sensitive_key
-    nfo__redact__redact_kwargs --> nfo__redact__redact_value
-    nfo__redact__redact_args --> nfo__redact__is_sensitive_key
-    nfo__redact__redact_args --> nfo__redact__redact_value
-    nfo___direct_emit --> nfo__models__LogEntry__now
-    nfo__debug --> nfo___direct_emit
-    nfo__info --> nfo___direct_emit
-    nfo__warning --> nfo___direct_emit
-    nfo__error --> nfo___direct_emit
-    nfo__event --> nfo___direct_emit
-    demo__app__process_order --> nfo__decorators___log_call__log_call
-    demo__app__risky_division --> nfo__decorators___catch__catch
-    demo__app__demo_success --> demo__app__compute_fibonacci
-    demo__app__demo_success --> demo__app__process_order
-    demo__app__demo_success --> demo__app__risky_division
-    demo__app__demo_error --> demo__app__risky_division
-    demo__app__demo_slow --> demo__app__slow_operation
-    demo__app__demo_batch --> demo__app__compute_fibonacci
-    demo__app__demo_batch --> demo__app__process_order
-    demo__app__demo_batch --> demo__app__risky_division
-    nfo__fastapi_middleware__FastAPIMiddleware___emit --> nfo__models__LogEntry__now
-    nfo__auto__auto_log --> nfo__decorators___log_call__log_call
-    nfo__auto__auto_log_by_name --> nfo__auto__auto_log
-    nfo__log_flow__LogFlowParser__normalize_entry --> nfo__log_flow___extract_trace_id
-    nfo__log_flow__LogFlowParser__normalize_entry --> nfo__log_flow___safe_float
-    nfo__models__safe_repr --> nfo__models___truncate_text
-    nfo__models__LogEntry__args_repr --> nfo__models__safe_repr
-    nfo__models__LogEntry__kwargs_repr --> nfo__models__safe_repr
-    nfo__models__LogEntry__return_value_repr --> nfo__models__safe_repr
-    nfo__models__LogEntry__as_dict --> nfo__models__safe_repr
-    nfo__env__EnvTagger____init__ --> nfo__env___detect_environment
-    nfo__env__EnvTagger____init__ --> nfo__env___detect_trace_id
-    nfo__env__EnvTagger____init__ --> nfo__env__generate_trace_id
-    nfo__env__EnvTagger____init__ --> nfo__env___detect_version
-    nfo__logged__logged --> nfo__logged___should_wrap
-    nfo__logged__logged --> nfo__decorators___log_call__log_call
-    nfo__meta_decorators___extract_args_meta --> nfo__extractors__extract_meta
-    nfo__meta_decorators___extract_args_meta --> nfo__meta__sizeof
-    nfo__meta_decorators___extract_kwargs_meta --> nfo__extractors__extract_meta
-    nfo__meta_decorators___extract_kwargs_meta --> nfo__meta__sizeof
-    nfo__meta_decorators___extract_return_meta --> nfo__extractors__extract_meta
-    nfo__meta_decorators___extract_return_meta --> nfo__meta__sizeof
-    nfo__meta_decorators___emit --> nfo__decorators___core___get_default_logger
-    nfo__configure___StdlibBridge__emit --> nfo__models__LogEntry__now
-    nfo__configure___resolve_sinks --> nfo__configure___parse_sink_spec
-    nfo__configure__configure --> nfo__configure___read_env_config
-    nfo__configure__configure --> nfo__configure___resolve_sinks
-    nfo__configure__configure --> nfo__configure___wrap_sinks_with_llm
-    nfo__configure__configure --> nfo__configure___wrap_sinks_with_env
-    nfo__configure__configure --> nfo__decorators___core__set_default_logger
-    nfo__configure__configure --> nfo__configure___setup_stdlib_bridge
-    nfo__decorators___decision__decision_log --> nfo__decorators___core___get_default_logger
-    nfo__decorators___decision__decision_log --> nfo__decorators___decision___build_decision_extra
-    nfo__decorators___extract___maybe_extract --> nfo__configure__get_global_auto_extract_meta
-    nfo__decorators___extract___maybe_extract --> nfo__configure__get_global_meta_policy
-    nfo__decorators___log_call__log_call --> nfo__decorators___core___get_default_logger
-    nfo__decorators___log_call__log_call --> nfo__decorators___core___arg_types
-    nfo__decorators___log_call__log_call --> nfo__decorators___extract___maybe_extract
-    nfo__decorators___catch__catch --> nfo__decorators___core___get_default_logger
-    nfo__decorators___catch__catch --> nfo__decorators___core___arg_types
-    nfo__decorators___catch__catch --> nfo__decorators___extract___maybe_extract
-    nfo__click__NfoGroup__invoke --> nfo__models__LogEntry__now
-    nfo__click__NfoGroup___resolve_logger --> nfo__configure___parse_sink_spec
     examples__bash_wrapper__main__setup_logger --> nfo__decorators___core__set_default_logger
     examples__bash_wrapper__main__main --> examples__bash_wrapper__main__setup_logger
     examples__bash_wrapper__main__main --> examples__bash_wrapper__main__run_bash
     examples__sqlite_sink__main__setup_logger --> nfo__decorators___core__set_default_logger
     examples__sqlite_sink__main__parse_config --> nfo__decorators___catch__catch
-    examples__configure__main__parse_config --> nfo__decorators___catch__catch
+    examples__go_client__main__LogCall --> examples__go_client__main__getEnv
+    examples__go_client__main__LogCall --> examples__go_client__main__Log
+    examples__go_client__main__main --> examples__go_client__main__getEnv
+    examples__go_client__main__main --> examples__go_client__main__NewNfoClient
+    examples__go_client__main__main --> examples__go_client__main__Log
+    examples__go_client__main__main --> examples__go_client__main__LogCall
     examples__basic_usage__main__greet --> nfo__decorators___log_call__log_call
     examples__markdown_sink__main__setup_logger --> nfo__decorators___core__set_default_logger
     examples__csv_sink__main__setup_logger --> nfo__decorators___core__set_default_logger
@@ -274,13 +250,23 @@ flowchart LR
     examples__multi_sink__main__batch_process --> nfo__decorators___log_call__log_call
     examples__multi_sink__main__parse_int --> nfo__decorators___catch__catch
     examples__env_tagger__main__demo_env_tagger --> nfo__decorators___core__set_default_logger
-    examples__env_tagger__main__demo_env_tagger --> demo__app__UserService__create_user
+    examples__env_tagger__main__demo_env_tagger --> examples__auto_log__main__create_user
     examples__env_tagger__main__demo_dynamic_router --> nfo__decorators___core__set_default_logger
     examples__env_tagger__main__demo_dynamic_router --> nfo__decorators___catch__catch
     examples__env_tagger__main__demo_dynamic_router --> examples__click_integration__demo_basic__process
     examples__env_tagger__main__demo_diff_tracker --> nfo__decorators___core__set_default_logger
     examples__env_tagger__main__demo_diff_tracker --> examples__markdown_sink__main__compute
-    examples__env_config__main__parse_payload --> nfo__decorators___catch__catch
+    demo__app__process_order --> nfo__decorators___log_call__log_call
+    demo__app__risky_division --> nfo__decorators___catch__catch
+    demo__app__demo_success --> demo__app__compute_fibonacci
+    demo__app__demo_success --> demo__app__process_order
+    demo__app__demo_success --> demo__app__risky_division
+    demo__app__demo_error --> demo__app__risky_division
+    demo__app__demo_slow --> demo__app__slow_operation
+    demo__app__demo_batch --> demo__app__compute_fibonacci
+    demo__app__demo_batch --> demo__app__process_order
+    demo__app__demo_batch --> demo__app__risky_division
+    examples__configure__main__parse_config --> nfo__decorators___catch__catch
     examples__click_integration__demo_configure__deploy --> nfo__decorators___log_call__log_call
     examples__click_integration__demo_configure__migrate --> nfo__decorators___log_call__log_call
     examples__click_integration__demo_formats__demo --> examples__click_integration__demo_formats__make_entry
@@ -288,16 +274,110 @@ flowchart LR
     examples__async_usage__main__process_batch --> nfo__decorators___log_call__log_call
     examples__async_usage__main__risky_fetch --> nfo__decorators___catch__catch
     examples__async_usage__main__main --> examples__async_usage__main__setup_logger
-    examples__go_client__main__LogCall --> examples__go_client__main__getEnv
-    examples__go_client__main__LogCall --> examples__go_client__main__Log
-    examples__go_client__main__main --> examples__go_client__main__getEnv
-    examples__go_client__main__main --> examples__go_client__main__NewNfoClient
-    examples__go_client__main__main --> examples__go_client__main__Log
-    examples__go_client__main__main --> examples__go_client__main__LogCall
+    nfo__llm__scan_entry_for_injection --> nfo__llm__detect_prompt_injection
+    nfo__llm__LLMSink___process --> nfo__llm__scan_entry_for_injection
+    nfo__auto__auto_log --> nfo__decorators___log_call__log_call
+    nfo__auto__auto_log_by_name --> nfo__auto__auto_log
+    examples__env_config__main__parse_payload --> nfo__decorators___catch__catch
+    nfo__extractors__extract_image_meta --> nfo__extractors__detect_format
+    nfo__extractors__extract_binary_meta --> nfo__extractors__detect_format
+    nfo__extractors___extract_bytes_meta --> nfo__extractors__detect_format
+    nfo__extractors___extract_bytes_meta --> nfo__extractors__extract_binary_meta
+    nfo__extractors___extract_bytes_meta --> nfo__extractors__extract_image_meta
+    nfo__extractors___extract_bytes_meta --> nfo__extractors__extract_wav_meta
+    nfo__extractors__extract_meta --> nfo__extractors___try_custom_extractors
+    nfo__extractors__extract_meta --> nfo__extractors___is_file_like
+    nfo__extractors__extract_meta --> nfo__extractors___is_numpy_array
+    nfo__extractors__extract_meta --> nfo__extractors___is_pandas_dataframe
+    nfo__extractors__extract_meta --> nfo__extractors___extract_bytes_meta
+    nfo__extractors__extract_meta --> nfo__extractors__extract_binary_meta
+    nfo__extractors__extract_meta --> nfo__extractors__extract_file_meta
+    nfo__extractors__extract_meta --> nfo__extractors__extract_numpy_meta
+    nfo__webhook__WebhookSink____init__ --> nfo__metrics__Gauge__set
+    nfo__redact__redact_kwargs --> nfo__redact__is_sensitive_key
+    nfo__redact__redact_kwargs --> nfo__redact__redact_value
+    nfo__redact__redact_args --> nfo__redact__is_sensitive_key
+    nfo__redact__redact_args --> nfo__redact__redact_value
+    nfo___direct_emit --> nfo__models__LogEntry__now
+    nfo__debug --> nfo___direct_emit
+    nfo__info --> nfo___direct_emit
+    nfo__warning --> nfo___direct_emit
+    nfo__error --> nfo___direct_emit
+    nfo__event --> nfo___direct_emit
+    nfo__context__temp_sink --> nfo__configure___parse_sink_spec
+    nfo__context__temp_config --> nfo__configure__configure
+    nfo__context__temp_config --> nfo__configure__get_config
+    nfo__context__span --> nfo__context__log_context
+    nfo__context__with_context --> nfo__context__log_context
+    nfo__fastapi_middleware__FastAPIMiddleware____init__ --> nfo__metrics__Gauge__set
+    nfo__fastapi_middleware__FastAPIMiddleware___emit --> nfo__models__LogEntry__now
+    nfo__log_flow__LogFlowParser___extract_event_fields --> nfo__log_flow___extract_trace_id
+    nfo__log_flow__LogFlowParser___extract_event_fields --> nfo__log_flow___first_present
+    nfo__log_flow__LogFlowParser___build_computed_fields --> nfo__log_flow___safe_float
+    nfo__log_flow__LogFlowParser___build_computed_fields --> nfo__log_flow___timestamp_sort_key
+    nfo__log_flow__LogFlowParser___build_computed_fields --> nfo__log_flow___first_present
+    nfo__log_flow__LogFlowParser___process_trace_events --> nfo__metrics__Gauge__set
+    nfo__models__safe_repr --> nfo__models___truncate_text
+    nfo__models__LogEntry__args_repr --> nfo__models__safe_repr
+    nfo__models__LogEntry__kwargs_repr --> nfo__models__safe_repr
+    nfo__models__LogEntry__return_value_repr --> nfo__models__safe_repr
+    nfo__models__LogEntry__as_dict --> nfo__models__safe_repr
+    nfo__env__EnvTagger____init__ --> nfo__env___detect_environment
+    nfo__env__EnvTagger____init__ --> nfo__env___detect_trace_id
+    nfo__env__EnvTagger____init__ --> nfo__env__generate_trace_id
+    nfo__env__EnvTagger____init__ --> nfo__env___detect_version
+    nfo__env__DynamicRouter__close --> nfo__metrics__Gauge__set
+    nfo__meta_decorators___extract_args_meta --> nfo__extractors__extract_meta
+    nfo__meta_decorators___extract_args_meta --> nfo__meta__sizeof
+    nfo__meta_decorators___extract_kwargs_meta --> nfo__extractors__extract_meta
+    nfo__meta_decorators___extract_kwargs_meta --> nfo__meta__sizeof
+    nfo__meta_decorators___extract_return_meta --> nfo__extractors__extract_meta
+    nfo__meta_decorators___extract_return_meta --> nfo__meta__sizeof
+    nfo__meta_decorators___emit --> nfo__decorators___core___get_default_logger
+    nfo__logged__logged --> nfo__logged___should_wrap
+    nfo__logged__logged --> nfo__decorators___log_call__log_call
+    nfo__configure___StdlibBridge__emit --> nfo__models__LogEntry__now
+    nfo__configure___resolve_sinks --> nfo__configure___parse_sink_spec
+    nfo__configure___setup_stdlib_bridge --> nfo__metrics__Gauge__set
+    nfo__configure__configure --> nfo__configure___read_env_config
+    nfo__configure__configure --> nfo__configure___resolve_sinks
+    nfo__configure__configure --> nfo__configure___wrap_sinks_with_llm
+    nfo__configure__configure --> nfo__configure___wrap_sinks_with_env
+    nfo__configure__configure --> nfo__decorators___core__set_default_logger
+    nfo__configure__configure --> nfo__configure___setup_stdlib_bridge
     nfo__logger__Logger___redact_entry --> nfo__redact__redact_kwargs
+    nfo__decorators___decision__decision_log --> nfo__decorators___core___get_default_logger
+    nfo__decorators___decision__decision_log --> nfo__decorators___decision___build_decision_extra
+    nfo__decorators___extract___should_extract --> nfo__configure__get_global_auto_extract_meta
+    nfo__decorators___extract___get_effective_policy --> nfo__configure__get_global_meta_policy
+    nfo__decorators___extract___extract_args_meta --> nfo__meta__sizeof
+    nfo__decorators___extract___extract_kwargs_meta --> nfo__meta__sizeof
+    nfo__decorators___extract___extract_return_meta --> nfo__meta__sizeof
+    nfo__decorators___extract___maybe_extract --> nfo__decorators___extract___get_effective_policy
+    nfo__decorators___extract___maybe_extract --> nfo__decorators___extract___extract_args_meta
+    nfo__decorators___extract___maybe_extract --> nfo__decorators___extract___extract_kwargs_meta
+    nfo__decorators___extract___maybe_extract --> nfo__decorators___extract___extract_return_meta
+    nfo__decorators___extract___maybe_extract --> nfo__decorators___extract___should_extract
+    nfo__decorators___log_call__log_call --> nfo__decorators___core___get_default_logger
+    nfo__decorators___log_call__log_call --> nfo__decorators___core___arg_types
+    nfo__decorators___log_call__log_call --> nfo__decorators___extract___maybe_extract
+    nfo__decorators___catch__catch --> nfo__decorators___core___get_default_logger
+    nfo__decorators___catch__catch --> nfo__decorators___core___arg_types
+    nfo__decorators___catch__catch --> nfo__decorators___extract___maybe_extract
+    nfo__click__NfoGroup__invoke --> nfo__models__LogEntry__now
+    nfo__click__NfoGroup___resolve_logger --> nfo__configure___parse_sink_spec
     examples__http_service__main__log_call --> examples__http_service__main___store_entry
     examples__http_service__main__log_batch --> examples__http_service__main___store_entry
     nfo____main_____setup_logger --> nfo__decorators___core__set_default_logger
     nfo____main_____setup_logger --> nfo__configure___parse_sink_spec
+    nfo____main_____build_log_entry --> nfo__models__LogEntry__now
+    nfo____main_____build_log_entry --> nfo____main_____detect_language
+    nfo____main_____emit_command_result --> nfo__models__LogEntry__now
+    nfo____main_____emit_command_result --> nfo____main_____detect_language
+    nfo____main_____emit_command_not_found --> nfo__models__LogEntry__now
+    nfo____main_____emit_command_not_found --> nfo____main_____detect_language
     nfo____main____cmd_run --> nfo____main_____setup_logger
+    nfo____main____cmd_run --> nfo____main_____emit_command_result
+    nfo____main_____build_logs_query --> nfo____main_____parse_duration
+    nfo____main____cmd_logs --> nfo____main_____build_logs_query
     nfo____main____cmd_serve --> nfo____main_____run_inline_server

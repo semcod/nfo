@@ -24,6 +24,9 @@ from nfo.ring_buffer_sink import RingBufferSink
 from nfo.terminal import TerminalSink
 from nfo.pipeline_sink import PipelineSink
 from nfo.log_flow import LogFlowParser, build_log_flow_graph, compress_logs_for_llm
+from nfo.metrics import Counter, Gauge, Histogram, collector
+from nfo.analytics import LogAnalytics, create_analytics
+from nfo.context import log_context, temp_level, temp_sink, silence, temp_config, span, with_context
 import logging as _logging
 
 
@@ -176,4 +179,17 @@ __all__ = [
     "redact_kwargs",
     "redact_string",
     "redact_args",
+    "Counter",
+    "Gauge",
+    "Histogram",
+    "collector",
+    "LogAnalytics",
+    "create_analytics",
+    "log_context",
+    "temp_level",
+    "temp_sink",
+    "silence",
+    "temp_config",
+    "span",
+    "with_context",
 ]

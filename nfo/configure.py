@@ -393,3 +393,24 @@ def configure(
     _configured = True
     _last_logger = logger
     return logger
+
+
+def get_config() -> dict[str, Any]:
+    """Return current configuration state.
+    
+    Returns:
+        Dictionary with current configuration parameters.
+    """
+    global _configured, _last_logger, _global_meta_policy, _global_auto_extract_meta
+    
+    if not _configured or _last_logger is None:
+        return {}
+    
+    return {
+        "configured": _configured,
+        "name": _last_logger.name if _last_logger else None,
+        "level": _last_logger.level if _last_logger else None,
+        "sinks": [str(s) for s in (_last_logger._sinks if _last_logger else [])],
+        "meta_policy": _global_meta_policy,
+        "auto_extract_meta": _global_auto_extract_meta,
+    }

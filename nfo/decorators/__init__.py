@@ -17,6 +17,7 @@ from ._core import (
     _get_default_logger,
     _module_of,
     _should_sample,
+    get_default_logger,
     set_default_logger,
 )
 
@@ -33,6 +34,7 @@ __all__ = [
     "decision_log",
     # Public API
     "set_default_logger",
+    "get_default_logger",
     # Internal helpers (for backward compatibility)
     "_arg_types",
     "_build_decision_extra",

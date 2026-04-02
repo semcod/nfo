@@ -1,6 +1,7 @@
 flowchart TD
     demo__app["demo.app<br/>13 funcs"]
     examples__async_usage["examples.async-usage<br/>5 funcs"]
+    examples__auto_log["examples.auto-log<br/>5 funcs"]
     examples__bash_wrapper["examples.bash-wrapper<br/>3 funcs"]
     examples__basic_usage["examples.basic-usage<br/>3 funcs"]
     examples__click_integration["examples.click-integration<br/>10 funcs"]
@@ -12,50 +13,61 @@ flowchart TD
     examples__multi_sink["examples.multi-sink<br/>4 funcs"]
     examples__sqlite_sink["examples.sqlite-sink<br/>3 funcs"]
     nfo["nfo<br/>9 funcs"]
-    nfo____main__["nfo.__main__<br/>9 funcs"]
+    nfo____main__["nfo.__main__<br/>14 funcs"]
     nfo__auto["nfo.auto<br/>3 funcs"]
     nfo__click["nfo.click<br/>5 funcs"]
-    nfo__configure["nfo.configure<br/>11 funcs"]
-    nfo__decorators["nfo.decorators<br/>10 funcs"]
-    nfo__extractors["nfo.extractors<br/>10 funcs"]
+    nfo__configure["nfo.configure<br/>12 funcs"]
+    nfo__context["nfo.context<br/>8 funcs"]
+    nfo__decorators["nfo.decorators<br/>15 funcs"]
+    nfo__env["nfo.env<br/>14 funcs"]
+    nfo__extractors["nfo.extractors<br/>15 funcs"]
     nfo__fastapi_middleware["nfo.fastapi_middleware<br/>3 funcs"]
+    nfo__log_flow["nfo.log_flow<br/>33 funcs"]
     nfo__logged["nfo.logged<br/>3 funcs"]
     nfo__logger["nfo.logger<br/>7 funcs"]
     nfo__meta["nfo.meta<br/>3 funcs"]
     nfo__meta_decorators["nfo.meta_decorators<br/>5 funcs"]
+    nfo__metrics["nfo.metrics<br/>23 funcs"]
     nfo__models["nfo.models<br/>8 funcs"]
     nfo__redact["nfo.redact<br/>5 funcs"]
+    nfo__webhook["nfo.webhook<br/>5 funcs"]
     nfo__decorators ==>|12| nfo__models
+    nfo__context ==>|5| nfo__configure
+    examples__env_tagger ==>|4| nfo__decorators
     nfo__meta_decorators ==>|4| nfo__models
     nfo__click ==>|4| nfo__models
-    examples__env_tagger ==>|4| nfo__decorators
+    examples__multi_sink -->|3| nfo__decorators
+    examples__async_usage -->|3| nfo__decorators
     nfo__meta_decorators -->|3| nfo__extractors
     nfo__meta_decorators -->|3| nfo__meta
     nfo__meta_decorators -->|3| nfo__decorators
     nfo__decorators -->|3| nfo__meta
-    examples__multi_sink -->|3| nfo__decorators
-    examples__async_usage -->|3| nfo__decorators
-    demo__app -->|2| nfo__decorators
-    nfo__decorators -->|2| nfo__configure
-    nfo__click -->|2| nfo__configure
+    nfo____main__ -->|3| nfo__models
     examples__sqlite_sink -->|2| nfo__decorators
     examples__csv_sink -->|2| nfo__decorators
     examples__env_tagger -->|2| examples__markdown_sink
+    demo__app -->|2| nfo__decorators
     examples__click_integration -->|2| nfo__decorators
+    nfo__log_flow -->|2| nfo__metrics
     nfo__logger -->|2| nfo__redact
+    nfo__decorators -->|2| nfo__configure
+    nfo__click -->|2| nfo__configure
     nfo____main__ -->|2| nfo__configure
-    nfo____main__ -->|2| nfo__models
-    nfo -->|1| nfo__models
-    nfo__fastapi_middleware -->|1| nfo__models
-    nfo__auto -->|1| nfo__decorators
-    nfo__logged -->|1| nfo__decorators
-    nfo__configure -->|1| nfo__models
-    nfo__configure -->|1| nfo__decorators
     examples__bash_wrapper -->|1| nfo__decorators
-    examples__configure -->|1| nfo__decorators
     examples__basic_usage -->|1| nfo__decorators
     examples__markdown_sink -->|1| nfo__decorators
-    examples__env_tagger -->|1| demo__app
+    examples__env_tagger -->|1| examples__auto_log
     examples__env_tagger -->|1| examples__click_integration
+    examples__configure -->|1| nfo__decorators
+    nfo__auto -->|1| nfo__decorators
     examples__env_config -->|1| nfo__decorators
+    nfo__webhook -->|1| nfo__metrics
+    nfo -->|1| nfo__models
+    nfo__fastapi_middleware -->|1| nfo__metrics
+    nfo__fastapi_middleware -->|1| nfo__models
+    nfo__env -->|1| nfo__metrics
+    nfo__logged -->|1| nfo__decorators
+    nfo__configure -->|1| nfo__models
+    nfo__configure -->|1| nfo__metrics
+    nfo__configure -->|1| nfo__decorators
     nfo____main__ -->|1| nfo__decorators

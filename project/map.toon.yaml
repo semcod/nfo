@@ -1,35 +1,38 @@
-# nfo | 36f 6061L | python:35,shell:1 | 2026-03-30
-# stats: 213 func | 0 cls | 36 mod | CC̄=4.3 | critical:7 | cycles:0
-# alerts[5]: fan-out _run_inline_server=32; fan-out LogFlowParser.build_flow_graph=23; fan-out meta_log=22; CC TerminalSink._write_toon=24; CC cmd_run=20
-# hotspots[5]: _run_inline_server fan=32; LogFlowParser.build_flow_graph fan=23; meta_log fan=22; log_call fan=18; catch fan=18
-# evolution: baseline
+# nfo | 39f 7181L | shell:1,python:38 | 2026-04-02
+# stats: 286 func | 0 cls | 39 mod | CC̄=3.7 | critical:0 | cycles:0
+# alerts[5]: fan-out _run_inline_server=32; fan-out meta_log=22; fan-out NfoCommand.invoke=18; fan-out catch=18; fan-out log_call=18
+# hotspots[5]: _run_inline_server fan=32; meta_log fan=22; log_call fan=18; catch fan=18; NfoCommand.invoke fan=18
+# evolution: CC̄ 3.9→3.7 (improved -0.2)
 # Keys: M=modules, D=details, i=imports, e=exports, c=classes, f=functions, m=methods
-M[36]:
-  demo/app.py,250
+M[39]:
+  demo/app.py,257
   demo/load_generator.py,63
-  nfo/__init__.py,179
-  nfo/__main__.py,460
+  nfo/__init__.py,195
+  nfo/__main__.py,533
+  nfo/analytics.py,337
   nfo/auto.py,195
   nfo/binary_router.py,61
   nfo/buffered_sink.py,105
   nfo/click.py,227
-  nfo/configure.py,395
-  nfo/decorators/__init__.py,43
+  nfo/configure.py,416
+  nfo/context.py,268
+  nfo/decorators/__init__.py,45
   nfo/decorators/_catch.py,162
   nfo/decorators/_core.py,62
   nfo/decorators/_decision.py,164
-  nfo/decorators/_extract.py,60
+  nfo/decorators/_extract.py,99
   nfo/decorators/_log_call.py,179
   nfo/env.py,225
-  nfo/extractors.py,243
+  nfo/extractors.py,271
   nfo/fastapi_middleware.py,151
   nfo/json_sink.py,71
   nfo/llm.py,198
-  nfo/log_flow.py,504
+  nfo/log_flow.py,579
   nfo/logged.py,99
   nfo/logger.py,106
   nfo/meta.py,63
   nfo/meta_decorators.py,243
+  nfo/metrics.py,230
   nfo/models.py,123
   nfo/pipeline_sink.py,441
   nfo/prometheus.py,135
@@ -37,55 +40,19 @@ M[36]:
   nfo/ring_buffer_sink.py,85
   nfo/setup.py,37
   nfo/sinks.py,197
-  nfo/terminal.py,266
+  nfo/terminal.py,278
   nfo/webhook.py,135
-  project.sh,24
+  project.sh,36
   tools/sync_pactown_com_dependency.py,9
 D:
-  nfo/terminal.py:
-    e: TerminalSink
-    TerminalSink(Sink): __init__(8),write(1),_write_ascii(1),_write_color(1),_write_markdown(1),_write_toon(1),_write_table(1),close(0)  # Sink that displays log entries in the terminal with configur...
-  nfo/__main__.py:
-    e: _setup_logger,cmd_run,cmd_logs,cmd_version,cmd_serve,_run_inline_server,_detect_language,_parse_duration,main
-    _setup_logger(sink_specs;env)
-    cmd_run(args)
-    cmd_logs(args)
-    cmd_version(args)
-    cmd_serve(args)
-    _run_inline_server(host;port)
-    _detect_language(cmd)
-    _parse_duration(spec)
-    main()
-  nfo/extractors.py:
-    e: detect_format,extract_image_meta,extract_binary_meta,extract_file_meta,extract_numpy_meta,extract_dataframe_meta,extract_wav_meta,register_extractor,unregister_all_extractors,extract_meta
-    detect_format(data)
-    extract_image_meta(data)
-    extract_binary_meta(data)
-    extract_file_meta(file_obj)
-    extract_numpy_meta(arr)
-    extract_dataframe_meta(df)
-    extract_wav_meta(data)
-    register_extractor(type_check;extractor)
-    unregister_all_extractors()
-    extract_meta(value)
-  nfo/log_flow.py:
-    e: LogFlowParser,_safe_float,_timestamp_sort_key,_first_present,_extract_trace_id,_extract_field,build_log_flow_graph,compress_logs_for_llm
-    LogFlowParser: __init__(0),normalize_entry(1),parse_jsonl(1),from_jsonl(1),parse_logs(1),parse(1),group_by_trace_id(1),build_flow_graph(1),to_graph(1),parse_to_graph(1),compress_for_llm(1),to_llm_context(1),_read_lines(0)  # Parse logs, group by trace_id, and build compressed flow gra...
-    _safe_float(value)
-    _timestamp_sort_key(timestamp)
-    _first_present(raw)
-    _extract_trace_id(raw;extra;missing_trace_id)
-    _extract_field(raw;primary;fallback)
-    build_log_flow_graph(entries_or_grouped)
-    compress_logs_for_llm(entries_or_graph)
-  nfo/decorators/_extract.py:
-    e: _maybe_extract
-    _maybe_extract(args;kwargs;result;extract_meta_flag;meta_policy)
   nfo/pipeline_sink.py:
     e: PipelineSink
     PipelineSink(Sink): __init__(6),write(1),close(0),_flush_stale(0),_flush_run(1),_c(2),_render_block(2),_render_step(2),_step_summary(1),_format_metric(2),_render_sub_lines(2),_render_footer(3),_render_data_flow(2),_render_cost_line(1),_visible_len(0),_ansi_pad(1)  # Sink that groups log entries by ``pipeline_run_id`` and rend...
+  nfo/terminal.py:
+    e: TerminalSink
+    TerminalSink(Sink): __init__(8),write(1),_write_ascii(1),_write_color(1),_write_markdown(1),_format_args_str(1),_format_result(1),_format_meta_str(1),_format_duration(1),_write_toon(1),_write_table(1),close(0)  # Sink that displays log entries in the terminal with configur...
   nfo/configure.py:
-    e: _StdlibBridge,get_global_meta_policy,get_global_auto_extract_meta,_parse_sink_spec,_read_env_config,_resolve_sinks,_wrap_sinks_with_llm,_wrap_sinks_with_env,_setup_stdlib_bridge,configure
+    e: _StdlibBridge,get_global_meta_policy,get_global_auto_extract_meta,_parse_sink_spec,_read_env_config,_resolve_sinks,_wrap_sinks_with_llm,_wrap_sinks_with_env,_setup_stdlib_bridge,configure,get_config
     _StdlibBridge(logging.Handler): __init__(1),emit(1)  # Bridge that intercepts stdlib logging records and forwards t...
     get_global_meta_policy()
     get_global_auto_extract_meta()
@@ -96,16 +63,33 @@ D:
     _wrap_sinks_with_env(sinks;environment;version)
     _setup_stdlib_bridge(logger;level;resolved_sinks;bridge_stdlib;modules)
     configure()
-  nfo/webhook.py:
-    e: WebhookSink
-    WebhookSink(Sink): __init__(2),_build_payload(1),_send(1),write(1),close(0)  # Sink that POSTs log entries to an HTTP webhook endpoint.
-
-De...
+    get_config()
+  nfo/__main__.py:
+    e: _setup_logger,_build_log_entry,_emit_command_result,_emit_command_not_found,cmd_run,_build_logs_query,_format_log_row,cmd_logs,cmd_version,cmd_serve,_run_inline_server,_detect_language,_parse_duration,main
+    _setup_logger(sink_specs;env)
+    _build_log_entry(cmd;result;start_time;env_name;stdout;stderr;exception;exception_type)
+    _emit_command_result(logger;cmd;result;start_time;env_name;passthrough)
+    _emit_command_not_found(logger;cmd;start_time;env_name)
+    cmd_run(args)
+    _build_logs_query(args)
+    _format_log_row(row)
+    cmd_logs(args)
+    cmd_version(args)
+    cmd_serve(args)
+    _run_inline_server(host;port)
+    _detect_language(cmd)
+    _parse_duration(spec)
+    main()
   nfo/auto.py:
     e: _should_patch,auto_log,auto_log_by_name
     _should_patch(name;obj;module_name;include_private)
     auto_log()
     auto_log_by_name()
+  nfo/webhook.py:
+    e: WebhookSink
+    WebhookSink(Sink): __init__(2),_build_payload(1),_send(1),write(1),close(0)  # Sink that POSTs log entries to an HTTP webhook endpoint.
+
+De...
   nfo/llm.py:
     e: LLMSink,detect_prompt_injection,scan_entry_for_injection
     LLMSink(Sink): __init__(1),_build_user_prompt(1),_analyze(1),_process(1),write(1),close(0)  # Sink that sends ERROR-level log entries to an LLM for root-c...
@@ -123,6 +107,23 @@ De...
 
 Useful ...
     nfo_options(func)
+  nfo/extractors.py:
+    e: detect_format,extract_image_meta,extract_binary_meta,extract_file_meta,extract_numpy_meta,extract_dataframe_meta,extract_wav_meta,register_extractor,unregister_all_extractors,_try_custom_extractors,_extract_bytes_meta,_is_file_like,_is_numpy_array,_is_pandas_dataframe,extract_meta
+    detect_format(data)
+    extract_image_meta(data)
+    extract_binary_meta(data)
+    extract_file_meta(file_obj)
+    extract_numpy_meta(arr)
+    extract_dataframe_meta(df)
+    extract_wav_meta(data)
+    register_extractor(type_check;extractor)
+    unregister_all_extractors()
+    _try_custom_extractors(value)
+    _extract_bytes_meta(value)
+    _is_file_like(value)
+    _is_numpy_array(value)
+    _is_pandas_dataframe(value)
+    extract_meta(value)
   nfo/meta.py:
     e: ThresholdPolicy,sizeof
     ThresholdPolicy: should_extract_meta(1),should_extract_return_meta(1)  # Policy deciding when to log full data vs extracted metadata...
@@ -139,17 +140,40 @@ Solve...
     _detect_trace_id()
     _detect_version()
     generate_trace_id()
+  nfo/analytics.py:
+    e: LogStats,LogAnalytics,create_analytics
+    LogStats:  # Statistics for a single function/metric...
+    LogAnalytics: __init__(1),_connect(0),count_by(4),slowest_functions(3),error_rate(2),find_anomalies(3),top_errors(2),hourly_summary(1)  # Analytics engine for nfo SQLite logs...
+    create_analytics(db_path)
+  nfo/metrics.py:
+    e: MetricValue,Counter,Gauge,Histogram,MetricsCollector
+    MetricValue:  # Single metric value with timestamp...
+    Counter: __init__(2),inc(1),get(0),_make_key(0),snapshot(0)  # Monotonically increasing counter metric.
+
+Supports labeled c...
+    Gauge: __init__(2),set(1),inc(1),dec(1),get(0),_make_key(0),snapshot(0)  # Gauge metric for values that can go up or down.
+
+Supports la...
+    Histogram: __init__(3),observe(1),snapshot(0),_make_key(0)  # Histogram metric for latency/distribution tracking.
+
+Observa...
+    MetricsCollector: __init__(0),register(1),counter(2),gauge(2),histogram(3),snapshot(0),clear(0)  # Central metrics collector for registering and collecting all...
+  nfo/log_flow.py:
+    e: LogFlowParser,_safe_float,_timestamp_sort_key,_first_present,_extract_trace_id,_extract_field,build_log_flow_graph,compress_logs_for_llm
+    LogFlowParser: __init__(0),_get_raw_data(1),_extract_event_fields(2),_build_computed_fields(2),normalize_entry(1),parse_jsonl(1),from_jsonl(1),parse_logs(1),parse(1),group_by_trace_id(1),_prepare_grouped_data(1),_process_trace_events(4),_build_node_rows(1),_build_edge_rows(1),build_flow_graph(1),to_graph(1),parse_to_graph(1),_ensure_graph(1),_format_header(1),_format_nodes(2),_format_edges(2),_format_event(1),_format_traces(3),compress_for_llm(1),to_llm_context(1),_read_lines(0)  # Parse logs, group by trace_id, and build compressed flow gra...
+    _safe_float(value)
+    _timestamp_sort_key(timestamp)
+    _first_present(raw)
+    _extract_trace_id(raw;extra;missing_trace_id)
+    _extract_field(raw;primary;fallback)
+    build_log_flow_graph(entries_or_grouped)
+    compress_logs_for_llm(entries_or_graph)
   nfo/fastapi_middleware.py:
     e: FastAPIMiddleware
     FastAPIMiddleware: __init__(4),__call__(3),_emit(7)  # ASGI middleware that emits one nfo LogEntry per HTTP request...
   nfo/binary_router.py:
     e: BinaryAwareRouter
     BinaryAwareRouter(Sink): __init__(4),write(1),_has_large_data(1),close(0)  # Route log entries to different sinks based on payload charac...
-  nfo/prometheus.py:
-    e: PrometheusSink
-    PrometheusSink(Sink): __init__(1),_start_server(1),write(1),close(0),get_metrics(0)  # Sink that exports nfo log entries as Prometheus metrics.
-
-Me...
   nfo/meta_decorators.py:
     e: _extract_args_meta,_extract_kwargs_meta,_extract_return_meta,_emit,meta_log
     _extract_args_meta(args;param_names;policy;extract_fields)
@@ -157,6 +181,11 @@ Me...
     _extract_return_meta(value;policy)
     _emit(entry;logger)
     meta_log(func)
+  nfo/prometheus.py:
+    e: PrometheusSink
+    PrometheusSink(Sink): __init__(1),_start_server(1),write(1),close(0),get_metrics(0)  # Sink that exports nfo log entries as Prometheus metrics.
+
+Me...
   nfo/json_sink.py:
     e: JSONSink
     JSONSink(Sink): __init__(1),write(1),close(0)  # Append log entries as JSON Lines (one JSON object per line)...
@@ -166,9 +195,6 @@ Me...
     SQLiteSink(Sink): __init__(2),_get_conn(0),_ensure_table(0),write(1),close(0)  # Persist log entries to a SQLite database...
     CSVSink(Sink): __init__(1),_write_header_if_needed(0),write(1),close(0)  # Append log entries to a CSV file...
     MarkdownSink(Sink): __init__(1),_write_header_if_needed(0),write(1),close(0)  # Append log entries to a Markdown file as structured sections...
-  nfo/ring_buffer_sink.py:
-    e: RingBufferSink
-    RingBufferSink(Sink): __init__(4),write(1),close(0)  # In-memory ring buffer that flushes context to *delegate* on ...
   demo/app.py:
     e: UserService,compute_fibonacci,process_order,risky_division,slow_operation,health,demo_success,demo_error,demo_slow,demo_batch,metrics,browse_logs
     UserService: create_user(2),delete_user(1)
@@ -183,15 +209,18 @@ Me...
     demo_batch()
     metrics()
     browse_logs(level;limit)
-  nfo/decorators/_decision.py:
-    e: decision_log,_build_decision_extra
-    decision_log(func)
-    _build_decision_extra(decision_name;result)
+  nfo/ring_buffer_sink.py:
+    e: RingBufferSink
+    RingBufferSink(Sink): __init__(4),write(1),close(0)  # In-memory ring buffer that flushes context to *delegate* on ...
   nfo/logger.py:
     e: Logger
     Logger: __init__(4),add_sink(1),remove_sink(1),emit(1),_format_stdlib(0),_redact_entry(0),close(0)  # Central logger instance.
 
 Collects :class:`LogEntry` objects...
+  nfo/decorators/_decision.py:
+    e: decision_log,_build_decision_extra
+    decision_log(func)
+    _build_decision_extra(decision_name;result)
   demo/load_generator.py:
     e: weighted_choice,main
     weighted_choice(endpoints)
@@ -224,6 +253,16 @@ Collects :class:`LogEntry` objects...
     event(name)
     _lazy_click()
     __getattr__(name)
+  nfo/context.py:
+    e: get_current_context,log_context,temp_level,temp_sink,silence,temp_config,span,with_context
+    get_current_context()
+    log_context()
+    temp_level(level)
+    temp_sink(sink_spec)
+    silence()
+    temp_config()
+    span(name)
+    with_context()
   nfo/decorators/_core.py:
     e: _get_default_logger,set_default_logger,_arg_types,_module_of,_should_sample
     _get_default_logger()
@@ -231,6 +270,14 @@ Collects :class:`LogEntry` objects...
     _arg_types(args;kwargs)
     _module_of(func)
     _should_sample(sample_rate)
+  nfo/decorators/_extract.py:
+    e: _should_extract,_get_effective_policy,_extract_args_meta,_extract_kwargs_meta,_extract_return_meta,_maybe_extract
+    _should_extract(extract_meta_flag)
+    _get_effective_policy(meta_policy)
+    _extract_args_meta(args;policy)
+    _extract_kwargs_meta(kwargs;policy)
+    _extract_return_meta(result;policy)
+    _maybe_extract(args;kwargs;result;extract_meta_flag;meta_policy)
   nfo/decorators/_log_call.py:
     e: log_call,log_call,log_call
     log_call(func)
@@ -241,7 +288,7 @@ Collects :class:`LogEntry` objects...
     catch(func)
     catch(func)
     catch(func)
+  project.sh:
   tools/sync_pactown_com_dependency.py:
   nfo/setup.py:
   nfo/decorators/__init__.py:
-  project.sh:

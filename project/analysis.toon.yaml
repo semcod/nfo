@@ -1,45 +1,40 @@
-# code2llm | 36f 6061L | python:35,shell:1 | 2026-03-30
-# CC̄=4.3 | critical:7/294 | dups:0 | cycles:0
+# code2llm | 39f 7185L | python:38,shell:1 | 2026-04-02
+# CC̄=3.7 | critical:0/367 | dups:0 | cycles:0
 
-HEALTH[7]:
-  🟡 CC    extract_meta CC=17 (limit:15)
-  🟡 CC    build_flow_graph CC=15 (limit:15)
-  🟡 CC    compress_for_llm CC=16 (limit:15)
-  🟡 CC    _write_toon CC=24 (limit:15)
-  🟡 CC    _maybe_extract CC=15 (limit:15)
-  🟡 CC    cmd_run CC=20 (limit:15)
-  🟡 CC    cmd_logs CC=16 (limit:15)
+HEALTH[0]: ok
 
-REFACTOR[1]:
-  1. split 7 high-CC methods  (CC>15)
+REFACTOR[0]: none needed
 
-PIPELINES[192]:
-  [1] Src [main]: main → weighted_choice
+PIPELINES[245]:
+  [1] Src [delete_user]: delete_user
       PURITY: 100% pure
-  [2] Src [__init__]: __init__
+  [2] Src [calculate_total]: calculate_total
       PURITY: 100% pure
-  [3] Src [_build_user_prompt]: _build_user_prompt
+  [3] Src [main]: main → setup_logger → set_default_logger
       PURITY: 100% pure
-  [4] Src [_analyze]: _analyze
+  [4] Src [setup_logger]: setup_logger → set_default_logger
       PURITY: 100% pure
-  [5] Src [_process]: _process → scan_entry_for_injection → detect_prompt_injection
+  [5] Src [fetch_user]: fetch_user
       PURITY: 100% pure
 
 LAYERS:
-  nfo/                            CC̄=4.4    ←in:17  →out:7
-  │ !! log_flow                   504L  1C   20m  CC=16     ←0
-  │ !! __main__                   460L  0C    9m  CC=20     ←0
+  nfo/                            CC̄=3.8    ←in:17  →out:7
+  │ !! log_flow                   579L  1C   33m  CC=8      ←0
+  │ !! __main__                   533L  0C   14m  CC=13     ←0
   │ pipeline_sink              441L  1C   16m  CC=13     ←0
-  │ configure                  395L  1C   11m  CC=13     ←3
-  │ !! terminal                   266L  1C    8m  CC=24     ←0
-  │ !! extractors                 243L  0C   10m  CC=17     ←1
+  │ configure                  416L  1C   12m  CC=13     ←4
+  │ analytics                  337L  2C    9m  CC=8      ←0
+  │ terminal                   278L  1C   12m  CC=13     ←0
+  │ extractors                 271L  0C   15m  CC=10     ←1
+  │ context                    268L  0C    8m  CC=4      ←0
   │ meta_decorators            243L  0C    5m  CC=7      ←0
+  │ metrics                    230L  5C   23m  CC=8      ←5
   │ click                      227L  2C    5m  CC=11     ←0
   │ env                        225L  3C   14m  CC=9      ←0
   │ llm                        198L  1C    8m  CC=11     ←0
   │ sinks                      197L  4C   15m  CC=7      ←0
   │ auto                       195L  0C    3m  CC=12     ←0
-  │ __init__                   179L  0C    9m  CC=4      ←0
+  │ __init__                   195L  0C    9m  CC=4      ←0
   │ _log_call                  179L  0C    1m  CC=2      ←8
   │ _decision                  164L  0C    2m  CC=6      ←0
   │ _catch                     162L  0C    1m  CC=2      ←7
@@ -51,24 +46,24 @@ LAYERS:
   │ buffered_sink              105L  1C    6m  CC=5      ←0
   │ redact                     101L  0C    5m  CC=5      ←1
   │ logged                      99L  0C    3m  CC=5      ←0
+  │ _extract                    99L  0C    6m  CC=4      ←2
   │ ring_buffer_sink            85L  1C    3m  CC=6      ←0
   │ json_sink                   71L  1C    3m  CC=7      ←0
+  │ _core                       66L  0C    5m  CC=4      ←13
   │ meta                        63L  1C    3m  CC=9      ←2
-  │ _core                       62L  0C    5m  CC=4      ←13
   │ binary_router               61L  1C    4m  CC=7      ←0
-  │ !! _extract                    60L  0C    1m  CC=15     ←2
-  │ __init__                    43L  0C    0m  CC=0.0    ←0
+  │ __init__                    45L  0C    0m  CC=0.0    ←0
   │ setup                       37L  0C    0m  CC=0.0    ←0
   │
   demo/                           CC̄=2.2    ←in:0  →out:2
-  │ app                        250L  1C   13m  CC=6      ←1
+  │ app                        257L  1C   13m  CC=6      ←0
   │ load_generator              63L  0C    2m  CC=5      ←0
+  │
+  ./                              CC̄=0.0    ←in:0  →out:0
+  │ project.sh                  36L  0C    0m  CC=0.0    ←0
   │
   tools/                          CC̄=0.0    ←in:0  →out:0
   │ sync_pactown_com_dependency     9L  0C    0m  CC=0.0    ←0
-  │
-  ./                              CC̄=0.0    ←in:0  →out:0
-  │ project.sh                  24L  0C    0m  CC=0.0    ←0
   │
 
 COUPLING:

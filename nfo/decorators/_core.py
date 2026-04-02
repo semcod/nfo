@@ -28,6 +28,10 @@ def _get_default_logger() -> Any:
     return _default_logger
 
 
+# Public alias
+get_default_logger = _get_default_logger
+
+
 def set_default_logger(logger: Any) -> None:
     """Replace the module-level default logger used by decorators."""
     global _default_logger

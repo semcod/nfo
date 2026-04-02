@@ -13,6 +13,7 @@ from pathlib import Path
 
 # Test results storage
 results: list[dict] = []
+PYTHON = sys.executable
 
 
 def run_command(cmd: list[str], cwd: Path | None = None, timeout: int = 30) -> dict:
@@ -40,7 +41,7 @@ def run_command(cmd: list[str], cwd: Path | None = None, timeout: int = 30) -> d
 def test_nfo_version() -> dict:
     """Test: nfo version"""
     print("Testing: nfo version")
-    result = run_command(["python", "-m", "nfo", "version"])
+    result = run_command([PYTHON, "-m", "nfo", "version"])
     success = result["success"] and "nfo" in result["stdout"]
     return {"name": "nfo version", "success": success, **result}
 
@@ -51,7 +52,7 @@ def test_nfo_run_bash() -> dict:
     with tempfile.TemporaryDirectory() as tmpdir:
         db_path = Path(tmpdir) / "test.db"
         result = run_command([
-            "python", "-m", "nfo", "run",
+            PYTHON, "-m", "nfo", "run",
             "--sink", f"sqlite:{db_path}",
             "--", "bash", "-c", "echo hello"
         ])
@@ -65,7 +66,7 @@ def test_nfo_run_python() -> dict:
     with tempfile.TemporaryDirectory() as tmpdir:
         db_path = Path(tmpdir) / "test.db"
         result = run_command([
-            "python", "-m", "nfo", "run",
+            PYTHON, "-m", "nfo", "run",
             "--sink", f"sqlite:{db_path}",
             "--", "python3", "-c", "print(42)"
         ])
@@ -80,13 +81,13 @@ def test_nfo_logs() -> dict:
         db_path = Path(tmpdir) / "test.db"
         # First create a log entry
         run_command([
-            "python", "-m", "nfo", "run",
+            PYTHON, "-m", "nfo", "run",
             "--sink", f"sqlite:{db_path}",
             "--", "echo", "test"
         ])
         # Then query logs
         result = run_command([
-            "python", "-m", "nfo", "logs",
+            PYTHON, "-m", "nfo", "logs",
             str(db_path), "--limit", "5"
         ])
         success = result["success"]
@@ -96,10 +97,9 @@ def test_nfo_logs() -> dict:
 def test_basic_usage() -> dict:
     """Test: python examples/basic-usage/main.py"""
     print("Testing: basic-usage example")
-    examples_dir = Path("/app")
     result = run_command(
-        ["python", "examples/basic-usage/main.py"],
-        cwd=examples_dir
+        [PYTHON, "examples/basic-usage/main.py"],
+        cwd=Path(".")
     )
     success = result["success"] and "add(3, 7) = 10" in result["stdout"]
     return {"name": "basic-usage example", "success": success, **result}
@@ -108,10 +108,9 @@ def test_basic_usage() -> dict:
 def test_sqlite_sink() -> dict:
     """Test: python examples/sqlite-sink/main.py"""
     print("Testing: sqlite-sink example")
-    examples_dir = Path("/app")
     result = run_command(
-        ["python", "examples/sqlite-sink/main.py"],
-        cwd=examples_dir
+        [PYTHON, "examples/sqlite-sink/main.py"],
+        cwd=Path(".")
     )
     success = result["success"] and "User: {'id': 42" in result["stdout"]
     return {"name": "sqlite-sink example", "success": success, **result}
@@ -120,10 +119,9 @@ def test_sqlite_sink() -> dict:
 def test_csv_sink() -> dict:
     """Test: python examples/csv-sink/main.py"""
     print("Testing: csv-sink example")
-    examples_dir = Path("/app")
     result = run_command(
-        ["python", "examples/csv-sink/main.py"],
-        cwd=examples_dir
+        [PYTHON, "examples/csv-sink/main.py"],
+        cwd=Path(".")
     )
     success = result["success"]
     return {"name": "csv-sink example", "success": success, **result}
@@ -132,10 +130,9 @@ def test_csv_sink() -> dict:
 def test_markdown_sink() -> dict:
     """Test: python examples/markdown-sink/main.py"""
     print("Testing: markdown-sink example")
-    examples_dir = Path("/app")
     result = run_command(
-        ["python", "examples/markdown-sink/main.py"],
-        cwd=examples_dir
+        [PYTHON, "examples/markdown-sink/main.py"],
+        cwd=Path(".")
     )
     success = result["success"]
     return {"name": "markdown-sink example", "success": success, **result}
@@ -144,10 +141,9 @@ def test_markdown_sink() -> dict:
 def test_configure() -> dict:
     """Test: python examples/configure/main.py"""
     print("Testing: configure example")
-    examples_dir = Path("/app")
     result = run_command(
-        ["python", "examples/configure/main.py"],
-        cwd=examples_dir
+        [PYTHON, "examples/configure/main.py"],
+        cwd=Path(".")
     )
     success = result["success"]
     return {"name": "configure example", "success": success, **result}
@@ -156,10 +152,9 @@ def test_configure() -> dict:
 def test_auto_log() -> dict:
     """Test: python examples/auto-log/main.py"""
     print("Testing: auto-log example")
-    examples_dir = Path("/app")
     result = run_command(
-        ["python", "examples/auto-log/main.py"],
-        cwd=examples_dir
+        [PYTHON, "examples/auto-log/main.py"],
+        cwd=Path(".")
     )
     success = result["success"]
     return {"name": "auto-log example", "success": success, **result}
@@ -173,7 +168,7 @@ def test_http_service() -> dict:
 
     # Start server in background
     server_proc = subprocess.Popen(
-        ["python", "-m", "nfo", "serve", "--port", "18080"],
+        [PYTHON, "-m", "nfo", "serve", "--port", "18080"],
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
     )

@@ -18,6 +18,9 @@ from pathlib import Path
 
 DB_PATH = Path(__file__).parent / "async_logs.db"
 
+HTTP_OK = 200
+TIMESTAMP_SLICE = 19  # Length of timestamp for display (YYYY-MM-DD HH:MM:SS)
+
 
 def setup_logger() -> Logger:
     logger = Logger(
@@ -33,7 +36,7 @@ def setup_logger() -> Logger:
 async def fetch_data(url: str) -> dict:
     """Simulate an async HTTP fetch."""
     await asyncio.sleep(0.05)
-    return {"url": url, "status": 200, "data": "ok"}
+    return {"url": url, "status": HTTP_OK, "data": "ok"}
 
 
 @log_call(level="INFO")
@@ -88,7 +91,7 @@ async def main():
         "SELECT timestamp, level, function_name, duration_ms FROM logs ORDER BY timestamp"
     ):
         print(
-            f"  {row['timestamp'][:19]} | {row['level']:5s} | "
+            f"  {row['timestamp'][:TIMESTAMP_SLICE]} | {row['level']:5s} | "
             f"{row['function_name']} | {row['duration_ms']:.1f}ms"
         )
     conn.close()
