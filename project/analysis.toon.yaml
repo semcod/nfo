@@ -6,15 +6,15 @@ HEALTH[0]: ok
 REFACTOR[0]: none needed
 
 PIPELINES[245]:
-  [1] Src [delete_user]: delete_user
+  [1] Src [main]: main → weighted_choice
       PURITY: 100% pure
-  [2] Src [calculate_total]: calculate_total
+  [2] Src [main]: main → setup_logger → set_default_logger
       PURITY: 100% pure
-  [3] Src [main]: main → setup_logger → set_default_logger
+  [3] Src [delete_user]: delete_user
       PURITY: 100% pure
-  [4] Src [setup_logger]: setup_logger → set_default_logger
+  [4] Src [calculate_total]: calculate_total
       PURITY: 100% pure
-  [5] Src [fetch_user]: fetch_user
+  [5] Src [main]: main → getEnv
       PURITY: 100% pure
 
 LAYERS:

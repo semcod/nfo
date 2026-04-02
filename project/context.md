@@ -80,14 +80,14 @@
 - **Classes**: 1
 - **File**: `llm.py`
 
-### nfo.context
-- **Functions**: 8
-- **File**: `context.py`
-
 ### nfo.models
 - **Functions**: 8
 - **Classes**: 1
 - **File**: `models.py`
+
+### nfo.context
+- **Functions**: 8
+- **File**: `context.py`
 
 ### nfo.logger
 - **Functions**: 7
@@ -460,13 +460,13 @@ Key functions that process and transform data:
 > Run a processing loop.
 - **Output to**: cli.command, click.option, range, click.echo, click.echo
 
-### examples.async-usage.main.process_batch
-> Process items concurrently.
-- **Output to**: nfo.decorators._log_call.log_call, len, asyncio.sleep, len
-
 ### demo.app.process_order
 > Simulate order processing.
 - **Output to**: nfo.decorators._log_call.log_call, time.sleep, random.uniform
+
+### examples.async-usage.main.process_batch
+> Process items concurrently.
+- **Output to**: nfo.decorators._log_call.log_call, len, asyncio.sleep, len
 
 ### nfo.llm.LLMSink._process
 > Analyze entry and enrich it.

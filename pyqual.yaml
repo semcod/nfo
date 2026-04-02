@@ -47,6 +47,16 @@ pipeline:
       run: python3 -m pytest -q
       when: always
 
+    - name: deploy
+      run: |
+        if [ -n "$(git status --porcelain)" ]; then
+          git add -A
+          git commit -m "feat: auto-commit from pyqual run $(date -Iseconds)" || true
+          git push origin main || true
+        fi
+      when: all_gates_passed
+      optional: true
+
   loop:
     max_iterations: 3
     on_fail: report
