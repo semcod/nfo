@@ -1,12 +1,107 @@
-# vallm batch | 147f | 95✓ 1⚠ 0✗ | 2026-04-02
+# vallm batch | 147f | 67✓ 1⚠ 28✗ | 2026-04-09
 
 SUMMARY:
-  scanned: 147  passed: 95 (64.6%)  warnings: 1  errors: 0  unsupported: 52
+  scanned: 147  passed: 67 (45.6%)  warnings: 1  errors: 28  unsupported: 52
 
 WARNINGS[1]{path,score}:
-  nfo/log_flow.py,0.97
+  nfo/log_flow.py,0.98
     issues[1]{rule,severity,message,line}:
       complexity.maintainability,warning,Low maintainability index: 15.3 (threshold: 20),
+
+ERRORS[28]{path,score}:
+  demo/tests/test_demo.py,0.57
+    issues[1]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'demo' not found,11
+  examples/grpc-service/nfo_pb2.py,0.57
+    issues[5]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'google.protobuf' not found,7
+      python.import.resolvable,error,Module 'google.protobuf' not found,8
+      python.import.resolvable,error,Module 'google.protobuf' not found,9
+      python.import.resolvable,error,Module 'google.protobuf' not found,10
+      python.import.resolvable,error,Module 'google.protobuf.internal' not found,11
+  examples/grpc-service/nfo_pb2_grpc.py,0.71
+    issues[2]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'grpc' not found,3
+      python.import.resolvable,error,Module 'nfo_pb2' not found,6
+  tests/test_prometheus.py,0.86
+    issues[1]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'pytest' not found,3
+  examples/grpc-service/client.py,0.89
+    issues[2]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'nfo_pb2' not found,40
+      python.import.resolvable,error,Module 'nfo_pb2_grpc' not found,41
+  tests/conftest.py,0.89
+    issues[1]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'pytest' not found,8
+  tests/test_binary_router.py,0.89
+    issues[1]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'pytest' not found,3
+  tests/test_env.py,0.89
+    issues[1]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'pytest' not found,3
+  tests/test_llm.py,0.89
+    issues[1]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'pytest' not found,3
+  tests/test_meta.py,0.89
+    issues[1]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'pytest' not found,6
+  tests/test_ring_buffer_sink.py,0.89
+    issues[1]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'pytest' not found,3
+  demo/app.py,0.91
+    issues[3]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'fastapi' not found,30
+      python.import.resolvable,error,Module 'fastapi.responses' not found,31
+      python.import.resolvable,error,Module 'uvicorn' not found,255
+  tests/test_terminal.py,0.91
+    issues[1]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'pytest' not found,6
+  examples/grpc-service/server.py,0.93
+    issues[2]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'nfo_pb2' not found,43
+      python.import.resolvable,error,Module 'nfo_pb2_grpc' not found,44
+  tests/test_buffered_sink.py,0.93
+    issues[1]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'pytest' not found,6
+  tests/test_extractors.py,0.93
+    issues[1]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'pytest' not found,7
+  tests/test_json_sink.py,0.93
+    issues[1]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'pytest' not found,7
+  tests/test_decorators.py,0.94
+    issues[1]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'pytest' not found,3
+  tests/test_pipeline_sink.py,0.94
+    issues[1]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'pytest' not found,7
+  tests/test_sinks.py,0.94
+    issues[1]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'pytest' not found,8
+  examples/http-service/main.py,0.95
+    issues[1]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'uvicorn' not found,200
+  tests/test_decision_log.py,0.95
+    issues[1]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'pytest' not found,6
+  tests/test_meta_decorators.py,0.95
+    issues[1]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'pytest' not found,3
+  tests/test_click_integration.py,0.96
+    issues[1]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'pytest' not found,5
+  tests/test_configure.py,0.96
+    issues[1]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'pytest' not found,5
+  tests/test_webhook.py,0.96
+    issues[1]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'pytest' not found,8
+  tests/test_auto.py,0.97
+    issues[1]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'pytest' not found,4
+  nfo/__main__.py,0.98
+    issues[1]{rule,severity,message,line}:
+      python.import.resolvable,error,Module 'uvicorn' not found,341
 
 UNSUPPORTED[6]{bucket,count}:
   *.md,29

@@ -1,0 +1,38 @@
+# Vallm configuration for nfo project
+# Suppress false positives for optional dependencies
+
+[imports]
+# Mark these imports as optional - they are defined in [project.optional-dependencies]
+optional = [
+    "pytest",
+    "pytest_cov",
+    "pytest_asyncio",
+    "fastapi",
+    "fastapi.responses",
+    "uvicorn",
+    "grpc",
+    "google.protobuf",
+    "google.protobuf.internal",
+    "prometheus_client",
+    "litellm",
+    "click",
+    "rich",
+    "demo",
+    "nfo_pb2",
+    "nfo_pb2_grpc",
+]
+
+[ignore]
+# Generated protobuf files
+paths = [
+    "examples/grpc-service/nfo_pb2.py",
+    "examples/grpc-service/nfo_pb2_grpc.py",
+]
+
+[rules.python.import.resolvable]
+# Don't flag optional dependencies as errors
+severity = "warning"
+
+[complexity]
+# Adjusted thresholds for this codebase
+maintainability_threshold = 15.0

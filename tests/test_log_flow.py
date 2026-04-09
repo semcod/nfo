@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import json
 
-from nfo.log_flow import LogFlowParser
+from nfo.log_flow.parser import LogFlowParser
 
 
 def test_parse_jsonl_supports_full_and_compact_entries(tmp_path):
