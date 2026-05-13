@@ -16,9 +16,6 @@ Start the HTTP service first:
 python examples/http-service/main.py
 ```
 
-## Run
-
-```bash
 # Source as library:
 source examples/bash-client/main.sh
 nfo_log "deploy" prod

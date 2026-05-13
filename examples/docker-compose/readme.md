@@ -11,9 +11,6 @@ Multi-service Docker Compose stack with nfo HTTP + gRPC services and multi-langu
 - **`app-generic`** — Multi-language batch logging demo
 - **`env_file`** support — all services load `.env.example`
 
-## Setup
-
-```bash
 # Copy and adjust environment
 cp examples/.env.example examples/.env
 ```
@@ -24,9 +21,6 @@ cp examples/.env.example examples/.env
 docker compose -f examples/docker-compose/docker-compose.yml up --build
 ```
 
-## Test
-
-```bash
 # Send log entry
 curl -X POST http://localhost:8080/log \
   -H "Content-Type: application/json" \

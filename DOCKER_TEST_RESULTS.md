@@ -1,5 +1,3 @@
-# nfo Documentation Test Results
-
 ## Test Environment
 - **Date**: 2026-02-16
 - **Test Framework**: Docker container with Python 3.12
@@ -14,8 +12,6 @@
 | **Failed** | 0 (0%) |
 
 All documented commands tested successfully in Docker environment.
-
-## Test Results
 
 ### CLI Commands (4/4 Passing)
 
@@ -42,8 +38,6 @@ All documented commands tested successfully in Docker environment.
 | Test | Status | Notes |
 |------|--------|-------|
 | `nfo serve` + HTTP POST/GET | PASS | HTTP service starts and accepts log entries |
-
-## Fixes Applied
 
 ### 1. pyproject.toml License Classifier (Fixed)
 
@@ -82,8 +76,6 @@ Also updated route handlers to use `Body(...)` annotation for proper request bod
 
 **Fix**: Created `tests/conftest.py` with minimal pytest hook to run `@pytest.mark.asyncio` tests.
 
-## Remaining Issues
-
 ### HTTP Service 422 Error
 
 The `nfo serve` command starts correctly, but POST requests to `/log` endpoint return 422 Unprocessable Entity. This may be related to:
@@ -107,9 +99,6 @@ Based on test results, the following README documentation is accurate:
 The following requires verification:
 - `nfo serve` HTTP service endpoint compatibility
 
-## Running the Tests
-
-```bash
 # Build test image
 docker build -f tests/docker/Dockerfile -t nfo-test-docs .
 

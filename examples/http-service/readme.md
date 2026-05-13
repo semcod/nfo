@@ -17,9 +17,6 @@ pip install nfo fastapi uvicorn
 python examples/http-service/main.py
 ```
 
-## Test
-
-```bash
 # Log a single entry
 curl -X POST http://localhost:8080/log \
   -H "Content-Type: application/json" \

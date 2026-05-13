@@ -9,8 +9,6 @@
 **License:** Apache-2.0[(LICENSE)](./LICENSE)  
 **Repository:** [https://github.com/wronai/lg](https://github.com/wronai/lg)
 
-## Installation
-
 ### From PyPI
 
 ```bash
@@ -37,14 +35,6 @@ pip install nfo[dev]    # development tools
 pip install nfo[grpc]    # grpc features
 pip install nfo[all]    # all optional features
 ```
-
-## Quick Start
-
-### CLI Usage
-
-```bash
-# Generate full documentation for your project
-nfo ./my-project
 
 # Only regenerate README
 nfo ./my-project --readme-only
@@ -154,8 +144,6 @@ Content outside the markers is preserved when regenerating. Enable this with `sy
 ```
 nfo/
 ├── project        ├── main    ├── load_generator        ├── main        ├── main        ├── main        ├── main        ├── main        ├── main        ├── main        ├── main        ├── server        ├── client        ├── nfo_pb2_grpc        ├── nfo_pb2        ├── main        ├── main        ├── main        ├── demo_basic        ├── demo_configure        ├── demo_formats        ├── main    ├── sync_pactown_com_dependency    ├── app    ├── llm    ├── auto        ├── main    ├── analytics    ├── extractors    ├── webhook    ├── buffered_sink    ├── redact├── nfo/    ├── ring_buffer_sink    ├── metrics    ├── setup    ├── configure    ├── fastapi_middleware    ├── meta    ├── binary_router    ├── log_flow    ├── context    ├── pipeline_sink    ├── terminal    ├── env    ├── models    ├── meta_decorators    ├── prometheus    ├── logged    ├── json_sink    ├── logger    ├── sinks        ├── _decision        ├── _core    ├── decorators/        ├── _extract        ├── _log_call        ├── _catch    ├── click        ├── main    ├── __main__```
-
-## API Overview
 
 ### Classes
 
@@ -401,11 +389,6 @@ nfo/
 📄 `project`
 📄 `tools.sync_pactown_com_dependency`
 
-## Requirements
-
-- Python >= >=3.9
-
-
 ## Contributing
 
 **Contributors:**
@@ -413,21 +396,14 @@ nfo/
 - Tom Sapletta <tom@sapletta.com>
 - Tom Sapletta <tom-sapletta-com@users.noreply.github.com>
 
-We welcome contributions! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
+We welcome contributions! Please see [CONTRIBUTING.md](https://github.com/wronai/nfo/blob/main/CONTRIBUTING.md) for guidelines.
 
-### Development Setup
-
-```bash
 # Clone the repository
 git clone https://github.com/wronai/lg
 cd nfo
 
 # Install in development mode
 pip install -e ".[dev]"
-
-# Run tests
-pytest
-```
 
 ## Documentation
 
@@ -442,15 +418,15 @@ pytest
 | Output | Description | Link |
 |--------|-------------|------|
 | `README.md` | Project overview (this file) | — |
-| `docs/api.md` | Consolidated API reference | [View](./docs/api.md) |
-| `docs/modules.md` | Module reference with metrics | [View](./docs/modules.md) |
-| `docs/architecture.md` | Architecture with diagrams | [View](./docs/architecture.md) |
-| `docs/dependency-graph.md` | Dependency graphs | [View](./docs/dependency-graph.md) |
-| `docs/coverage.md` | Docstring coverage report | [View](./docs/coverage.md) |
-| `docs/getting-started.md` | Getting started guide | [View](./docs/getting-started.md) |
-| `docs/configuration.md` | Configuration reference | [View](./docs/configuration.md) |
-| `docs/api-changelog.md` | API change tracking | [View](./docs/api-changelog.md) |
-| `CONTRIBUTING.md` | Contribution guidelines | [View](./CONTRIBUTING.md) |
+| `docs/api.md` | Consolidated API reference | [View](https://github.com/wronai/nfo/blob/main/docs/api.md) |
+| `docs/modules.md` | Module reference with metrics | [View](https://github.com/wronai/nfo/blob/main/docs/modules.md) |
+| `docs/architecture.md` | Architecture with diagrams | [View](https://github.com/wronai/nfo/blob/main/docs/architecture.md) |
+| `docs/dependency-graph.md` | Dependency graphs | [View](https://github.com/wronai/nfo/blob/main/docs/dependency-graph.md) |
+| `docs/coverage.md` | Docstring coverage report | [View](https://github.com/wronai/nfo/blob/main/docs/coverage.md) |
+| `docs/getting-started.md` | Getting started guide | [View](https://github.com/wronai/nfo/blob/main/docs/getting-started.md) |
+| `docs/configuration.md` | Configuration reference | [View](https://github.com/wronai/nfo/blob/main/docs/configuration.md) |
+| `docs/api-changelog.md` | API change tracking | [View](https://github.com/wronai/nfo/blob/main/docs/api-changelog.md) |
+| `CONTRIBUTING.md` | Contribution guidelines | [View](https://github.com/wronai/nfo/blob/main/CONTRIBUTING.md) |
 | `examples/` | Usage examples | [Browse](./examples) |
 | `mkdocs.yml` | MkDocs configuration | — |
 

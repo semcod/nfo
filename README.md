@@ -1,5 +1,3 @@
-![img.png](img.png)
-
 # nfo
 
 **Automatic function logging with decorators — output to SQLite, CSV, Markdown, JSON, Prometheus + Slack/Discord alerts.**
@@ -84,8 +82,6 @@ def analyze(image_b64: str, context: str):
 Use `max_repr_length=None` to disable truncation for a specific decorator.
 The same option is available in `@catch`, `@logged`, `auto_log()`, and `auto_log_by_name()`.
 
-## New Modules (v0.2.21)
-
 ### Metrics Collection (`nfo.metrics`)
 
 Lightweight metrics without external dependencies:
@@ -158,8 +154,6 @@ with span("process_order", order_id="123") as span_data:
 ```
 
 ---
-
-## Why nfo?
 
 ### 1. Zero boilerplate → full observability
 
@@ -249,16 +243,6 @@ configure(sinks=[
 def process_payment(user_id: int, amount: float):
     return db.execute("INSERT INTO payments ...")  # fails in prod
 
-# On ERROR, nfo sends to LLM:
-#   function: process_payment
-#   args: (42, 99.99)
-#   exception: IntegrityError: UNIQUE constraint failed
-#   traceback: ...
-#
-# LLM returns: "Root cause: duplicate payment attempt. The payments table
-#   has a UNIQUE constraint on (user_id, idempotency_key). Add retry logic
-#   with a new idempotency key or check for existing payment first."
-#
 # Stored in: entry.llm_analysis → queryable in SQLite
 ```
 
@@ -291,7 +275,6 @@ curl -X POST http://nfo:8080/log -d '{"cmd":"build","language":"rust"}'
 pip install nfo[grpc]
 python examples/grpc-service/server.py --port 50051
 
-# 4 RPCs: LogCall, BatchLog, StreamLog (bidirectional), QueryLogs
 # Generate clients for any language from nfo.proto
 ```
 
@@ -327,7 +310,6 @@ sink = EnvTagger(                              # ① auto-tag env/trace/version
     ),
     environment="prod",
 )
-# Result: every function call is tagged, diff-tracked, LLM-analyzed on error,
 # exported to Prometheus, alerted on Slack, and persisted to SQLite.
 ```
 
@@ -402,8 +384,6 @@ def health_check():  # excluded from auto_log
     return "ok"
 ```
 
-## Sinks
-
 ### SQLite
 
 ```python
@@ -418,9 +398,6 @@ def fetch_user(user_id: int) -> dict:
     return {"id": user_id, "name": "Alice"}
 
 fetch_user(42)
-# Query: SELECT * FROM logs WHERE level = 'ERROR'
-```
-
 ### CSV
 
 ```python
@@ -475,9 +452,6 @@ from nfo.decorators import set_default_logger
 logger = Logger(sinks=[JSONSink("logs.jsonl")])
 set_default_logger(logger)
 
-# Each @log_call writes one JSON object per line — ready for Filebeat/Promtail
-```
-
 ### Prometheus Metrics
 
 ```bash
@@ -493,9 +467,6 @@ sink = PrometheusSink(
     delegate=SQLiteSink("logs.db"),  # also persist to SQLite
     port=9090,                        # auto-starts /metrics HTTP server
 )
-# Prometheus scrapes localhost:9090/metrics
-```
-
 ### Webhook Alerts (Slack / Discord / Teams)
 
 ```python
@@ -538,17 +509,12 @@ Endpoints:
 - `GET /metrics` — Prometheus metrics
 - `GET /logs?level=ERROR&limit=20` — browse SQLite logs as JSON
 
-## Project Integration (3 steps)
-
 ### Step 1: Add dependency
 
 ```bash
 pip install nfo
 ```
 
-### Step 2: Create `nfo_config.py` in your project
-
-```python
 # myproject/nfo_config.py
 from __future__ import annotations
 import os, tempfile
@@ -585,9 +551,6 @@ def setup_logging():
     _initialized = True
 ```
 
-### Step 3: Call at entry point (AFTER imports)
-
-```python
 # myproject/main.py
 from myproject import api, core, models  # import modules first
 
@@ -602,9 +565,6 @@ Done. Every public function in listed modules is now auto-logged to SQLite — a
 ```python
 from nfo import configure
 
-# Zero-config (console only):
-configure()
-
 # With sinks:
 configure(sinks=["sqlite:app.db", "csv:app.csv", "md:app.md"])
 
@@ -613,11 +573,6 @@ configure(
     sinks=["sqlite:app.db"],
     modules=["myapp.api", "myapp.models"],
 )
-
-# Environment variable overrides:
-#   NFO_LEVEL=WARNING
-#   NFO_SINKS=sqlite:app.db,csv:app.csv
-```
 
 ## `.env` Configuration
 
@@ -637,16 +592,9 @@ NFO_SINKS=sqlite:logs/app.db,csv:logs/app.csv
 NFO_ENV=dev
 NFO_VERSION=1.0.0
 
-# LLM analysis (optional, requires: pip install nfo[llm])
-# NFO_LLM_MODEL=gpt-4o-mini
-# OPENAI_API_KEY=sk-...
-
 # HTTP service
 NFO_LOG_DIR=./logs
 NFO_PORT=8080
-
-# Webhook alerts
-# NFO_WEBHOOK_URL=https://hooks.slack.com/services/T.../B.../xxx
 
 # Prometheus
 NFO_PROMETHEUS_PORT=9090
@@ -778,7 +726,6 @@ sink = EnvTagger(
     trace_id="abc123",      # or auto-detected from TRACE_ID, OTEL_TRACE_ID
     version="1.2.3",        # or auto-detected from GIT_SHA, APP_VERSION
 )
-# Every log entry now has: environment="prod", trace_id="abc123", version="1.2.3"
 # Query: SELECT * FROM logs WHERE environment='prod' AND trace_id='abc123'
 ```
 
@@ -799,9 +746,6 @@ router = DynamicRouter(
     ],
     default=MarkdownSink("dev.md"),
 )
-# prod logs → SQLite, CI logs → CSV, errors → separate DB, rest → Markdown
-```
-
 ## Structured Diff Logs (Version Tracking)
 
 Detect when a function's output changes between versions:
@@ -810,10 +754,6 @@ Detect when a function's output changes between versions:
 from nfo import DiffTracker, SQLiteSink
 
 sink = DiffTracker(SQLiteSink("logs.db"))
-# When add(1,2) returns 3 in v1.0 but 4 in v2.0:
-# entry.extra["version_diff"] = "DIFF: add((1,2)) v1.0→3 vs v2.0→4"
-```
-
 ## Composable Sink Pipeline
 
 All sinks are composable — wrap them for a full pipeline:
@@ -979,9 +919,6 @@ examples/
 | [**docker-compose**](examples/docker-compose/readme.md) | Docker Compose stack (HTTP + gRPC) | `docker compose -f examples/docker-compose/docker-compose.yml up` |
 | [**kubernetes**](examples/kubernetes/readme.md) | K8s Deployment + Service + PVC | `kubectl apply -f examples/kubernetes/` |
 
-### Quick start
-
-```bash
 # Run any Python example
 pip install nfo
 python examples/basic-usage/main.py
@@ -1038,6 +975,20 @@ pytest tests/ -v
 ## License
 
 Licensed under Apache-2.0.
-## Author
 
-Tom Sapletta
+<!-- taskill:status:start -->
+
+## Status
+
+_Last updated by [taskill](https://github.com/oqlos/taskill) at 2026-04-25 13:41 UTC_
+
+| Metric | Value |
+|---|---|
+| HEAD | `a7d2a38` |
+| Coverage | — |
+| Failing tests | — |
+| Commits in last cycle | 50 |
+
+> Refactors and feature additions across the codebase: log_flow was split into maintainable modules, new modules for metrics/analytics/context and a redact module were added, and documentation and tests (including multi-language support) were expanded. Several test/doc fixes and automatic pyqual auto-commit updates were applied and multiple releases/version bumps were made.
+
+<!-- taskill:status:end -->

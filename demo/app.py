@@ -35,7 +35,6 @@ from nfo import (
     log_call,
     catch,
     logged,
-    configure,
     Logger,
     SQLiteSink,
     JSONSink,

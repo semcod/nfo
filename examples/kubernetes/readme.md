@@ -23,9 +23,6 @@ kubectl get svc nfo-logger
 kubectl logs -l app=nfo-logger --tail=20
 ```
 
-## Test
-
-```bash
 # Port-forward to local
 kubectl port-forward svc/nfo-logger 8080:8080
 

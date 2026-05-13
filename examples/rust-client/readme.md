@@ -21,10 +21,6 @@ python examples/http-service/main.py
 
 ```bash
 cd examples/rust-client
-# Add to Cargo.toml: reqwest, serde, serde_json, tokio
-cargo run
-```
-
 ## Key code
 
 ```rust

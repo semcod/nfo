@@ -16,9 +16,6 @@ High-performance gRPC logging server and client — alternative to the HTTP serv
 
 ```bash
 pip install nfo[grpc]
-# or: pip install grpcio grpcio-tools
-```
-
 ## Regenerate stubs (if proto changes)
 
 ```bash
@@ -26,9 +23,6 @@ cd examples/grpc-service
 python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. nfo.proto
 ```
 
-## Run
-
-```bash
 # Start server
 python examples/grpc-service/server.py
 python examples/grpc-service/server.py --port 50052 --db custom.db
@@ -56,9 +50,6 @@ python examples/grpc-service/client.py --host localhost:50052
 | `NFO_LOG_DIR` | `./logs` | Log directory |
 | `NFO_DB` | `logs/nfo_grpc.db` | SQLite database path |
 
-## Generate clients for other languages
-
-```bash
 # Go
 protoc --go_out=. --go-grpc_out=. nfo.proto
 

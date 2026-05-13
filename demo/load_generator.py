@@ -9,15 +9,14 @@ Usage:
 import argparse
 import random
 import time
-from typing import Any
 from urllib import request, error
 
 
 ENDPOINTS = [
-    ("/demo/success", 5),   # weight 5 — most common
-    ("/demo/error", 2),     # weight 2
-    ("/demo/slow", 1),      # weight 1
-    ("/demo/batch", 1),     # weight 1
+    ("/demo/success", 5),  # weight 5 — most common
+    ("/demo/error", 2),  # weight 2
+    ("/demo/slow", 1),  # weight 1
+    ("/demo/batch", 1),  # weight 1
 ]
 
 
@@ -35,8 +34,12 @@ def weighted_choice(endpoints: list[tuple[str, int]]) -> str:
 def main() -> None:
     parser = argparse.ArgumentParser(description="nfo demo load generator")
     parser.add_argument("--url", default="http://localhost:8000", help="Base URL")
-    parser.add_argument("--interval", type=float, default=1.0, help="Seconds between requests")
-    parser.add_argument("--count", type=int, default=0, help="Number of requests (0=infinite)")
+    parser.add_argument(
+        "--interval", type=float, default=1.0, help="Seconds between requests"
+    )
+    parser.add_argument(
+        "--count", type=int, default=0, help="Number of requests (0=infinite)"
+    )
     args = parser.parse_args()
 
     print(f"🔄 Sending requests to {args.url} every {args.interval}s...")
@@ -47,9 +50,9 @@ def main() -> None:
         try:
             req = request.urlopen(url, timeout=10)
             status = req.getcode()
-            print(f"  [{i+1}] {path} → {status}")
+            print(f"  [{i + 1}] {path} → {status}")
         except error.URLError as e:
-            print(f"  [{i+1}] {path} → ERROR: {e}")
+            print(f"  [{i + 1}] {path} → ERROR: {e}")
 
         i += 1
         if args.count and i >= args.count:

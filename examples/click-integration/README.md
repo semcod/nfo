@@ -9,11 +9,6 @@ and 5 terminal output formats.
 pip install nfo click rich  # rich is optional, for markdown/table formats
 ```
 
-## Examples
-
-### `demo_basic.py` — NfoGroup auto-logging
-
-```bash
 # Default color format
 python demo_basic.py greet World
 
@@ -38,9 +33,6 @@ python demo_formats.py
 
 Output shows: ascii, color, markdown, toon, table — for both success and error cases.
 
-### `demo_configure.py` — configure() with terminal sink spec
-
-```bash
 # Terminal markdown + SQLite logging via configure()
 python demo_configure.py deploy prod --force
 python demo_configure.py migrate /tmp/test.db

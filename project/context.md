@@ -1,5 +1,3 @@
-# System Architecture Analysis
-
 ## Overview
 
 - **Project**: /home/tom/github/semcod/nfo
@@ -10,8 +8,6 @@
 - **Total Classes**: 45
 - **Modules**: 61
 - **Entry Points**: 271
-
-## Architecture by Module
 
 ### nfo.log_flow
 - **Functions**: 33
@@ -287,8 +283,6 @@ demo_dynamic_router [examples.env-tagger.main]
   └─ →> catch
 ```
 
-## Key Classes
-
 ### nfo.log_flow.LogFlowParser
 > Parse logs, group by trace_id, and build compressed flow graphs.
 - **Methods**: 26
@@ -462,8 +456,6 @@ Key functions that process and transform data:
 ### examples.async-usage.main.process_batch
 > Process items concurrently.
 - **Output to**: nfo.decorators._log_call.log_call, len, asyncio.sleep, len
-
-### examples.configure.main.process_order
 
 ### examples.configure.main.parse_config
 - **Output to**: nfo.decorators._catch.catch, json.loads

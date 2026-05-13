@@ -6,41 +6,11 @@
 
 ---
 
-## ✅ Completed in v0.2.21
-
 ### Fixed in demo/
-- [x] demo/app.py:21 - Unused import: 'annotations' (neede for typing)
-- [x] demo/app.py:32 - Unused import: 'configure' (false positive)
-- [x] demo/app.py:151 - Function 'health' missing return type → added Dict[str, Any]
-- [x] demo/app.py:156 - Function 'demo_success' missing return type → added Dict[str, Any]
-- [x] demo/app.py:160 - Magic number: 20 → replaced with constants (DEFAULT_FIB_N_*, BATCH_COUNT_*)
-- [x] demo/app.py:169 - Function 'demo_error' missing return type → added Dict[str, Any]
-- [x] demo/app.py:194 - Magic number: 20 → replaced with BATCH_COUNT_FIB
-- [x] demo/app.py:226 - Magic number: 50 → replaced with MAX_LOGS_LIMIT
-- [x] demo/load_generator.py:13 - Duplicate import: urllib → fixed with `from urllib import request, error`
-- [x] demo/load_generator.py:24 - Function 'weighted_choice' missing return type → added list[tuple[str, int]] -> str
-- [x] demo/load_generator.py:35 - Function 'main' missing return type → added -> None
 
 ### Fixed in examples/
-- [x] examples/basic-usage/main.py:4 - Unused import: 'Logger' → removed
-- [x] examples/auto-log/main.py:31 - Magic number: 1001 → USER_ID_ALICE constant
-- [x] examples/auto-log/main.py:73 - Magic number: 19.99 → PRICE_* constants
-- [x] examples/auto-log/main.py:76 - Magic number: 42 → USER_ID_TEST constant
-- [x] examples/csv-sink/main.py:34 - Magic number: 14 → MULTIPLIER_SECOND constant
-- [x] examples/configure/main.py:62 - Magic number: 99.99 → ORDER_AMOUNT constant
-- [x] examples/configure/main.py:72 - Magic number: 50.0 → CHARGE_AMOUNT constant
-- [x] examples/configure/main.py:88 - Magic number: 500 → CSV_PREVIEW_LENGTH constant
-- [x] examples/env-config/main.py:109 - Magic number: 42 → DEFAULT_STOCK_COUNT constant
-- [x] examples/env-config/main.py:120 - Magic number: 99.99 → ORDER_AMOUNT constant
-- [x] examples/env-config/main.py:158 - Magic number: 500 → CSV_PREVIEW_LENGTH constant
-- [x] examples/click-integration/demo_basic.py:30 - Function 'cli' missing return type → added -> None
-- [x] examples/click-integration/demo_basic.py:37 - Function 'greet' missing return type → added -> None
-- [x] examples/click-integration/demo_basic.py:44 - Function 'process' missing return type → added -> None
 
 ### Infrastructure
-- [x] Fixed pytest-asyncio deprecation warning → added asyncio_default_fixture_loop_scope
-- [x] Fixed vallm import errors → added --no-imports flag
-- [x] Fixed pyqual auto-commit → added deploy stage with git push
 
 ---
 
@@ -180,3 +150,34 @@
 ---
 
 *To execute all tasks, run: `prefact -a --execute-todos`*
+
+## Done (moved to CHANGELOG)
+
+- [x] demo/app.py:21 - Unused import: 'annotations' (neede for typing)
+- [x] demo/app.py:32 - Unused import: 'configure' (false positive)
+- [x] demo/app.py:151 - Function 'health' missing return type → added Dict[str, Any]
+- [x] demo/app.py:156 - Function 'demo_success' missing return type → added Dict[str, Any]
+- [x] demo/app.py:160 - Magic number: 20 → replaced with constants (DEFAULT_FIB_N_*, BATCH_COUNT_*)
+- [x] demo/app.py:169 - Function 'demo_error' missing return type → added Dict[str, Any]
+- [x] demo/app.py:194 - Magic number: 20 → replaced with BATCH_COUNT_FIB
+- [x] demo/app.py:226 - Magic number: 50 → replaced with MAX_LOGS_LIMIT
+- [x] demo/load_generator.py:13 - Duplicate import: urllib → fixed with `from urllib import request, error`
+- [x] demo/load_generator.py:24 - Function 'weighted_choice' missing return type → added list[tuple[str, int]] -> str
+- [x] demo/load_generator.py:35 - Function 'main' missing return type → added -> None
+- [x] examples/basic-usage/main.py:4 - Unused import: 'Logger' → removed
+- [x] examples/auto-log/main.py:31 - Magic number: 1001 → USER_ID_ALICE constant
+- [x] examples/auto-log/main.py:73 - Magic number: 19.99 → PRICE_* constants
+- [x] examples/auto-log/main.py:76 - Magic number: 42 → USER_ID_TEST constant
+- [x] examples/csv-sink/main.py:34 - Magic number: 14 → MULTIPLIER_SECOND constant
+- [x] examples/configure/main.py:62 - Magic number: 99.99 → ORDER_AMOUNT constant
+- [x] examples/configure/main.py:72 - Magic number: 50.0 → CHARGE_AMOUNT constant
+- [x] examples/configure/main.py:88 - Magic number: 500 → CSV_PREVIEW_LENGTH constant
+- [x] examples/env-config/main.py:109 - Magic number: 42 → DEFAULT_STOCK_COUNT constant
+- [x] examples/env-config/main.py:120 - Magic number: 99.99 → ORDER_AMOUNT constant
+- [x] examples/env-config/main.py:158 - Magic number: 500 → CSV_PREVIEW_LENGTH constant
+- [x] examples/click-integration/demo_basic.py:30 - Function 'cli' missing return type → added -> None
+- [x] examples/click-integration/demo_basic.py:37 - Function 'greet' missing return type → added -> None
+- [x] examples/click-integration/demo_basic.py:44 - Function 'process' missing return type → added -> None
+- [x] Fixed pytest-asyncio deprecation warning → added asyncio_default_fixture_loop_scope
+- [x] Fixed vallm import errors → added --no-imports flag
+- [x] Fixed pyqual auto-commit → added deploy stage with git push

@@ -1,14 +1,10 @@
 ## [Unreleased]
 
-## [0.2.22] - 2026-04-09
-
 ### Test
 - Update tests/test_webhook.py
 
 ### Other
 - Update nfo/webhook.py
-
-## [0.2.21] - 2026-04-09
 
 ### Docs
 - Update docs/README.md
@@ -26,8 +22,6 @@
 - Update project/index.html
 - Update project/map.toon.yaml
 - Update project/project.toon.yaml
-
-## [0.2.21] - 2026-04-02
 
 ### Added
 - New `nfo.metrics` module with Counter, Gauge, Histogram metrics collection
@@ -48,8 +42,6 @@
 - Enhanced pyqual.yaml with deploy stage for automatic git push
 - All pyqual gates now passing (CC: 3.7, critical: 0, tests: 339)
 
-## [0.2.20] - 2026-03-30
-
 ### Docs
 - Update CHANGELOG.md
 - Update TODO.md
@@ -64,8 +56,6 @@
 - Update prefact.yaml
 - Update project.sh
 - Update project/validation.toon.yaml
-
-## [0.1.10] - 2026-03-30
 
 ### Fixed
 - Fix duplicate-imports issues (ticket-996e3777)
@@ -210,8 +200,6 @@
 - Fix magic-numbers issues (ticket-b6f9211c)
 - Fix llm-generated-code issues (ticket-0ddba9ff)
 
-## [0.2.19] - 2026-03-30
-
 ### Docs
 - Update README.md
 - Update project/README.md
@@ -229,8 +217,6 @@
 - Update project/compact_flow.png
 - Update project/duplication.toon.yaml
 - ... and 7 more files
-
-## [0.2.18] - 2026-03-02
 
 ### Summary
 
@@ -260,8 +246,6 @@ refactor(build): code analysis engine
 - ... and 3 more
 
 
-## [0.2.16] - 2026-02-18
-
 ### Summary
 
 fix(nfo): deep code analysis engine with 5 supporting modules
@@ -271,8 +255,6 @@ fix(nfo): deep code analysis engine with 5 supporting modules
 - update nfo/__init__.py
 - update nfo/fastapi_middleware.py
 
-
-## [0.2.15] - 2026-02-18
 
 ### Summary
 
@@ -284,8 +266,6 @@ feat(tests): multi-language support with 3 supporting modules
 - update nfo/__init__.py
 - update nfo/tests/test_nfo.py
 
-
-## [0.2.14] - 2026-02-16
 
 ### Summary
 
@@ -306,8 +286,6 @@ feat(tests): configuration management system
 - update nfo/log_flow.py
 
 
-## [0.2.13] - 2026-02-15
-
 ### Summary
 
 feat(tests): deep code analysis engine
@@ -317,8 +295,6 @@ feat(tests): deep code analysis engine
 - update tests/test_decision_log.py
 - update tests/test_pipeline_sink.py
 
-
-## [0.2.12] - 2026-02-15
 
 ### Summary
 
@@ -336,8 +312,6 @@ fix(docs): deep code analysis engine with 6 supporting modules
 - update project.functions.toon
 - update project.toon
 
-
-## [0.3.1] - 2026-02-15
 
 ### Summary
 
@@ -364,8 +338,6 @@ feat(pipeline): PipelineSink, @decision_log, global auto_extract_meta
 - Full suite: 296 passed.
 
 
-## [0.2.11] - 2026-02-15
-
 ### Summary
 
 feat(config): configuration management system
@@ -375,8 +347,6 @@ feat(config): configuration management system
 - update nfo/configure.py
 - update nfo/decorators.py
 
-
-## [0.2.10] - 2026-02-15
 
 ### Summary
 
@@ -395,8 +365,6 @@ refactor(config): CLI interface improvements
 - update project.functions.toon
 - update project.toon
 
-
-## [0.2.9] - 2026-02-15
 
 ### Summary
 
@@ -423,8 +391,6 @@ refactor(goal): CLI interface improvements
 - update project.functions.toon
 - update project.toon
 
-
-## [0.3.0] - 2026-02-15
 
 ### Summary
 
@@ -460,8 +426,6 @@ feat(meta): Binary data logging strategy — log metadata instead of raw data
 - `decorators.py`: `@log_call` and `@catch` accept `sample_rate` (sampling check deferred after function execution for zero overhead on skipped calls)
 - `meta_decorators.py`: `@meta_log` accepts `sample_rate`
 
-## [0.2.8] - 2026-02-15
-
 ### Summary
 
 feat(docs): docs module improvements
@@ -474,8 +438,6 @@ feat(docs): docs module improvements
 
 - update pyproject.toml
 
-
-## [0.2.7] - 2026-02-15
 
 ### Summary
 
@@ -495,8 +457,6 @@ feat(docs): code analysis engine
 - scripts: update project.sh
 - update project.toon-schema.json
 
-
-## [0.2.6] - 2026-02-15
 
 ### Summary
 
@@ -524,8 +484,6 @@ feat(docs): comprehensive project analysis with function index
 - Test coverage indicates comprehensive validation of all major components
 - Multi-language examples demonstrate broad integration capabilities
 - Demo applications provide realistic load generation and monitoring scenarios
-
-## [0.2.6] - 2026-02-14
 
 ### Summary
 
@@ -556,8 +514,6 @@ fix(docs): CLI interface with 3 supporting modules
 - update nfo/models.py
 
 
-## [0.2.5] - 2026-02-14
-
 ### Fixed
 
 - **Oversized log payloads** — added bounded serialization for `args`, `kwargs`, `return_value`, and `kwarg_types` via `LogEntry.safe_repr` + `max_repr_length` (default: `2048`)
@@ -569,8 +525,6 @@ fix(docs): CLI interface with 3 supporting modules
 - `max_repr_length` option for `@log_call`, `@catch`, `@logged`, `auto_log()`, and `auto_log_by_name()`
 - Regression tests for truncation paths in decorators and auto instrumentation
 
-## [0.2.4] - 2026-02-13
-
 ### Summary
 
 feat(docs): deep code analysis engine with 6 supporting modules
@@ -579,16 +533,9 @@ feat(docs): deep code analysis engine with 6 supporting modules
 
 - docs: update README
 
-### Other
-
-- update img.png
-
-
 # Changelog
 
 All notable changes to `nfo` are documented here.
-
-## [0.2.3] - 2026-02-12
 
 ### Fixed
 
@@ -618,8 +565,6 @@ All notable changes to `nfo` are documented here.
 - **`examples/env_config_usage.py`** — `.env` file configuration with python-dotenv
 - **`examples/async_usage.py`**, **`auto_log_usage.py`**, **`configure_usage.py`**, **`env_tagger_usage.py`** — new Python examples
 
-## [0.2.0] - 2026-02-12
-
 ### Added
 
 - **`PrometheusSink`** — export function call metrics (duration histogram, call count, error rate) to Prometheus; auto `/metrics` endpoint; optional dep `pip install nfo[prometheus]`
@@ -638,33 +583,23 @@ All notable changes to `nfo` are documented here.
 - `pyproject.toml`: added `[prometheus]` and `[dashboard]` optional dependency groups
 - `[dev]` group now includes `pytest-asyncio` and `prometheus_client`
 
-## [0.1.19] - 2026-02-12
-
 ### Fixed
 
 - **Duplicate log lines** — set `propagate=False` on stdlib logger to prevent double output
 - **Re-configuration guard** — `configure()` now returns cached logger on repeated calls (use `force=True` to override)
 
-## [0.1.18] - 2026-02-12
-
 ### Fixed
 
 - Version sync between `__init__.py` and `pyproject.toml`
-
-## [0.1.17] - 2026-02-12
 
 ### Fixed
 
 - `__version__` in `__init__.py` synced with `pyproject.toml` (was out of date)
 
-## [0.1.15] - 2026-02-12
-
 ### Added
 
 - **Async support** — `@log_call`, `@catch`, and `@logged` now transparently handle `async def` functions via `inspect.iscoroutinefunction()`
 - Async tests: 7 new tests for async `@log_call` and `@catch`
-
-## [0.1.14] - 2026-02-11
 
 ### Added
 
@@ -673,8 +608,6 @@ All notable changes to `nfo` are documented here.
 - `LogEntry` sinks now persist `environment`, `trace_id`, `version`, `llm_analysis` fields
 - **Comparison table** with loguru, structlog, stdlib logging in README
 - CHANGELOG.md, TODO.md
-
-## [0.1.13] - 2026-02-11
 
 ### Added
 
@@ -691,8 +624,6 @@ All notable changes to `nfo` are documented here.
 
 - `pyproject.toml`: added `[llm]` and `[all]` optional dependency groups
 
-## [0.1.12] - 2026-02-11
-
 ### Added
 
 - **`configure()`** — one-liner project-wide logging setup with sink specs and stdlib bridge
@@ -703,14 +634,10 @@ All notable changes to `nfo` are documented here.
 - Example scripts: `basic_usage.py`, `sqlite_sink.py`, `csv_sink.py`, `markdown_sink.py`, `multi_sink.py`
 - Integration modules for pactown (`nfo_config.py`) and pactown-com (`nfo_config.py`)
 
-## [0.1.11] - 2026-02-11
-
 ### Changed
 
 - Renamed package from `lg` to `nfo` (PyPI: `pip install nfo`)
 - Updated all imports, tests, and packaging from `lg` to `nfo`
-
-## [0.1.1] - 2026-02-11
 
 ### Added
 
@@ -724,3 +651,13 @@ All notable changes to `nfo` are documented here.
 - `LogEntry` dataclass with full function call metadata
 - Thread-safe sinks with locks
 - Zero external dependencies (stdlib only for core)
+
+- refactor: split log_flow.py into maintainable modules
+- feat: add redact module for secret leak prevention in logs (v0.2.17)
+- feat: add metrics, analytics, and context modules; fix TODO items and get pyqual runs passing
+- feat(tests): add multi-language support and configuration management for tests
+- docs: add deep code analysis engine with multiple supporting modules
+- fix(tests): update project
+- refactor(build): code analysis engine
+- chore: multiple release/version bump commits
+

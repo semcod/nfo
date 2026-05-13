@@ -2,10 +2,6 @@
 
 This document provides a comprehensive reference of all functions in the nfo project, organized by module and category.
 
-## Core API
-
-### Decorators (`nfo.decorators`)
-
 #### `@log_call`
 Automatically logs function calls with arguments, return values, exceptions, and duration.
 
@@ -69,8 +65,6 @@ class MyService:
     def health_check(self): pass  # Excluded from logging
 ```
 
-### Auto-Logging (`nfo.auto`)
-
 #### `auto_log(*modules, **kwargs)`
 Automatically wrap all functions in specified modules with logging decorators.
 
@@ -102,8 +96,6 @@ auto_log_by_name("myapp.api", "myapp.core", level="INFO")
 
 **Returns:** Number of functions patched
 
-### Configuration (`nfo.configure`)
-
 #### `configure(**kwargs)`
 One-liner project setup with automatic environment variable support.
 
@@ -128,10 +120,6 @@ configure(
 - `force` (bool) - Re-configure even if already configured
 
 **Returns:** Configured Logger instance
-
-## Sinks
-
-### Built-in Sinks (`nfo.sinks`)
 
 #### `SQLiteSink(db_path, table)`
 Persist logs to SQLite database for querying.
@@ -174,8 +162,6 @@ sink = JSONSink("logs.jsonl", pretty=False)
 **Parameters:**
 - `file_path` (Any) - JSON file path
 - `pretty` (bool) - Pretty-print JSON (default: False)
-
-### Advanced Sinks
 
 #### PrometheusSink (`nfo.prometheus`)
 Export function call metrics to Prometheus.
@@ -229,8 +215,6 @@ sink = LLMSink(
 - `detect_injection` (bool) - Scan for prompt injection
 - `analyze_levels` (List[str]) - Levels to analyze (default: ["ERROR"])
 
-### Environment Sinks (`nfo.env`)
-
 #### EnvTagger
 Auto-tag logs with environment, trace ID, and version.
 
@@ -272,10 +256,6 @@ sink = DiffTracker(SQLiteSink("logs.db"))
 **Parameters:**
 - `delegate` (Sink) - Downstream sink
 
-## Utilities
-
-### LLM Functions (`nfo.llm`)
-
 #### `detect_prompt_injection(text)`
 Scan text for common prompt injection patterns.
 
@@ -300,8 +280,6 @@ injection = scan_entry_for_injection(log_entry)
 
 **Returns:** Optional[str] - Injection type if detected
 
-### Environment Functions (`nfo.env`)
-
 #### `generate_trace_id()`
 Generate a new trace ID for distributed tracing.
 
@@ -310,8 +288,6 @@ trace_id = generate_trace_id()
 ```
 
 **Returns:** str - UUID-based trace ID
-
-### Model Functions (`nfo.models`)
 
 #### `safe_repr(value, max_length)`
 Safe string representation with truncation.
@@ -325,10 +301,6 @@ repr_str = safe_repr(large_object, max_length=512)
 - `max_length` (Optional[int]) - Maximum length
 
 **Returns:** str - Safe representation
-
-## CLI Interface
-
-### Main Commands (`nfo.__main__`)
 
 #### `nfo run -- <command>`
 Run any command with automatic logging.
@@ -359,8 +331,6 @@ Print nfo version.
 ```bash
 nfo version
 ```
-
-## Data Models
 
 ### LogEntry (`nfo.models`)
 
@@ -445,8 +415,6 @@ md:path/to/file.md
 json:path/to/file.jsonl
 prometheus:9090
 ```
-
-## Error Handling
 
 ### Common Exceptions
 
