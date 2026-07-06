@@ -1,5 +1,14 @@
 ## [Unreleased]
 
+## [0.2.23] - 2026-07-06
+
+### Docs
+- Update README.md
+
+### Other
+- Update local.dev.txt
+
+
 ### Test
 - Update tests/test_webhook.py
 

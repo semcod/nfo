@@ -22,17 +22,15 @@
 
 ## AI Cost Tracking
 
-![PyPI](https://img.shields.io/badge/pypi-costs-blue) ![Version](https://img.shields.io/badge/version-0.2.22-blue) ![Python](https://img.shields.io/badge/python-3.9+-blue) ![License](https://img.shields.io/badge/license-Apache--2.0-green)
-![AI Cost](https://img.shields.io/badge/AI%20Cost-$7.50-orange) ![Human Time](https://img.shields.io/badge/Human%20Time-17.7h-blue) ![Model](https://img.shields.io/badge/Model-openrouter%2Fqwen%2Fqwen3--coder--next-lightgrey)
+![PyPI](https://img.shields.io/badge/pypi-costs-blue) ![Version](https://img.shields.io/badge/version-0.2.23-blue) ![Python](https://img.shields.io/badge/python-3.9+-blue) ![License](https://img.shields.io/badge/license-Apache--2.0-green)
+![AI Cost](https://img.shields.io/badge/AI%20Cost-$1.79-orange) ![Human Time](https://img.shields.io/badge/Human%20Time-25.4h-blue) ![Model](https://img.shields.io/badge/Model-openrouter%2Fqwen%2Fqwen3--coder--next-lightgrey)
 
-- 🤖 **LLM usage:** $7.5000 (57 commits)
-- 👤 **Human dev:** ~$1769 (17.7h @ $100/h, 30min dedup)
+- 🤖 **LLM usage:** $1.7949 (68 commits)
+- 👤 **Human dev:** ~$2537 (25.4h @ $100/h, 30min dedup)
 
-Generated on 2026-03-30 using [openrouter/qwen/qwen3-coder-next](https://openrouter.ai/qwen/qwen3-coder-next)
+Generated on 2026-07-06 using [openrouter/qwen/qwen3-coder-next](https://openrouter.ai/qwen/qwen3-coder-next)
 
 ---
-
-
 
 Zero-dependency Python package that automatically logs function calls using decorators.
 Captures arguments, types, return values, exceptions, and execution time — writes to **SQLite**, **CSV**, **Markdown**, **JSON**, or **Prometheus**. Includes Docker Compose demo with Grafana dashboards.
@@ -975,9 +973,6 @@ pytest tests/ -v
 ## License
 
 Licensed under Apache-2.0.
-
-<!-- taskill:status:start -->
-
 ## Status
 
 _Last updated by [taskill](https://github.com/oqlos/taskill) at 2026-04-25 13:41 UTC_
