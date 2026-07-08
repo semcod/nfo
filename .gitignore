@@ -89,3 +89,9 @@ reports/
 
 # Generated marketplace data (copied by CI into backend/)
 backend/marketplace_data.ts
+.benchmarks/
+.code2llm_cache/
+.github/
+.pyqual/
+.ruff_cache/
+.taskill/
