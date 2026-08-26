@@ -1,12 +1,12 @@
 """Tests for nfo.llm (LLM analysis, prompt injection detection)."""
 
-import pytest
+import sys
+from types import ModuleType, SimpleNamespace
 
 from nfo.llm import (
     LLMSink,
     detect_prompt_injection,
     scan_entry_for_injection,
-    _DEFAULT_SYSTEM_PROMPT,
 )
 from nfo.models import LogEntry
 from nfo.sinks import Sink
@@ -97,6 +97,43 @@ class TestPromptInjection:
 # -- LLMSink (sync mode, no actual LLM call) ---------------------------------
 
 class TestLLMSink:
+
+    def test_analysis_uses_public_subllm_route(self, monkeypatch):
+        observed = {}
+        module = ModuleType("subllm")
+
+        def complete(application, function, messages, **kwargs):
+            observed.update(
+                application=application,
+                function=function,
+                messages=messages,
+                kwargs=kwargs,
+            )
+            return SimpleNamespace(content="root cause")
+
+        module.complete = complete
+        monkeypatch.setitem(sys.modules, "subllm", module)
+        sink = LLMSink(model="ignored-by-policy", async_mode=False)
+
+        assert sink._analyze(_make_entry()) == "root cause"
+        assert observed["application"] == "semcod-nfo"
+        assert observed["function"] == "analyze"
+        assert observed["kwargs"] == {"timeout_seconds": 30}
+        assert observed["messages"][0]["role"] == "system"
+
+    def test_subllm_failure_does_not_replay_to_legacy_provider(self, monkeypatch):
+        module = ModuleType("subllm")
+
+        def complete(*_args, **_kwargs):
+            raise RuntimeError("zai unavailable")
+
+        module.complete = complete
+        monkeypatch.setitem(sys.modules, "subllm", module)
+        monkeypatch.delenv("NFO_USE_LEGACY_LITELLM", raising=False)
+
+        analysis = LLMSink(async_mode=False)._analyze(_make_entry())
+
+        assert analysis == "[nfo] SubLLM analysis failed: RuntimeError: zai unavailable"
 
     def test_delegates_to_sink(self):
         mem = MemorySink()

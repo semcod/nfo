@@ -1,0 +1,20 @@
+{
+  "schema": "new-project.intent/v3",
+  "ticket": "ticket-001",
+  "summary": "Route NFO log analysis through public SubLLM",
+  "workstream": "runtime",
+  "classification": {"kind": "FEATURE", "priority": "P1", "origin": "founder"},
+  "allowedPaths": [
+    "pyproject.toml",
+    ".github/workflows/ci.yml",
+    "nfo/llm.py",
+    "nfo/configure.py",
+    "tests/test_llm.py",
+    "project/ticket-001/**"
+  ],
+  "forbiddenPaths": [".env", "**/.env", "**/*secret*"],
+  "stacks": ["python", "subllm", "zai", "logging"],
+  "dependsOn": [],
+  "conflictsWith": [],
+  "integrationTicket": null
+}

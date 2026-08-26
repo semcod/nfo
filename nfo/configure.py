@@ -306,7 +306,8 @@ def configure(
         env_prefix: Prefix for environment variable overrides.
         environment: Environment tag (auto-detected if None and env tagging enabled).
         version: App version tag (auto-detected if None and env tagging enabled).
-        llm_model: litellm model for LLM-powered log analysis (e.g. "gpt-4o-mini").
+        llm_model: Legacy LiteLLM model override. The default SubLLM path uses
+                   centrally governed direct Z.AI GLM 5.3.
                    Wraps sinks with LLMSink. Requires: pip install nfo[llm]
         detect_injection: Enable prompt injection detection in log args.
         meta_policy: :class:`~nfo.meta.ThresholdPolicy` for binary metadata
@@ -344,7 +345,7 @@ def configure(
         configure(
             sinks=["sqlite:app.db"],
             environment="prod",
-            llm_model="gpt-4o-mini",
+            llm_model="glm-5.3",
             detect_injection=True,
         )
 
