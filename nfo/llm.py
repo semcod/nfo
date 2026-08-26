@@ -1,23 +1,23 @@
 """
-LLM-powered log analysis via litellm.
+LLM-powered log analysis via the public SubLLM policy boundary.
 
 Provides:
 - LLMSink: analyzes ERROR/EXCEPTION logs through LLM and appends root-cause
   suggestions directly to the log entry.
 - PromptInjectionDetector: scans log args for prompt injection patterns.
 
-Requires: pip install nfo[llm]  (installs litellm)
+Requires: pip install nfo[llm]  (installs subactor-subllm)
 """
 
 from __future__ import annotations
 
+import os
 import re
 import threading
-from typing import Any, Callable, Dict, List, Optional
+from collections.abc import Callable
 
 from nfo.models import LogEntry
 from nfo.sinks import Sink
-
 
 # ---------------------------------------------------------------------------
 # Prompt injection detection
@@ -37,7 +37,7 @@ _INJECTION_PATTERNS = [
 ]
 
 
-def detect_prompt_injection(text: str) -> Optional[str]:
+def detect_prompt_injection(text: str) -> str | None:
     """
     Scan text for common prompt injection patterns.
 
@@ -52,9 +52,9 @@ def detect_prompt_injection(text: str) -> Optional[str]:
     return None
 
 
-def scan_entry_for_injection(entry: LogEntry) -> Optional[str]:
+def scan_entry_for_injection(entry: LogEntry) -> str | None:
     """Scan a LogEntry's args/kwargs for prompt injection attempts."""
-    texts_to_scan: List[str] = []
+    texts_to_scan: list[str] = []
 
     for arg in (entry.args or ()):
         if isinstance(arg, str):
@@ -76,7 +76,7 @@ def scan_entry_for_injection(entry: LogEntry) -> Optional[str]:
 
 
 # ---------------------------------------------------------------------------
-# LLM Sink — analyzes error logs via litellm
+# LLM Sink — analyzes error logs via SubLLM
 # ---------------------------------------------------------------------------
 
 _DEFAULT_SYSTEM_PROMPT = (
@@ -93,10 +93,11 @@ class LLMSink(Sink):
     The LLM response is stored in entry.llm_analysis and also forwarded
     to an optional delegate sink (e.g. SQLiteSink) for persistence.
 
-    Uses litellm for model-agnostic LLM calls (OpenAI, Anthropic, Ollama, etc.).
+    Uses public SubLLM routing by default. Provider and model selection are
+    centrally governed; direct Z.AI GLM 5.3 is the preferred route.
 
     Args:
-        model: litellm model string (e.g. "gpt-4o-mini", "ollama/llama3").
+        model: Legacy LiteLLM model string. Ignored by the default SubLLM path.
         delegate: Optional sink to forward the enriched entry to.
         system_prompt: Custom system prompt for analysis.
         analyze_levels: Log levels to analyze (default: ERROR only).
@@ -107,12 +108,12 @@ class LLMSink(Sink):
 
     def __init__(
         self,
-        model: str = "gpt-4o-mini",
+        model: str = "glm-5.3",
         *,
-        delegate: Optional[Sink] = None,
+        delegate: Sink | None = None,
         system_prompt: str = _DEFAULT_SYSTEM_PROMPT,
-        analyze_levels: Optional[List[str]] = None,
-        on_analysis: Optional[Callable[[LogEntry, str], None]] = None,
+        analyze_levels: list[str] | None = None,
+        on_analysis: Callable[[LogEntry, str], None] | None = None,
         async_mode: bool = True,
         detect_injection: bool = True,
     ) -> None:
@@ -136,7 +137,7 @@ class LLMSink(Sink):
             parts.append(f"Exception: {entry.exception_type}: {entry.exception}")
         if entry.traceback:
             tb_lines = entry.traceback.strip().split("\n")
-            parts.append(f"Traceback (last 10 lines):\n" + "\n".join(tb_lines[-10:]))
+            parts.append("Traceback (last 10 lines):\n" + "\n".join(tb_lines[-10:]))
         if entry.environment:
             parts.append(f"Environment: {entry.environment}")
         if entry.version:
@@ -144,24 +145,51 @@ class LLMSink(Sink):
         return "\n".join(parts)
 
     def _analyze(self, entry: LogEntry) -> str:
-        """Call LLM via litellm and return analysis text."""
+        """Call the centrally governed SubLLM route and return analysis text."""
+        messages = [
+            {"role": "system", "content": self.system_prompt},
+            {"role": "user", "content": self._build_user_prompt(entry)},
+        ]
+
+        if os.environ.get("NFO_USE_LEGACY_LITELLM", "").strip().lower() in {
+            "1",
+            "true",
+            "yes",
+            "on",
+        }:
+            return self._analyze_legacy(messages)
+
+        try:
+            from subllm import complete
+
+            response = complete(
+                "semcod-nfo",
+                "analyze",
+                messages,
+                timeout_seconds=30,
+            )
+            return response.content.strip()
+        except ImportError:
+            return "[nfo] subactor-subllm not installed. Run: pip install nfo[llm]"
+        except Exception as e:
+            return f"[nfo] SubLLM analysis failed: {type(e).__name__}: {e}"
+
+    def _analyze_legacy(self, messages: list[dict[str, str]]) -> str:
+        """Use LiteLLM only when the operator explicitly enables legacy mode."""
         try:
             from litellm import completion
 
             response = completion(
                 model=self.model,
-                messages=[
-                    {"role": "system", "content": self.system_prompt},
-                    {"role": "user", "content": self._build_user_prompt(entry)},
-                ],
+                messages=messages,
                 max_tokens=200,
                 temperature=0.3,
             )
             return response.choices[0].message.content.strip()
         except ImportError:
-            return "[nfo] litellm not installed. Run: pip install nfo[llm]"
+            return "[nfo] litellm not installed. Run: pip install nfo[llm-legacy]"
         except Exception as e:
-            return f"[nfo] LLM analysis failed: {type(e).__name__}: {e}"
+            return f"[nfo] legacy LLM analysis failed: {type(e).__name__}: {e}"
 
     def _process(self, entry: LogEntry) -> None:
         """Analyze entry and enrich it."""

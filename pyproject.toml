@@ -8,11 +8,11 @@ version = "0.2.23"
 description = "Automatic function logging system with decorators, supporting multiple output sinks (SQLite, CSV, Markdown, Prometheus) and LLM-powered analysis for DevOps observability."
 readme = "README.md"
 license = "Apache-2.0"
-requires-python = ">=3.9"
+requires-python = ">=3.11"
 authors = [
     {name = "Tom Sapletta", email = "tom@sapletta.com"},
 ]
-keywords = ["logging", "decorator", "sqlite", "csv", "markdown", "auto-logging", "llm", "litellm", "prometheus", "grafana", "webhook", "devops"]
+keywords = ["logging", "decorator", "sqlite", "csv", "markdown", "auto-logging", "llm", "subllm", "prometheus", "grafana", "webhook", "devops"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
@@ -20,6 +20,9 @@ classifiers = [
 
 [project.optional-dependencies]
 llm = [
+    "subactor-subllm>=1.4.2,<2.0",
+]
+llm-legacy = [
     "litellm>=1.0",
 ]
 prometheus = [
@@ -50,7 +53,7 @@ grpc = [
     "grpcio-tools>=1.60.0",
 ]
 all = [
-    "litellm>=1.0",
+    "subactor-subllm>=1.4.2,<2.0",
     "prometheus_client>=0.20.0",
     "grpcio>=1.60.0",
     "click>=8.0",
