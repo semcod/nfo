@@ -454,6 +454,11 @@ def _parse_duration(spec: str) -> float:
 
 
 def main():
+    try:
+        from nfo.autoupdate import check_for_updates
+        check_for_updates("nfo")
+    except Exception:
+        pass
     parser = argparse.ArgumentParser(
         prog="nfo",
         description="nfo — automatic function & command logging",
