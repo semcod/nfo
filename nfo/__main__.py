@@ -35,6 +35,9 @@ def _setup_logger(sink_specs: list[str], env: str | None = None):
     from nfo.configure import _parse_sink_spec
     from nfo.decorators import set_default_logger
 
+    if env:
+        os.environ.setdefault("NFO_ENV", env)
+
     sinks = []
     for spec in sink_specs:
         sinks.append(_parse_sink_spec(spec))

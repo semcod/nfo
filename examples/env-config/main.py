@@ -138,6 +138,17 @@ if __name__ == "__main__":
 
     logger.close()
 
+    def _read_sqlite_logs(db_path: str):
+        import sqlite3
+        conn = sqlite3.connect(db_path)
+        conn.row_factory = sqlite3.Row
+        try:
+            return conn.execute(
+                "SELECT level, function_name, duration_ms FROM logs ORDER BY timestamp"
+            ).fetchall()
+        finally:
+            conn.close()
+
     # Show what was logged
     sinks_spec = os.environ.get("NFO_SINKS", "")
     for spec in sinks_spec.split(","):
@@ -145,17 +156,11 @@ if __name__ == "__main__":
         if spec.startswith("sqlite:"):
             db_path = spec.split(":", 1)[1]
             if Path(db_path).exists():
-                import sqlite3
-                conn = sqlite3.connect(db_path)
-                conn.row_factory = sqlite3.Row
-                rows = conn.execute(
-                    "SELECT level, function_name, duration_ms FROM logs ORDER BY timestamp"
-                ).fetchall()
+                rows = _read_sqlite_logs(db_path)
                 print(f"--- Logs in {db_path} ({len(rows)} entries) ---")
                 for row in rows:
                     print(f"  {row['level']:5s} | {row['function_name']} | "
                           f"{row['duration_ms']:.2f}ms")
-                conn.close()
         elif spec.startswith("csv:"):
             csv_path = spec.split(":", 1)[1]
             if Path(csv_path).exists():

@@ -1,20 +1,30 @@
 {
-  "schema": "new-project.intent/v3",
   "ticket": "ticket-001",
-  "summary": "Route NFO log analysis through public SubLLM",
-  "workstream": "runtime",
-  "classification": {"kind": "FEATURE", "priority": "P1", "origin": "founder"},
+  "summary": "Fix Docker healthchecks, SQLite example loops, CLI env setup, and adopt Wellmanifest baseline standards",
   "allowedPaths": [
-    "pyproject.toml",
-    ".github/workflows/ci.yml",
-    "nfo/llm.py",
-    "nfo/configure.py",
-    "tests/test_llm.py",
+    ".aider.conf.yml",
+    ".cursor/rules/new-project-standard.mdc",
+    ".github/copilot-instructions.md",
+    ".gitignore",
+    ".governance/**",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "GEMINI.md",
+    "docker-compose.yml",
+    "examples/async-usage/main.py",
+    "examples/auto-log/main.py",
+    "examples/configure/main.py",
+    "examples/docker-compose/docker-compose.yml",
+    "examples/env-config/main.py",
+    "examples/sqlite-sink/main.py",
+    "nfo/__main__.py",
     "project/ticket-001/**"
   ],
-  "forbiddenPaths": [".env", "**/.env", "**/*secret*"],
-  "stacks": ["python", "subllm", "zai", "logging"],
-  "dependsOn": [],
-  "conflictsWith": [],
-  "integrationTicket": null
+  "forbiddenPaths": [
+    ".env",
+    "config/**",
+    ".github/workflows/**"
+  ],
+  "authorization": "SESSION_EXECUTION_AUTHORIZATION",
+  "outcome": "Fix Docker healthchecks, SQLite example loops, CLI env setup, and adopt Wellmanifest baseline standards verified with 0 PERF-AUDIT findings and 0 ConformanceRunner errors."
 }

@@ -56,7 +56,8 @@ if __name__ == "__main__":
     print(f"\n--- Logs in {DB_PATH} ---")
     conn = sqlite3.connect(str(DB_PATH))
     conn.row_factory = sqlite3.Row
-    for row in conn.execute("SELECT timestamp, level, function_name, return_value, exception FROM logs"):
+    rows = conn.execute("SELECT timestamp, level, function_name, return_value, exception FROM logs").fetchall()
+    for row in rows:
         print(f"  {row['timestamp'][:19]} | {row['level']:5s} | {row['function_name']} | ret={row['return_value'][:30] if row['return_value'] else ''} | exc={row['exception'][:40] if row['exception'] else ''}")
     conn.close()
 

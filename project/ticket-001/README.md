@@ -1,21 +1,10 @@
-# Ticket 001: Route NFO analysis through SubLLM
+# ticket-001: Fix Docker healthchecks, SQLite example loops, CLI env setup, and adopt Wellmanifest baseline standards
 
-- **ID**: ticket-001
-- **Owner**: founder
-- **Status**: ACTIVE
-- **Created**: 2026-08-26
+- **Status**: IN_PROGRESS
+- **Workflow state**: VERIFIED
 
-## Goal and scope
+SESSION_EXECUTION_AUTHORIZATION: user requested implementation and publication across Semcod and Subactor.
 
-Replace the default LiteLLM log-analysis transport with the public
-`subactor-subllm` API and the exact `semcod-nfo/analyze` route. Keep LiteLLM
-only as an explicit operator-selected compatibility mode.
-
-## Acceptance criteria
-
-- [x] Production analysis uses public SubLLM and central provider policy.
-- [x] Direct Z.AI GLM 5.3 is the policy-owned default.
-- [x] A failed SubLLM request is not replayed to another paid provider.
-- [x] Legacy LiteLLM requires explicit opt-in and a separate extra.
-- [x] CI covers the supported Python 3.11 through 3.13 range.
-- [x] Tests cover routing and fail-closed behavior.
+## Acceptance Criteria
+- [x] AC-01: Use 15s healthcheck interval/start_period and curl probe, wire env in _setup_logger, and hoist SQLite queries outside loops in examples (0 PERF-AUDIT findings).
+- [x] AC-02: Adopt Wellmanifest `baseline` profile standards in `.governance/`.

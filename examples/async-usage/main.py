@@ -87,9 +87,10 @@ async def main():
     print(f"--- Logs in {DB_PATH} ---")
     conn = sqlite3.connect(str(DB_PATH))
     conn.row_factory = sqlite3.Row
-    for row in conn.execute(
+    rows = conn.execute(
         "SELECT timestamp, level, function_name, duration_ms FROM logs ORDER BY timestamp"
-    ):
+    ).fetchall()
+    for row in rows:
         print(
             f"  {row['timestamp'][:TIMESTAMP_SLICE]} | {row['level']:5s} | "
             f"{row['function_name']} | {row['duration_ms']:.1f}ms"
