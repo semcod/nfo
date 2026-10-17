@@ -23,10 +23,11 @@ services:
     volumes:
       - nfo-logs:/data/logs
     healthcheck:
-      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/')"]
-      interval: 10s
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      interval: 15s
       timeout: 5s
       retries: 3
+      start_period: 15s
     restart: unless-stopped
 
   prometheus:
