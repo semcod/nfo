@@ -104,3 +104,5 @@ backend/marketplace_data.ts
 /.subactor/receipts/
 /.subactor/cache/
 /.subactor/snapshots/
+.koru/
+.planfile/

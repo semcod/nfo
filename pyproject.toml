@@ -4,10 +4,10 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "nfo"
-version = "0.2.23"
+version = "0.2.24"
 description = "Automatic function logging system with decorators, supporting multiple output sinks (SQLite, CSV, Markdown, Prometheus) and LLM-powered analysis for DevOps observability."
 readme = "README.md"
-license = "Apache-2.0"
+license = {text = "Apache-2.0"}
 requires-python = ">=3.11"
 authors = [
     {name = "Tom Sapletta", email = "tom@sapletta.com"},
