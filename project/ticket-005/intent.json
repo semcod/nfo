@@ -1,0 +1,25 @@
+{
+  "ticket": "ticket-005",
+  "planfile_id": "PLF-005",
+  "summary": "Bound JSONL writes with cooperative process locking and lossless segments",
+  "allowedPaths": [
+    "nfo/json_sink.py",
+    "nfo/json_rotation.py",
+    "tests/test_json_sink_rotation.py",
+    "docs/information/jsonl-rotation.md",
+    "docs/README.md",
+    "project/ticket-005/README.md",
+    "project/ticket-005/intent.json",
+    "pyproject.toml",
+    "nfo/__init__.py"
+  ],
+  "forbiddenPaths": [
+    ".env",
+    ".github/**",
+    ".governance/**",
+    "errors/**"
+  ],
+  "authorization": "SESSION_EXECUTION_AUTHORIZATION: continuation of maskservice/c2004 PLF-22243/#738; dependency tracked by semcod/nfo#10",
+  "outcome": "Optional JSONSink byte bound survives concurrent writes without truncation; legacy default unchanged; protected3.11/3.12/3.13 matrix and independent Validator required.",
+  "release": "Bump authoritativepyprojectandimportversion0.2.24to0.2.25 under existinguserpublication+bump instruction."
+}

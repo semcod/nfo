@@ -431,3 +431,5 @@ pip install -e ".[dev]"
 | `mkdocs.yml` | MkDocs configuration | — |
 
 <!-- code2docs:end -->
+
+- [Bounded JSONL writes and cooperative rotation](information/jsonl-rotation.md)
