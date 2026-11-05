@@ -33,6 +33,9 @@ class JSONSink(Sink):
         file_path: Path to the JSON Lines file (default: ``logs.jsonl``).
         pretty: If True, indent JSON for readability (not recommended for production).
         delegate: Optional downstream sink to forward entries to.
+        max_bytes: Optional POSIX active-file byte budget. None reads
+            NFO_JSONL_MAX_BYTES (unset means zero); explicit zero keeps legacy
+            unbounded writes. All writers to a bounded path must cooperate.
     """
 
     def __init__(
@@ -42,12 +45,25 @@ class JSONSink(Sink):
         pretty: bool = False,
         compact: bool = False,
         delegate: Optional[Sink] = None,
+        max_bytes: Optional[int] = None,
     ) -> None:
         self.file_path = str(file_path)
         self.pretty = pretty
         self.compact = compact
         self.delegate = delegate
         self._lock = threading.Lock()
+        if max_bytes is None:
+            raw = os.environ.get("NFO_JSONL_MAX_BYTES", "0")
+            try:
+                max_bytes = int(raw)
+            except (ValueError, TypeError) as exc:
+                raise ValueError("NFO_JSONL_MAX_BYTES must be a nonnegative integer") from exc
+        if type(max_bytes) is not int or max_bytes < 0:
+            raise ValueError("max_bytes must be a nonnegative integer")
+        self._bounded = None
+        if max_bytes:
+            from nfo.json_rotation import BoundedJSONLWriter
+            self._bounded = BoundedJSONLWriter(self.file_path, max_bytes)
 
     def write(self, entry: LogEntry) -> None:
         d = entry.as_compact() if self.compact else entry.as_dict()
@@ -60,8 +76,11 @@ class JSONSink(Sink):
         line = json.dumps(d, ensure_ascii=False, default=str, indent=indent)
 
         with self._lock:
-            with open(self.file_path, "a", encoding="utf-8") as f:
-                f.write(line + "\n")
+            if self._bounded is not None:
+                self._bounded.write((line + "\n").encode("utf-8"))
+            else:
+                with open(self.file_path, "a", encoding="utf-8") as f:
+                    f.write(line + "\n")
 
         if self.delegate:
             self.delegate.write(entry)
